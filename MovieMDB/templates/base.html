@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name = 'viewpoint' content = 'width=device-width, initial-scale = 1, shrink-to-fit=no'>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	<title>
+		{% block title %} MovieMDB {% endblock %}
+	</title>
+
+	<style>
+		.mymdb-masthead {
+			background-color: #eee;
+			margin-bottom: 1em;
+		}
+
+	</style>
+</head>
+<body>
+
+<div class = 'mymdb-masthead'>
+	<div class="container">
+		<nav class="nav">
+			<div class="navbar-brand">MovieMDB</div>
+
+			<!-- 'core:MovieList' - it's namespace from main urls.py -->
+			<a href="{% url 'core:MovieList' %}" class = 'nav-link'>Movies</a>
+		</nav>
+	</div>
+</div>
+
+<div calss = 'container'>
+	<div class="row">
+		<div class = 'col-sm-8 mymdb-main'>
+			{% block main %} {% endblock %}
+		</div>
+
+		<div class= 'col-sm-3 offset-sm-1 mymdb-sidebar'>
+			{% block sidebar %} {% endblock %}
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>
