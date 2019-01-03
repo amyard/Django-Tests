@@ -8,14 +8,14 @@ from .models import (Books,
 
 
 class BookAdmin(admin.ModelAdmin):
-	list_display = ['id', 'book', 'date_of_issue', 'date_of_return', 'status_of_book']
+	list_display = ['book','date_of_issue', 'date_of_return', 'status_of_book']
 	list_filter = ['date_of_issue', 'date_of_return', 'status_of_book']
 	list_editable = ['status_of_book']
 	search_fields = ['book']
 	list_display_links = ['book']
 
 # Register your models here.
-admin.site.register(Books, BookAdmin)
+admin.site.register(Books,BookAdmin)
 admin.site.register(Genre)
 admin.site.register(Location)
 admin.site.register(Person)

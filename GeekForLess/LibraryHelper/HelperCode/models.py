@@ -19,6 +19,14 @@ class Genre(models.Model):
 
 
 
+class BookManager(models.Manager):
+	def all_with_prefetch_book(self):
+		qs = self.get_queryset()
+
+		return qs.prefetch_related(
+					'book_information',
+			)
+
 class BookInfo(models.Model):
 	title = models.CharField(max_length=120)
 	author = models.CharField(max_length=150)
@@ -27,7 +35,10 @@ class BookInfo(models.Model):
 	genre = models.ForeignKey(Genre, on_delete = models.DO_NOTHING)
 
 	# position here
-	position = models.ForeignKey('Location', on_delete = models.CASCADE, related_name = 'book_information')
+	position = models.ForeignKey('Location', on_delete = models.CASCADE, related_name = 'position_information')
+	
+	objects = BookManager()
+
 	def __str__(self):
 		return self.title
 
@@ -37,15 +48,15 @@ class BookInfo(models.Model):
 
 
 
+
+
 class LocationManager(models.Manager):
 	def all_with_prefetch_location(self):
 		qs = self.get_queryset()
 
 		return qs.prefetch_related(
-					'book_information',
+					'position_information',
 			)
-
-
 
 class Location(models.Model):
 	room = models.PositiveIntegerField()
@@ -60,6 +71,7 @@ class Location(models.Model):
 
 
 
+
 class PersonManager(models.Manager):
 	def all_with_prefetch_location(self):
 		qs = self.get_queryset()
@@ -67,7 +79,6 @@ class PersonManager(models.Manager):
 		return qs.prefetch_related(
 					'subscriber',
 			)
-
 
 class Person(models.Model):
 
@@ -92,6 +103,7 @@ class Person(models.Model):
 
 
 
+# Main model
 class Books(models.Model):
 
 	ON_HANDS = 1
@@ -105,7 +117,8 @@ class Books(models.Model):
 		)
 
 	# need to log
-	book = models.CharField(max_length = 120)
+	# book = models.CharField(max_length = 120)
+	book = models.ForeignKey('BookInfo', on_delete = models.CASCADE, related_name = 'book_information')
 
 	# need to log
 	#person_subscription = models.CharField(max_length = 120)
@@ -117,4 +130,5 @@ class Books(models.Model):
 	status_of_book = models.IntegerField(choices = STATUS)
 
 	def __str__(self):
-		return self.book
+		return self.book.title
+

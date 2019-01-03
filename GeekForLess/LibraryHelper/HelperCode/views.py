@@ -65,6 +65,8 @@ class SearchView(View):
 		return render(self.request, self.template_name, context)
 
 
+
+
 # BooksInformation 
 
 class BooksInfoListView(ListView):
