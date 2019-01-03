@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="container">
+	<div class='row'>
+		{% for info in booksinfo %}
+		<div class="col-sm-4">
+		
+			<h3 class="text-center"><a href="{{ info.get_absolute_url }}">{{ info.title }}</a></h3>
+			<p class="text-center">
+				<span>Author: {{ info.author }}</span>
+			</p>
+			<p>
+				<span>Date of piblishing: {{ info.published }}</span>
+				<br>
+				Genre: {{ info.genre }}
+			</p>
+		
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+<br>
+<br>
+<br>
+
+{% endblock content %}
