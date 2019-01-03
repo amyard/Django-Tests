@@ -1,8 +1,46 @@
 {% extends 'index.html' %}
 
 {% block content %}
+<div class="container">
 
-<h1>{{ book.title }}</h1>
-{{ book.position }}
+		<h1 class="text-center">{{ book.book.title }}</h1>
+		<h3 class="text-center">Status of book: {{ book.get_status_of_book_display }}</h3>
+
+		{% if book.status_of_book != 0 %}
+			<span>Subscriber will return book at {{ book.date_of_return }}</span>
+		{% endif %}
+
+		<hr>
+		<div class="col-sm-4">
+			<h3>About book:</h3>
+			<p>
+				Author: {{book.book.author}} <br>
+				Genre: {{ book.book.genre }} <br>
+				Book was pulished on {{ book.book.published }} <br>
+			</p>
+		</div>
+
+		{% if book.status_of_book == 0 %}
+		<div class="col-sm-4">
+			<h3>Position in library:</h3>
+			<p>
+				Room: {{book.book.position.room}} <br>
+				Bookcase: {{ book.book.position.bookcase }} <br>
+				Shelf: {{ book.book.position.shelf }} <br>
+			</p>
+		</div>
+		{% endif %}
+
+		<div class="col-sm-4">
+			<h3>Info about subscriber: </h3>
+			<p>
+				Full name: {{book.person_subscription.fullname }} <br>
+				Birthday: {{ book.person_subscription.birthday }} <br>
+				Address: {{ book.person_subscription.address }} <br>
+				Phone-number: {{ book.person_subscription.phone }} <br>
+			</p>
+		</div>
+
+</div>
 
 {% endblock %}

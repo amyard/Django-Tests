@@ -16,7 +16,7 @@
 
 			{% for book in books_on_hands %}
 			<tr>	
-				<td class="text-center">{{ book.book }}</td>
+				<td class="text-center"><a href="{{ book.get_absolute_url }}">{{ book.book }}</a></td>
 				<td class="text-center">{{ book.person_subscription }}</td>
 				<td class="text-center">{{ book.date_of_issue }}</td>
 				<td class="text-center">{{ book.date_of_return }}</td>	

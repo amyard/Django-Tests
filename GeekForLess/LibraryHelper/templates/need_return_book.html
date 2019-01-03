@@ -4,7 +4,7 @@
 {% block content %}
     <!-- Page Content -->
     <div class="container">
-    	<h3 class = 'text-center'>Books in library:</h3>
+    	<h3 class = 'text-center'>Need return this books (more than 14 days on hands):</h3>
 
 		<table class="table">
 			<tr>	
@@ -14,7 +14,7 @@
 				<td class="text-center"><strong>Date of return</strong></td>	
 			</tr>
 
-			{% for book in books_in_library %}
+			{% for book in need_return_book %}
 			<tr>	
 				<td class="text-center"><a href="{{ book.get_absolute_url }}">{{ book.book }}</a></td>
 				<td class="text-center">{{ book.person_subscription }}</td>
