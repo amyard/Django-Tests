@@ -116,7 +116,20 @@ class SearchView(View):
 		return render(self.request, self.template_name, context)
 
 
+from django.db.models import Sum, Count
 
+class StatisticListView(ListView):
+	model = Books
+	template_name = 'statistics.html'
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(StatisticListView, self).get_context_data(*args, **kwargs)
+		context['statistics'] = self.model.objects.all().order_by('-date_of_issue')
+		context['uniq_vals'] = self.model.objects.values('date_of_issue').distinct().order_by('-date_of_issue')
+		context['count_vals'] = self.model.objects.values('date_of_issue', 'status_of_book').order_by('-date_of_issue').annotate(Count('status_of_book'))
+		context['general_count'] = self.model.objects.values('date_of_issue').order_by('-date_of_issue').annotate(Count('status_of_book'))
+
+		return context
 
 
 # # BooksInformation 

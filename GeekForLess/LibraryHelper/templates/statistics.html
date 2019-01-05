@@ -1,0 +1,72 @@
+{% extends 'index.html' %}
+
+{% block content %}	
+
+<div class="container">
+
+
+{% for vals in uniq_vals %}
+    <h3 class = 'text-center'>{{ vals.date_of_issue }}<br></h3>  
+
+  <!-- General Info -->
+  {% for g_vals in general_count %}
+  {% if vals.date_of_issue == g_vals.date_of_issue %}
+    Books in use: {{ g_vals.status_of_book__count }}<br>
+  {% endif %}
+  {% endfor %}
+
+
+
+{% for c_vals in count_vals %}
+{% if vals.date_of_issue == c_vals.date_of_issue %}
+
+  <!-- In Library -->
+  {% if c_vals.status_of_book == 0 %}
+    Books were returned: {{ c_vals.status_of_book__count }}<br>
+  {% endif %}
+
+    <!-- On hands -->
+  {% if c_vals.status_of_book == 1 %}
+    Books on hands: {{ c_vals.status_of_book__count }}<br>
+  {% endif %}
+
+    <!-- Need return  -->
+  {% if c_vals.status_of_book == -1 %}
+  Need return: {{ c_vals.status_of_book__count }}<br>
+  {% endif %}
+
+{% endif %}
+{% endfor %}
+
+  <table class="table">
+      <tr>  
+        <td class="text-center"><strong>Book title</strong></td>
+        <td class="text-center"><strong>Person</strong></td>
+        <td class="text-center"><strong>Status of Book</strong></td>
+      </tr>
+
+
+      {% for stat in statistics %}
+      {% if stat.date_of_issue == vals.date_of_issue %}
+
+
+      <tr>  
+        <td class="text-center"><a href="{{ stat.get_absolute_url }}">{{ stat.book }}</a></td>
+        <td class="text-center">{{ stat.person_subscription }}</td>
+        <td class="text-center">{{ stat.get_status_of_book_display }}</td>  
+      </tr>
+
+      {% endif %}
+      {% endfor %}      
+
+    </table>
+    <br>
+
+  {% endfor %}
+
+  <hr>
+
+</div>
+
+
+{% endblock %}

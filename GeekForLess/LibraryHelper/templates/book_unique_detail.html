@@ -29,8 +29,8 @@
 				Shelf: {{ book.book.position.shelf }} <br>
 			</p>
 		</div>
-		{% endif %}
-
+		
+		{% else %}
 		<div class="col-sm-4">
 			<h3>Info about subscriber: </h3>
 			<p>
@@ -40,6 +40,8 @@
 				Phone-number: {{ book.person_subscription.phone }} <br>
 			</p>
 		</div>
+
+		{% endif %}
 
 </div>
 

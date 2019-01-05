@@ -3,8 +3,10 @@
 
 {% block content %}
     <!-- Page Content -->
+
+    {% if fonded_books %}
     <div class="container">
-    	<h3 class = 'text-center'>Books in library:</h3>
+    	<h3 class = 'text-center'>Founded information:</h3>
 
 		<table class="table">
 			<tr>	
@@ -32,7 +34,16 @@
 			{% endfor %}
 		</table>
 
+
+	{% else %}
+	<div class="container">
+		<h3>Sorry, we could not find it.</h3>
+	</div>
+
+
+	{% endif %}
+
     </div>
 
-    <hr>
+
 {% endblock content %}

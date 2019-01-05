@@ -5,9 +5,8 @@ from .views import (BooksListView,
 					NeedReturnBookListView,
 					SearchView,
 					BooksInfoDetailView,
-
+					StatisticListView,
 					LocationListView,
-
 
 
 					LocationCreateView, GenreCreateView, LocationUpdateView,
@@ -25,6 +24,7 @@ urlpatterns = [
 	path(r'need_return/', NeedReturnBookListView.as_view(), name = 'need-return-book'),
 	path(r'search/', SearchView.as_view(), name = 'search_view'),
 
+	path(r'statistics/', StatisticListView.as_view(), name = 'statistics'),
 
 	path(r'books_detail/<pk>-<title>/', BooksInfoDetailView.as_view(), name = 'book_unique_detail'),
 
