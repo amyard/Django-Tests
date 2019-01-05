@@ -13,15 +13,21 @@
 				<td class="text-center"><strong>Date of issue</strong></td>
 				<td class="text-center"><strong>Date of return</strong></td>
 				<td class="text-center"><strong>Status</strong></td>	
+				<td class="text-center"><strong></strong></td>
 			</tr>
 
 			{% for book in fonded_books %}
 			<tr>	
-				<td class="text-center">{{ book.book }}</td>
+				<td class="text-center"><a href="{{ book.get_absolute_url }}">{{ book.book }}</a></td>
 				<td class="text-center">{{ book.person_subscription }}</td>
 				<td class="text-center">{{ book.date_of_issue }}</td>
 				<td class="text-center">{{ book.date_of_return }}</td>	
-				<td class="text-center">{{ book.status_of_book }}</td>
+				<td class="text-center">{{ book.get_status_of_book_display }}</td>
+				<td class="text-center">
+					<span style= 'background-color: black; padding: 5px 10px; border-radius: 5px;'>
+				    	<a href="{% url 'update_general_book'  book=book.book %}" style= 'color:white;'>Edit</a>
+			    	</span>
+				</td>
 			</tr>
 			{% endfor %}
 		</table>

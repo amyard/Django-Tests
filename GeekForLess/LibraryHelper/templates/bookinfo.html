@@ -1,0 +1,45 @@
+{% extends 'index.html' %}
+
+{% block content %}	
+
+
+<div class = 'container'>
+
+<div class="row">
+  <h2 class= 'text-center'>Information about book:</h2>
+  <hr>
+
+  {% for info in infos %}	
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+       <div class="caption">
+        <h3 class = 'text-center'>{{ info.title }}</h3>
+        <p>
+          <strong>Author:</strong> {{ info.author }}<br>
+          <strong>Published in:</strong> {{ info.published }}<br>
+          <strong>Genre:</strong> {{ info.genre }}<br><br>
+
+          <h5 class ='text-center'>Position in library:</h5>
+          <strong>Room:</strong> {{ info.position.room }}<br>
+          <strong>Bookcase:</strong> {{ info.position.bookcase }}<br>
+          <strong>Shelf:</strong> {{ info.position.shelf }}<br>
+        </p>
+        <p>
+        	<span style= 'background-color: black; padding: 5px 10px; border-radius: 5px;'>
+				<a href="{% url 'update_book_info'  title=info.title  %}" style= 'color:white;'>Edit</a>
+			</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+</div>
+
+
+<span style= 'background-color: red; color:white; margin-left:48%; padding: 5px 10px; border-radius: 5px;'>
+  <a href="/create_book_info/" style= 'color:white;'>Add new Book</a>
+</span>
+
+{% endblock %}

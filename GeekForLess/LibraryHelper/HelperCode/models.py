@@ -122,15 +122,8 @@ class Books(models.Model):
 			(ALARM, 'Need to return the book')
 		)
 
-	# need to log
-	# book = models.CharField(max_length = 120)
 	book = models.ForeignKey('BookInfo', on_delete = models.CASCADE, related_name = 'book_information')
-
-	# need to log
-	#person_subscription = models.CharField(max_length = 120)
 	person_subscription = models.ForeignKey('Person', on_delete = models.CASCADE, related_name = 'subscriber')
-
-
 	date_of_issue = models.DateField(blank= True, default=timezone.now)
 	date_of_return = models.DateField(blank= True, default=date.today() + timedelta(days=14))
 	status_of_book = models.IntegerField(choices = STATUS)

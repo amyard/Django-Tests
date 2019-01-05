@@ -23,11 +23,14 @@ from datetime import date, timedelta
 
 from .forms import (LocationForm,
 					GenreForm,
-					PersonForm,
+					PersonForm, PersonUpdateForm,
+					BookInfoForm, BookUpdateInfoForm,
+					BookForm,
 	)
 
 
-# Create your views here.
+# Create your views here
+# All Books (in library+on hands)
 class BooksListView(ListView):
 	model = Books
 	template_name = 'index.html'
@@ -39,17 +42,24 @@ class BooksListView(ListView):
 		return context
 
 
+# Books on hands
 class BooksOnHandsListView(ListView):
 	model = Books
 	template_name = 'books_on_hands.html'
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(BooksOnHandsListView, self).get_context_data(*args, **kwargs)
-		context['books_on_hands'] = self.model.objects.filter(status_of_book = 1)
+		
+		date_period = date.today() - timedelta(days=14)
+		context['books_on_hands'] = self.model.objects.filter(
+							Q(date_of_issue__lte = date_period)|
+							Q(status_of_book = 1)
+			)
 
 		return context
 
 
+# Books in library
 class BooksInLibraryListView(ListView):
 	model = Books
 	template_name = 'books_in_library.html'
@@ -61,6 +71,7 @@ class BooksInLibraryListView(ListView):
 		return context
 
 
+# This books need to return
 class NeedReturnBookListView(ListView):
 	model = Books
 	template_name = 'need_return_book.html'
@@ -78,38 +89,37 @@ class NeedReturnBookListView(ListView):
 		return context
 
 
-# # for search form
-# class SearchView(View):
-# 	template_name='search.html'
+# for search form
+class SearchView(View):
+	template_name='search.html'
 
-# 	def get(self, request, *args, **kwargs):
-# 		query = self.request.GET.get('q')
-# 		fonded_books = Books.objects.filter(
-# 								Q(book__icontains = query)
-# 							)
+	def get(self, request, *args, **kwargs):
+		query = self.request.GET.get('q')
 
-# 		context = {
-# 			'fonded_books':fonded_books
-# 		}
+		if len(query.split(' ')) == 1:
+			fonded_books = Books.objects.filter(
+								Q(book__title__icontains = query)|
+								Q(person_subscription__lastname__icontains = query)|
+								Q(person_subscription__firstname__icontains = query)
+							)
+		else:
+			fonded_books = Books.objects.filter(
+								Q(book__title__icontains = query)|
+								Q(person_subscription__lastname__icontains = query.split(' ')[0])|
+								Q(person_subscription__firstname__icontains = query.split(' ')[1])
+							)
 
-# 		return render(self.request, self.template_name, context)
+		context = {
+			'fonded_books':fonded_books
+		}
+
+		return render(self.request, self.template_name, context)
+
 
 
 
 
 # # BooksInformation 
-
-# class BooksInfoListView(ListView):
-# 	model = BookInfo
-# 	template_name = 'books_detail.html'
-
-# 	def get_context_data(self, *args, **kwargs):
-# 		context = super(BooksInfoListView, self).get_context_data(*args, **kwargs)
-# 		context['booksinfo'] = self.model.objects.all()
-		
-# 		return context
-
-
 
 class BooksInfoDetailView(DetailView):
 	model = Books
@@ -253,7 +263,7 @@ class PersonCreateView(CreateView):
 
 class PersonUpdateView(UpdateView):
 	template_name = 'create.html'
-	form_class = PersonForm
+	form_class = PersonUpdateForm
 	queryset = Person.objects.all()
 	success_url = '/person/'
 
@@ -266,3 +276,96 @@ class PersonUpdateView(UpdateView):
 	def form_valid(self, form):
 		print(form.cleaned_data)
 		return super(PersonUpdateView, self).form_valid(form)
+
+
+
+#######################################################################################
+####################                  Book Info              ##########################
+#######################################################################################
+
+
+class BookInfoListView(ListView):
+	model = BookInfo
+	template_name = 'bookinfo.html'
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(BookInfoListView, self).get_context_data(*args, **kwargs)
+		context['infos'] = self.model.objects.all().order_by('-pk')
+
+		return context
+
+
+class BookInfoCreateView(CreateView):
+	template_name = 'create.html'
+	form_class = BookInfoForm
+	queryset = BookInfo.objects.all()
+	success_url = '/book_info/'
+
+	def form_valid(self, form):
+		print(form.cleaned_data)
+		return super(BookInfoCreateView, self).form_valid(form)
+
+
+
+
+class BookInfoUpdateView(UpdateView):
+	template_name = 'create.html'
+	form_class = BookUpdateInfoForm
+	queryset = BookInfo.objects.all()
+	success_url = '/book_info/'
+
+	def get_object(self, *args, **kwargs):
+		title_ = self.kwargs.get('title')
+		return get_object_or_404(BookInfo, title = title_)
+
+
+	def form_valid(self, form):
+		print(form.cleaned_data)
+		return super(BookInfoUpdateView, self).form_valid(form)
+
+
+
+
+#######################################################################################
+####################          General Book Info              ##########################
+#######################################################################################
+
+
+class GeneralBookListView(ListView):
+	model = Books
+	template_name = 'generalbookinfo.html'
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(GeneralBookListView, self).get_context_data(*args, **kwargs)
+		context['general_info'] = self.model.objects.all().order_by('-pk')
+
+		return context
+
+
+class GeneralBookCreateView(CreateView):
+	template_name = 'create.html'
+	form_class = BookForm
+	queryset = Books.objects.all()
+	success_url = '/main_info/'
+
+	def form_valid(self, form):
+		print(form.cleaned_data)
+		return super().form_valid(form)
+
+
+
+
+class GeneralBookUpdateView(UpdateView):
+	template_name = 'create.html'
+	form_class = BookForm
+	queryset = Books.objects.all()
+	success_url = '/main_info/'
+
+	def get_object(self, *args, **kwargs):
+		book_ = self.kwargs.get('book')
+		return get_object_or_404(Books, book__title=book_)
+
+
+	def form_valid(self, form):
+		print(form.cleaned_data)
+		return super(GeneralBookUpdateView, self).form_valid(form)

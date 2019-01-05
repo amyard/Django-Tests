@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+
+{% block content %}	
+
+
+<div class = 'container'>
+
+<div class="row">
+  <h2 class= 'text-center'>Information about book:</h2>
+  <hr>
+
+  {% for info in general_info %}	
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+       <div class="caption">
+        <h3 class = 'text-center'>{{ info.book.title }}</h3>
+        <p>
+          <strong>Subscriber:</strong> {{ info.person_subscription.fullname }}<br>
+
+          {% if info.status_of_book == 0 %}
+            <strong>Status of book:</strong> {{ info.get_status_of_book_display }}<br>
+          {% else %}
+            <strong>Date of issue:</strong> {{ info.date_of_issue }}<br>
+            <strong>Date of return:</strong> {{ info.date_of_return }}<br>
+            <strong>Status of book:</strong> {{ info.get_status_of_book_display }}<br>
+          {% endif %}
+
+        </p>
+
+        <p>
+        	<span style= 'background-color: black; padding: 5px 10px; border-radius: 5px;'>
+				    <a href="{% url 'update_general_book'  book=info.book %}" style= 'color:white;'>Edit</a>
+			    </span>
+
+          <span style= 'background-color: grey; padding: 5px 10px; border-radius: 5px; margin-left: 45%; box-shadow: 2px 2px 4px blue'>
+            <a href="{% url 'book_unique_detail' pk=info.pk title=info.book.title %}" style= 'color:white;'>More Info</a>
+          </span>
+        </p>
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+</div>
+
+
+<span style= 'background-color: red; color:white; margin-left:48%; padding: 5px 10px; border-radius: 5px;'>
+  <a href="/create_general_book/" style= 'color:white;'>Add Information about Book</a>
+</span>
+
+{% endblock %}
