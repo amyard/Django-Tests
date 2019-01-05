@@ -6,6 +6,12 @@ from .views import (BooksListView,
 					# SearchView,
 					# BooksInfoListView,
 					BooksInfoDetailView,
+
+					LocationListView,
+
+
+
+					LocationCreateView, GenreCreateView, LocationUpdateView,
 	)
 
 
@@ -20,4 +26,11 @@ urlpatterns = [
 	# path(r'books_detail/', BooksInfoListView.as_view(), name = 'books_detail'),
 	path(r'books_detail/<pk>-<title>/', BooksInfoDetailView.as_view(), name = 'book_unique_detail'),
 
+	# locations
+	path(r'location/', LocationListView.as_view(), name = 'location'),
+	path(r'create_location/', LocationCreateView.as_view(), name = 'create_loc'),
+	path(r'update_location/<room>-<bookcase>-<shelf>', LocationUpdateView.as_view(), name = 'update_loc'),
+	# path(r'update_location/<pk>', LocationUpdateView.as_view(), name = 'update_loc'),
+
+	path(r'create_genre/', GenreCreateView.as_view(), name = 'create_genre'),
 ]

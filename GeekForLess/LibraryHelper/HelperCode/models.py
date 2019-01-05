@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse 
 
+from datetime import date, timedelta
+
 # # for phone number
 # from django.core.validators import RegexValidator
 
@@ -16,6 +18,7 @@ class Genre(models.Model):
 
 	def __str__(self):
 		return self.title
+
 
 
 
@@ -126,7 +129,7 @@ class Books(models.Model):
 
 
 	date_of_issue = models.DateField(blank= True, default=timezone.now)
-	date_of_return = models.DateField(blank= True, default=timezone.now)
+	date_of_return = models.DateField(blank= True, default=date.today() + timedelta(days=14))
 	status_of_book = models.IntegerField(choices = STATUS)
 
 	def __str__(self):
