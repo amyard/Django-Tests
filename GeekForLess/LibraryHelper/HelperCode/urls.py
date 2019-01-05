@@ -12,6 +12,8 @@ from .views import (BooksListView,
 
 
 					LocationCreateView, GenreCreateView, LocationUpdateView,
+					GenreListView, GenreCreateView, GenreUpdateView,
+					PersonListView, PersonCreateView, PersonUpdateView,
 	)
 
 
@@ -30,7 +32,15 @@ urlpatterns = [
 	path(r'location/', LocationListView.as_view(), name = 'location'),
 	path(r'create_location/', LocationCreateView.as_view(), name = 'create_loc'),
 	path(r'update_location/<room>-<bookcase>-<shelf>', LocationUpdateView.as_view(), name = 'update_loc'),
-	# path(r'update_location/<pk>', LocationUpdateView.as_view(), name = 'update_loc'),
 
+	# genre
+	path(r'genre/', GenreListView.as_view(), name = 'genre'),
 	path(r'create_genre/', GenreCreateView.as_view(), name = 'create_genre'),
+	path(r'update_genre/<title>', GenreUpdateView.as_view(), name = 'update_genre'),
+
+	# person
+	path(r'person/', PersonListView.as_view(), name = 'person'),
+	path(r'create_person/', PersonCreateView.as_view(), name = 'create_person'),
+	path(r'update_person/<lastname>-<firstname>/', PersonUpdateView.as_view(), name = 'update_person'),
+
 ]

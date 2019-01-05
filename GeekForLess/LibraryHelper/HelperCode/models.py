@@ -14,10 +14,11 @@ from datetime import date, timedelta
 
 
 class Genre(models.Model):
-	title = models.CharField(max_length=50)
+	title = models.CharField(max_length=50, unique = True)
 
 	def __str__(self):
 		return self.title
+
 
 
 
@@ -29,6 +30,8 @@ class BookManager(models.Manager):
 		return qs.prefetch_related(
 					'book_information',
 			)
+
+
 
 class BookInfo(models.Model):
 	title = models.CharField(max_length=120)

@@ -6,17 +6,17 @@
 <div class = 'container'>
 
 <div class="row">
-  <h2 class= 'text-center'>Locations in use:</h2>
+  <h2 class= 'text-center'>Genres:</h2>
   <hr>
 
-  {% for loc in locations %}	
+  {% for genre in genres %}	
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
        <div class="caption">
-        <h4>{{ loc }}</h4>
+        <h4>{{ genre }}</h4>
         <p>
         	<span style= 'background-color: black; padding: 5px 10px; border-radius: 5px;'>
-				<a href="{% url 'update_loc'  room=loc.room  bookcase=loc.bookcase shelf=loc.shelf  %}" style= 'color:white;'>Edit</a>
+				<a href="{% url 'update_genre'  title=genre.title  %}" style= 'color:white;'>Edit</a>
 			</span>
         </p>
       </div>
@@ -32,7 +32,7 @@
 
 
 <span style= 'background-color: red; color:white; margin-left:48%; padding: 5px 10px; border-radius: 5px;'>
-	<a href="/create_location/" style= 'color:white;'>Create new Location</a>
+	<a href="/create_genre/" style= 'color:white;'>Add new Genre</a>
 </span>
 
 {% endblock %}

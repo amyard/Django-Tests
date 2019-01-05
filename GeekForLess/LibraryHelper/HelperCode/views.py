@@ -23,6 +23,7 @@ from datetime import date, timedelta
 
 from .forms import (LocationForm,
 					GenreForm,
+					PersonForm,
 	)
 
 
@@ -122,6 +123,11 @@ class BooksInfoDetailView(DetailView):
 
 
 
+#######################################################################################
+####################            LOCATIONS IN LIBRARY         ##########################
+#######################################################################################
+
+
 
 # ALL Locations
 class LocationListView(ListView):
@@ -134,7 +140,7 @@ class LocationListView(ListView):
 
 		return context
 
-# Create viewS
+
 class LocationCreateView(CreateView):
 	template_name = 'create.html'
 	form_class = LocationForm
@@ -146,7 +152,6 @@ class LocationCreateView(CreateView):
 		return super().form_valid(form)
 
 
-# Update viewS
 class LocationUpdateView(UpdateView):
 	template_name = 'create.html'
 	form_class = LocationForm
@@ -157,12 +162,12 @@ class LocationUpdateView(UpdateView):
 		room_ = self.kwargs.get('room')
 		bookcase_ = self.kwargs.get('bookcase')
 		shelf_ = self.kwargs.get('shelf')
+
 		return get_object_or_404(Location, room = room_, bookcase = bookcase_, shelf = shelf_)
 
 
 	def form_valid(self, form):
-		# print(form.cleaned_data)
-		# instance = form.save(commit=False)
+		print(form.cleaned_data)
 		return super(LocationUpdateView, self).form_valid(form)
 
 
@@ -171,15 +176,93 @@ class LocationUpdateView(UpdateView):
 
 
 
-####################################################################################
-####################################################################################
+#######################################################################################
+####################                  GENRE                  ##########################
+#######################################################################################
+
+
+class GenreListView(ListView):
+	model = Genre
+	template_name = 'genre.html'
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(GenreListView, self).get_context_data(*args, **kwargs)
+		context['genres'] = self.model.objects.all()
+
+		return context
+
 
 class GenreCreateView(CreateView):
 	template_name = 'create.html'
 	form_class = GenreForm
 	queryset = Genre.objects.all()
-	success_url = '/'
+	success_url = '/genre/'
 
 	def form_valid(self, form):
 		print(form.cleaned_data)
-		return super().form_valid(form)
+		return super(GenreCreateView, self).form_valid(form)
+
+
+
+
+class GenreUpdateView(UpdateView):
+	template_name = 'create.html'
+	form_class = GenreForm
+	queryset = Genre.objects.all()
+	success_url = '/genre/'
+
+	def get_object(self, *args, **kwargs):
+		title_ = self.kwargs.get('title')
+		return get_object_or_404(Genre, title = title_)
+
+
+	def form_valid(self, form):
+		print(form.cleaned_data)
+		return super(GenreUpdateView, self).form_valid(form)
+
+
+
+#######################################################################################
+####################                  Subscriber             ##########################
+#######################################################################################
+
+
+class PersonListView(ListView):
+	model = Person
+	template_name = 'subscriber.html'
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(PersonListView, self).get_context_data(*args, **kwargs)
+		context['subscribers'] = self.model.objects.all()
+
+		return context
+
+
+class PersonCreateView(CreateView):
+	template_name = 'create.html'
+	form_class = PersonForm
+	queryset = Person.objects.all()
+	success_url = '/person/'
+
+	def form_valid(self, form):
+		print(form.cleaned_data)
+		return super(PersonCreateView, self).form_valid(form)
+
+
+
+
+class PersonUpdateView(UpdateView):
+	template_name = 'create.html'
+	form_class = PersonForm
+	queryset = Person.objects.all()
+	success_url = '/person/'
+
+	def get_object(self, *args, **kwargs):
+		lastname_ = self.kwargs.get('lastname')
+		firstname_ = self.kwargs.get('firstname')
+		return get_object_or_404(Person, lastname = lastname_, firstname = firstname_)
+
+
+	def form_valid(self, form):
+		print(form.cleaned_data)
+		return super(PersonUpdateView, self).form_valid(form)
