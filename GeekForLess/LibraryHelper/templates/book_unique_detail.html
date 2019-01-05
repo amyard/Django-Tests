@@ -6,8 +6,12 @@
 		<h1 class="text-center">{{ book.book.title }}</h1>
 		<h3 class="text-center">Status of book: {{ book.get_status_of_book_display }}</h3>
 
-		{% if book.status_of_book != 0 %}
+		{% if book.status_of_book == 1 %}
 			<span>Subscriber will return book at {{ book.date_of_return }}</span>
+		{% endif %}
+
+		{% if book.status_of_book == -1 %}
+			<span>Subscriber didn't return book at {{ book.date_of_return }}</span>
 		{% endif %}
 
 		<hr>
