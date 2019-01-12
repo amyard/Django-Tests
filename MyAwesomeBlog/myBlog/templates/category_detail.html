@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<!-- <p>Scorpions win!!</p> -->
+<div class="container">
+<h2>Статтья из категории: {{ category.name }}</h2>
+<hr>
+
+	
+
+<div class="row">
+		{% for article in articles_from_category %}
+		<div class = 'col-sm-12' style = 'margin-bottom: 15px;'>
+			<!-- отображаем фотку -->
+			<div class="col-sm-4"> 
+				<img src="{{ article.image.url }}" class = 'img-responsive'>
+			</div>
+
+			<!-- отображаем описание -->
+			<div class="col-sm-8">
+				<h2 class = 'text-center'>{{ article.title }}</h2>
+				<p>{{ article.content | truncatewords:15 }}</p>
+				<a href="{{article.get_absolute_url}}">
+					<button class = 'btn btn-primary'>Читать полностью</button>
+				</a>
+			</div>
+		</div>
+
+		{% endfor %}
+</div>
+
+
+</div>
+
+{% endblock content%}

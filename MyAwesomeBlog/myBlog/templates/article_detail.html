@@ -1,0 +1,172 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+	<h1 class="text-center">{{ article.title }}</h1>
+	<hr>
+	<p class="text-center"><img src="{{ article.image.url }}" width = '60%'></p>
+	<div class="container">
+		<div class="col-sm-12">
+			<div class="col-sm-7 col-sm-offset-2">
+				{{ article.content|safe|linebreaks }}
+
+
+				<!-- Like - Dislike buttons -->
+				<hr>
+				<h4>Понравилась статья?</h4>
+				<a href="#" id = 'like'><span class = 'glyphicon glyphicon-thumbs-up' style="color:green;"></span></a><span id = 'liked'>{{ article.likes }}</span>
+				<a href="#" id = 'dislike' style = 'padding-left: 25px;'><span class = 'glyphicon glyphicon-thumbs-down' style="color:red;"></span></a><span id = 'disliked'>{{ article.dislikes }}</span>
+				<hr>
+
+				<h2>Комментарии:</h2>
+					<div class='col-sm-12 new_comment'>
+					</div>
+				{% for comment in article_comments %}
+					<div class='col-sm-12'>
+						<hr>
+						<small>{{ comment.author.username }}</small>
+						<p>{{ comment.comment }}</p>
+						<small>{{ comment.timestamps|date:'Y-m-d H:m' }}</small>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="col-sm-7 col-sm-offset-2">
+				<hr>
+				<form action = '' method = 'POST'>
+					<input type="hidden" id="article" data-id = '{{ article.id }}'>
+					{% csrf_token %}
+					{{ form|crispy }}
+					<input type = 'submit' value = 'Добавить комментарий' id = 'add_comment' data-toggle="modal" data-target=".bs-example-modal-sm">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Херня с бутстрапа, чтобы появлялось окно подверждения добавления комента -->
+<!-- не забудь добавить в инпут   "  data-toggle="modal" data-target=".bs-example-modal-sm"  " -->
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+
+    	<div class="modal-header">
+ 			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    	</div>
+
+    	<div class="modal-body">
+    		<p class="text-center">Ваш комментарий успешно добавлен</p>
+    	</div>
+    </div>
+  </div>
+</div>
+
+
+
+{% block jquery %}
+
+<!-- добавляет коммент без перезагрузки страници -->
+<!-- созлаем в views.py еще один class -->
+<script>
+	$(document).ready(function(){
+
+		// getCookie берем из djangoproject
+		function getCookie(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = jQuery.trim(cookies[i]);
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getCookie('csrftoken');
+		$('#add_comment').on('click', function(e){
+			e.preventDefault()
+			var article_id = $('#article').attr('data-id')
+			var comment = $('#id_comment').val()
+
+			data = {
+				article_id: article_id,
+				comment: comment,
+				csrfmiddlewaretoken: csrftoken
+			}
+
+			$.ajax({
+				type:"POST",
+				url: '{% url "add_comment" %}',
+				dataType: 'json',
+				data: data, 
+				success: function(data){
+					$.each(data, function(field){
+						$('.new_comment').prepend('<hr><small>'+data[field]['author']+
+						'</small><p>'+data[field]['comment']+'</p><small>'+data[field]['timestamps']+'</small>')
+						// очищаем поле для комментариев после Добавления
+						$('#id_comment').val('')
+					})
+
+				} 
+			})
+
+		})
+	})
+</script>
+
+<script >
+	$(document).ready(function(){
+		$('#like').on('click', function(e) {
+			e.preventDefault()
+			var like = 'like'
+			var article_id = $('#article').attr('data-id')
+			data = {
+				article_id:article_id,
+				like: like
+			}
+
+			$.ajax({
+				type:'GET',
+				url: '{% url "user_reaction" %}',
+				dataType: 'json',
+				data: data,
+				success: function(data){
+					$('#liked').html(data.likes)
+					$('#disliked').html(data.dislikes)
+				}
+			})
+		})
+	})
+
+	$(document).ready(function(){
+		$('#dislike').on('click', function(e){
+			e.preventDefault()
+			var dislike = 'dislike'
+			var article_id = $('#article').attr('data-id')
+			data = {
+				article_id:article_id,
+				dislike: dislike
+			}
+
+			$.ajax({
+				type:'GET',
+				url: '{% url "user_reaction" %}',
+				dataType: 'json',
+				data: data,
+				success: function(data){
+					$('#liked').html(data.likes)
+					$('#disliked').html(data.dislikes)
+				}
+			})
+		})
+	})
+</script>
+{% endblock jquery %}
+
+
+{% endblock content %}
+
