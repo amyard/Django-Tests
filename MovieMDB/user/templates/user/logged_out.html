@@ -1,0 +1,14 @@
+{% extend 'base.html' %}
+
+{% block title %}
+	Login - {{ block.super }}
+{% endblock %}
+
+
+{% block main %}
+	<form method = 'post'>
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type = 'submit' class = 'btn btn-primary'>Log Out</button>
+	</form>
+{% endblock %}
