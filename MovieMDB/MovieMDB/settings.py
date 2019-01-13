@@ -138,4 +138,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # we use default Login View, so here is the success_url for redirect
-LOGIN_REDIRECT_URL = 'core:MovieList'
+LOGIN_REDIRECT_URL = 'user:login'
