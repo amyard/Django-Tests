@@ -1,17 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Post
 
 from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView, )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
+from django.core.paginator import Paginator
+from django.contrib.auth.models import User
 
 
-# def home(request):
-# 	context = {
-# 		'posts':Post.objects.all()
-# 	}
-# 	return render(request, 'blog/home.html', context)
 
 def about(request):
 	return render(request, 'blog/about.html', {'title':'About'})
@@ -21,13 +18,32 @@ def about(request):
 class PostListView(ListView):
 	model = Post
 	template_name = 'blog/home.html'
+	paginate_by = 10
+
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(PostListView, self).get_context_data(*args, **kwargs)
-		context['posts'] = self.model.objects.all()
+
+		p = Paginator(Post.objects.select_related().all(), self.paginate_by)
+		context['posts'] = p.page(context['page_obj'].number)
 		context['user'] = self.request.user
 		return context
 
+
+class UserPostListView(ListView):
+	model = Post
+	template_name = 'blog/user_posts.html'
+	context_object_name = 'posts'
+	paginate_by = 10
+
+	def get_queryset(self):
+		user = get_object_or_404(User, username=self.kwargs.get('username'))
+		return Post.objects.filter(author = user)
+
+
+
+
+# page_obj
 
 class PostDetailView(DetailView):
 	model = Post
