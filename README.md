@@ -1,12 +1,12 @@
 # Django-Tests
 > Create virtural environment
-<python3.6 -m venv YourEnv>
+    python3.6 -m venv YourEnv
 
 > Activate env
-<source YourEnv/bin/activate>
+    source YourEnv/bin/activate
 
 > Install required packages
-<pip install -r requirement.txt>
+    pip install -r requirement.txt
 ***
 
 #### MyAwesomeBlog
@@ -17,4 +17,4 @@ Some Test
 
 
 #### Blog_v2
-new Blog (Django 2.0)
+new Blog (Django 2.0): Class Based View, CRUD system
