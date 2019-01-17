@@ -1,11 +1,14 @@
 # Django-Tests
-> Create virtural environment
+> Create virtural environment    
+
     python3.6 -m venv YourEnv
 
-> Activate env
+> Activate env    
+
     source YourEnv/bin/activate
 
-> Install required packages
+> Install required packages    
+
     pip install -r requirement.txt
 ***
 
