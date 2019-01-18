@@ -82,3 +82,25 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
+
+/*******    ADMIN PANEL    *******/
+.admin-panel {
+  border: 1px solid #999;
+  border-radius: 2px;
+  position:fixed;
+  right: 50px;
+  bottom: 30px;
+  opacity: 0.3;
+  padding: 15px;
+}
+
+
+.admin-panel a {
+  display: block;
+  margin: 5px 0px;
+}
+
+.admin-panel:hover {
+  opacity: 1;
+} 

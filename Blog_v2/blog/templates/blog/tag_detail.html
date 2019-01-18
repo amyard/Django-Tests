@@ -1,21 +1,22 @@
 {% extends 'blog/base.html' %}
 
 
+{% block title %}
+	{{ tag.title }} - {{ block.super }}
+{% endblock %}
+
+
+
 {% block content %}
-	{% for post in posts %}
+	<h1 class = 'mb-3'>Post with tag "{{ tag.title|title }}":</h1>
+	{% for post in tag.posts.all %}
 		{% include 'blog/includes/detail_views.html' %}
 	{% endfor %}
-		
+
 
 	<!-- Pagination -->
 	{% include 'blog/includes/paggination.html' %}
 
 
 {% endblock %}
-
-
-{% block sidebar %}
-	{% include 'blog/includes/sidebar_tag.html' %}
-{% endblock %}
-
 

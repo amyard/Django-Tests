@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+
+{% block title %}
+	Tags List - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+	<h1 class = 'mb-3'>All Tags:</h1>
+
+	{% for tag in tags %}
+	<article class="media content-section">
+	
+	    <a href="{% url 'tag-detail' tag.slug %}">{{ tag.title }}</a>
+
+	    {% if request.user.is_superuser %}
+	    <div class="ml-5">
+		    <a href="{% url 'tag-update' tag.slug %}" class = 'btn btn-secondary btn-sm '>Edit Tag</a>
+		    <a href="{% url 'tag-delete' tag.slug %}" class = 'btn btn-danger btn-sm ml-2' >Delete Tag</a>
+		</div>
+		{% endif %}
+	
+	</article>
+	{% endfor %}
+
+
+{% endblock %}

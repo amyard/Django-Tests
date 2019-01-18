@@ -20,4 +20,4 @@ Some Test
 
 
 #### Blog_v2
-new Blog (Django 2.0): Class Based View, CRUD system
+new Blog (Django 2.0): Class Based View, CRUD system, Login/Logout/Reset Passwords.

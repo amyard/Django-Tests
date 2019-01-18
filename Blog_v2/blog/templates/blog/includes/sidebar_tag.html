@@ -1,0 +1,11 @@
+	      <div class="content-section">
+	        <h3>All Tags:</h3>
+	          <ul class="list-group">
+	          	{% for tag_s in tags_sidebar %}
+	            <li class="list-group-item list-group-item-light">
+	            	<a href="{% url 'tag-detail' tag_s.slug %}">{{ tag_s.title|title }}</a>
+	            </li>
+	            {% endfor %}
+	          </ul>
+	        </p>
+	      </div>
