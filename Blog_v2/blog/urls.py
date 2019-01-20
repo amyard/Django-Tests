@@ -2,7 +2,7 @@ from django.urls import path
 from blog import views
 from .views import (PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserPostListView,
 					TagListView, TagDetailView, TagCreateView, TagUpdateView, TagDeleteView,
-                    SearchView,)
+                    SearchView, UserReactionView,)
 
 urlpatterns = [
     path('', PostListView.as_view(), name = 'blog-home'),
@@ -25,5 +25,8 @@ urlpatterns = [
 
 
     # SEARCH
-    path('search/', SearchView.as_view(), name = 'search_view')
+    path('search/', SearchView.as_view(), name = 'search_view'),
+
+    path('user_reaction/', UserReactionView.as_view(), name = 'user_reaction'),
+
 ]

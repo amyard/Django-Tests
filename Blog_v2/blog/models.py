@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+import datetime
+from django.conf import settings
 
 
 # for slug
@@ -19,6 +21,11 @@ class Post(models.Model):
 	date_posted = models.DateTimeField(default = timezone.now)
 	author = models.ForeignKey(User, on_delete = models.CASCADE)
 	tags = models.ManyToManyField('Tag', blank = True, related_name = 'posts')
+
+	likes = models.PositiveIntegerField(default = 0)
+	dislikes = models.PositiveIntegerField(default = 0)
+
+	user_reaction  = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name = 'user_reaction')
 
 	class Meta:
 		ordering = ('-date_posted',)
@@ -48,3 +55,16 @@ class Tag(models.Model):
 
 	def __str__(self):
 		 return self.title
+
+
+
+
+
+class Comments(models.Model):
+	post = models.ForeignKey(Post, on_delete = models.CASCADE)
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	content = models.TextField(max_length=200)
+	timestamp = models.DateTimeField(default = datetime.datetime.now())
+
+	def __str__(self):
+		return f'{self.post.title} - {self.user.username}'

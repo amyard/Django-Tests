@@ -1,23 +1,23 @@
 {% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
 
 
 {% block content %}
-
 	<article class="media content-section">
-	  <img src="{{ object.author.profile.image.url }}" class = 'rounded-circle article-img'>
+	  <img src="{{ article.author.profile.image.url }}" class = 'rounded-circle article-img'>
 	  <div class="media-body">
 	    <div class="article-metadata">
-	      <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
-	      <small class="text-muted">{{ object.date_posted|date:'F d, Y' }}</small>
-	      {% if object.author == user %}
+	      <a class="mr-2" href="{% url 'user-posts' article.author.username %}">{{ article.author }}</a>
+	      <small class="text-muted">{{ article.date_posted|date:'F d, Y' }}</small>
+	      {% if article.author == user %}
 	      	<div>
-		      	<a href="{% url 'post-update' object.slug %}" class = 'btn btn-secondary btn-sm mt-1 mb-1'>Update</a>
-		      	<a href="{% url 'post-delete' object.slug %}" class = 'btn btn-danger btn-sm mt-1 mb-1'>Delete</a>
+		      	<a href="{% url 'post-update' article.slug %}" class = 'btn btn-secondary btn-sm mt-1 mb-1'>Update</a>
+		      	<a href="{% url 'post-delete' article.slug %}" class = 'btn btn-danger btn-sm mt-1 mb-1'>Delete</a>
 		     </div>
 	      {% endif %}
 	    </div>
-	    <h2 class="article-title">{{ object.title }}</h2>
-	    <p class="article-content">{{ object.content }}</p>
+	    <h2 class="article-title">{{ article.title }}</h2>
+	    <p class="article-content">{{ article.content }}</p>
 
 	  <hr>
 	  <div>Tags: 
@@ -31,8 +31,10 @@
 	  	<hr>
 	  	{% if user.is_authenticated %}
 		  	<h4>Do you like the post?</h4>
-			<a href="#" id = 'like'><span class = 'glyphicon glyphicon-thumbs-up' style="color:green;"></span></a><span id = 'liked'> post.likes </span>
-			<a href="#" id = 'dislike' style = 'padding-left: 25px;'><span class = 'glyphicon glyphicon-thumbs-down' style="color:red;"></span></a><span id = 'disliked'> post.dislikes </span>
+			<a href="#" id = 'like'><span class = 'glyphicon glyphicon-thumbs-up' style="color:green;">Like: </span></a><span id = 'liked'>{{ article.likes }}</span>
+			<a href="#" id = 'dislike' style = 'padding-left: 25px;'><span class = 'glyphicon glyphicon-thumbs-down' style="color:red;">Dislike: </span></a><span id = 'disliked'>{{ article.dislikes }}</span>
+				
+				
 		{% else %}
 			<h4>Login In, if you Like/Dislike the Post</h4>
 		{% endif %}
@@ -47,8 +49,35 @@
 	{% block comments %}
 
 	<article class="media content-section">
-		<h4>Comments:</h4><hr>
+		<div class = 'main-comment-section'>
 
+		<h4>Do you want to left a comment?</h4>
+		{% if user.is_active %}
+		<div>
+			<form action = '' method = 'POST'>
+				<input type="hidden" id="article" data-id = '{{ article.id }}'>
+					{% csrf_token %}
+					{{ form|crispy }}
+				<input type = 'submit' value = 'Add Comment' id = 'add_comment' data-toggle="modal" data-target=".bs-example-modal-sm">
+			</form>
+		</div>
+		{% else %}
+		<p>Must Log In to add comment</p>
+		{% endif %}
+		</div>
+
+	</article>
+
+	<article class="media content-section">
+		<div class = 'main-comment-section'>
+			<h4>{{ comments.count }} Comment{{ comments|pluralize }} </h4>
+			{% for comment in comments %}
+			<blockquote class="blockquote">
+  				<p class="mb-0">{{ comment.content }}</p>
+  				<footer class="blockquote-footer">by <cite title="Source Title">{{ comment.user.username }} ({{ comment.timestamp|date:'m:H F d, Y' }})</cite></footer>
+			</blockquote>
+			{% endfor %}
+		</div>
 	</article>
 
 	{% endblock %}
@@ -67,4 +96,50 @@
 
 <!-- Like-Dislike buttons -->
 
+<script >
+	$(document).ready(function(){
+		$('#like').on('click', function(e) {
+			e.preventDefault()
+			var like = 'like'
+			var article_id = $('#article').attr('data-id')
+			data = {
+				article_id:article_id,
+				like: like
+			}
+			$.ajax({
+				type:'GET',
+				url: '{% url "user_reaction" %}',
+				dataType: 'json',
+				data: data,
+				success: function(data){
+					// console.log(data)
+					$('#liked').html(data.likes)
+					$('#disliked').html(data.dislikes)
+				}
+			})
+		})
+	})
+	$(document).ready(function(){
+		$('#dislike').on('click', function(e){
+			e.preventDefault()
+			var dislike = 'dislike'
+			var article_id = $('#article').attr('data-id')
+			data = {
+				article_id:article_id,
+				dislike: dislike
+			}
+			$.ajax({
+				type:'GET',
+				url: '{% url "user_reaction" %}',
+				dataType: 'json',
+				data: data,
+				success: function(data){
+					// console.log(data)
+					$('#liked').html(data.likes)
+					$('#disliked').html(data.dislikes)
+				}
+			})
+		})
+	})
+</script>
 {% endblock jquery %}

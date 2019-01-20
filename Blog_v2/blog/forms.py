@@ -1,5 +1,5 @@
 from django import forms
-from .models import Tag
+from .models import Tag, Comments
 from django.core.exceptions import ValidationError
 
 class TagForm(forms.ModelForm):
@@ -24,3 +24,11 @@ class TagForm(forms.ModelForm):
 			raise ValidationError('Slug must be unique. Slug already exists.')
 
 		return new_slug
+
+
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = Comments
+		fields = ['content']
+
+		widgets = {'content': forms.Textarea(attrs = {'class':'form-control', 'rows': 5, 'cols':150})}
