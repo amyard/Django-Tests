@@ -11,7 +11,13 @@
 	{% for tag in tags %}
 	<article class="media content-section">
 	
-	    <a href="{% url 'tag-detail' tag.slug %}">{{ tag.title }}</a>
+	    <a href="{% url 'tag-detail' tag.slug %}">{{ tag.title }}
+	     ({% for am in counted %}
+	     	{% if am.tags__title == tag.title %}
+	     		{{ am.count }}
+	      	{% endif %}
+	     {% endfor %})
+	 	</a>
 
 	    {% if request.user.is_superuser %}
 	    <div class="ml-5">

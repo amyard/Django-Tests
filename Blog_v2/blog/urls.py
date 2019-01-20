@@ -1,12 +1,13 @@
 from django.urls import path
 from blog import views
 from .views import (PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserPostListView,
-					TagListView, TagDetailView, TagCreateView, TagUpdateView, TagDeleteView)
+					TagListView, TagDetailView, TagCreateView, TagUpdateView, TagDeleteView,
+                    SearchView,)
 
 urlpatterns = [
     path('', PostListView.as_view(), name = 'blog-home'),
 
-    # TAGS
+    # TAGS - сделать отдельное APP для тегов и закинуть туда эти url
     path('tags/', TagListView.as_view(), name = 'tags'),
     path('tags/new/', TagCreateView.as_view(), name = 'tag-create'),
     path('tags/<str:slug>', TagDetailView.as_view(), name = 'tag-detail'),
@@ -23,5 +24,6 @@ urlpatterns = [
     path('post/<slug>/delete/', PostDeleteView.as_view(), name = 'post-delete'),
 
 
-    # path('about/', views.about, name = 'blog-about'),
+    # SEARCH
+    path('search/', SearchView.as_view(), name = 'search_view')
 ]

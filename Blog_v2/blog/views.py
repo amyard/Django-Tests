@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 
 from .forms import TagForm
 
+from django.db.models import Q
+
 
 
 
@@ -20,6 +22,9 @@ from .forms import TagForm
 #############################################################################
 ###########################        TAGS VIEWS     ###########################
 #############################################################################
+
+from django.db.models import Count
+
 class TagListView(ListView):
 	model = Tag
 	template_name = 'blog/tags.html'
@@ -27,7 +32,10 @@ class TagListView(ListView):
 	def get_context_data(self, *args, **kwargs):
 		context = super(TagListView, self).get_context_data(*args, **kwargs)
 		context['tags'] = self.model.objects.all()
+		# context['counted'] = self.model.objects.all().values('title').distinct()
+		context['counted'] = Post.objects.values('tags__title').order_by('tags__title').annotate(count = Count('tags__title'))
 		return context
+
 
 class TagDetailView(DetailView):
 	model = Tag
@@ -106,7 +114,7 @@ class UserPostListView(ListView):
 	model = Post
 	template_name = 'blog/user_posts.html'
 	context_object_name = 'posts'
-	paginate_by = 10
+	paginate_by = 3
 
 	def get_queryset(self):
 		user = get_object_or_404(User, username=self.kwargs.get('username'))
@@ -159,6 +167,29 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 	# закинуть сюда суперюзера надо еще
 	def test_func(self):
 		post = self.get_object()
-		if self.request.user == post.author:
+		if self.request.user == post.author or self.request.user == user.is_superuser:
 			return True
 		return False
+
+
+
+#############################################################################
+###########################        Search view     ###########################
+#############################################################################
+
+
+class SearchView(View):
+	template_name='blog/search.html'
+
+	def get(self, request, *args, **kwargs):
+		query = self.request.GET.get('q')
+		founded_posts = Post.objects.filter(
+								Q(title__icontains = query)|
+								Q(content__icontains = query)
+							)
+
+		context = {
+			'founded_posts':founded_posts
+		}
+
+		return render(self.request, self.template_name, context)

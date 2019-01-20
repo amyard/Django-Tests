@@ -26,7 +26,45 @@
 	      {% endfor %}
 	  </div>
 
+
+	  {% block like-dislike %}
+	  	<hr>
+	  	{% if user.is_authenticated %}
+		  	<h4>Do you like the post?</h4>
+			<a href="#" id = 'like'><span class = 'glyphicon glyphicon-thumbs-up' style="color:green;"></span></a><span id = 'liked'> post.likes </span>
+			<a href="#" id = 'dislike' style = 'padding-left: 25px;'><span class = 'glyphicon glyphicon-thumbs-down' style="color:red;"></span></a><span id = 'disliked'> post.dislikes </span>
+		{% else %}
+			<h4>Login In, if you Like/Dislike the Post</h4>
+		{% endif %}
+				
+	  {% endblock %}
+
 	  </div>
 	</article>
 
+
+
+	{% block comments %}
+
+	<article class="media content-section">
+		<h4>Comments:</h4><hr>
+
+	</article>
+
+	{% endblock %}
+
 {% endblock %}
+
+
+
+
+
+
+
+
+
+{% block jquery %}
+
+<!-- Like-Dislike buttons -->
+
+{% endblock jquery %}

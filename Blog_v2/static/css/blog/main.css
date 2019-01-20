@@ -83,6 +83,13 @@ a.article-title:hover {
   font-size: 2.5rem;
 }
 
+.logo-img {
+  height: 35px;
+  width: 35px;
+  margin-right: 5px;
+  margin-top: -5px;
+}
+
 
 /*******    ADMIN PANEL    *******/
 .admin-panel {

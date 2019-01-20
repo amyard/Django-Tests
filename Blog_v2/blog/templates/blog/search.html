@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+
+{% block title %}
+	{{ tag.title }} - {{ block.super }}
+{% endblock %}
+
+
+
+{% block content %}
+	<h1 class = 'mb-3'>Founded posts: "{{ founded_posts.count }}":</h1>
+	{% for post in founded_posts %}
+		{% include 'blog/includes/detail_views.html' %}
+	{% endfor %}
+
+
+	<!-- Pagination -->
+	{% include 'blog/includes/paggination.html' %}
+
+
+{% endblock %}

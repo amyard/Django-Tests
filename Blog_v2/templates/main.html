@@ -34,6 +34,14 @@
 	        <div class="navbar-nav mr-auto">
 	          <a class="nav-item nav-link" href="{% url 'blog-home' %}">Posts</a>
 	          <a class="nav-item nav-link" href="{% url 'tags' %}">Tags</a>
+
+
+	          <!-- Search button -->
+            <form class="form-inline my-2 my-lg-0" method = 'GET' action ='{% url "search_view" %}'>
+			    <input class="form-control mr-sm-2" type="search" placeholder="Enter the title or content" name = 'q'>
+				<button class="btn btn-default" type="submit">Search</button>
+			</form>
+
 	        </div>
 
 	        <!-- Navbar Right Side -->
@@ -52,7 +60,10 @@
 					</div>
 
 
-	        	  <a class="nav-item nav-link" href="{% url 'profile' %}">Profile ({{ user.username }}) </a>
+	        	  <a class="nav-item nav-link" href="{% url 'profile' %}">
+					 <img src="{{ request.user.profile.image.url }}" class = 'rounded-circle logo-img'>
+	        	  	 Profile ({{ user.username }}) 
+	        	  </a>
 	        	  <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
 	        	{% else %}
 		          <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
@@ -63,6 +74,7 @@
 	    </div>
 	  </nav>
 	</header>
+
 
 
 	<main role="main" class="container">
@@ -109,6 +121,12 @@
 		{% endblock %}
 	</div>
 	{% endif %}
+
+
+	<!-- JavaScript/ Ajax/ Jquery -->
+	{% block jquery %}
+	{% endblock %}
+
 
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
