@@ -95,7 +95,6 @@
 {% block jquery %}
 
 <!-- Like-Dislike buttons -->
-
 <script >
 	$(document).ready(function(){
 		$('#like').on('click', function(e) {
@@ -112,7 +111,7 @@
 				dataType: 'json',
 				data: data,
 				success: function(data){
-					// console.log(data)
+					console.log(data)
 					$('#liked').html(data.likes)
 					$('#disliked').html(data.dislikes)
 				}
@@ -134,7 +133,6 @@
 				dataType: 'json',
 				data: data,
 				success: function(data){
-					// console.log(data)
 					$('#liked').html(data.likes)
 					$('#disliked').html(data.dislikes)
 				}

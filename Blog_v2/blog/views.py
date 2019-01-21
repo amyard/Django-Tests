@@ -20,7 +20,6 @@ from django.http import JsonResponse
 
 
 
-
 # def about(request):
 # 	return render(request, 'blog/about.html', {'title':'About'})
 
@@ -151,6 +150,8 @@ class PostDetailView(FormMixin, DetailView):
 		form = CommentForm(request.POST or None)
 		if form.is_valid():
 			content = request.POST.get('content')
+			# user = self.request.user.username
+			# title = self.get_object().title
 			comment = Comments.objects.create(post = self.get_object(), user = request.user, content = content)
 			comment.save()
 			return HttpResponseRedirect(reverse('post-detail', kwargs={'slug': self.get_object().slug}))
@@ -230,7 +231,7 @@ class UserReactionView(View):
 
 	def get(self, request, *args, **kwargs):
 		article_id = self.request.GET.get('article_id')
-		article = Post.objects.get(id = article_id)
+		article = Article.objects.get(id = article_id)
 		like = self.request.GET.get('like')
 		dislike = self.request.GET.get('dislike')
 
@@ -250,6 +251,5 @@ class UserReactionView(View):
 			'dislikes': article.dislikes
 		}
 
-
-		return JsonResponse(data)
-		# return JsonResponse({'ok':'ok'})
+		# return JsonResponse(data)
+		return JsonResponse({'ok':'ok'})

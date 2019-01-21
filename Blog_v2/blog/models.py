@@ -3,7 +3,6 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 import datetime
-from django.conf import settings
 
 
 # for slug
@@ -24,8 +23,6 @@ class Post(models.Model):
 
 	likes = models.PositiveIntegerField(default = 0)
 	dislikes = models.PositiveIntegerField(default = 0)
-
-	user_reaction  = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name = 'user_reaction')
 
 	class Meta:
 		ordering = ('-date_posted',)
