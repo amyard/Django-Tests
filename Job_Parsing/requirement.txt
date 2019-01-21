@@ -1,0 +1,4 @@
+reqests
+bs4
+numpy
+django
