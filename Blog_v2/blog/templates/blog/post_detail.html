@@ -74,8 +74,34 @@
 			{% for comment in comments %}
 			<blockquote class="blockquote">
   				<p class="mb-0">{{ comment.content }}</p>
-  				<footer class="blockquote-footer">by <cite title="Source Title">{{ comment.user.username }} ({{ comment.timestamp|date:'m:H F d, Y' }})</cite></footer>
+  				<footer class="blockquote-footer">by <cite title="Source Title">{{ comment.user.username }} ({{ comment.timestamp|date:'m:H F d, Y' }})</cite>
+  					<button type = 'button' name = 'button' class = 'reply-btn btn btn-outline-dark btn-sm ml-2'>Reply</button>
+  				</footer>
 			</blockquote>
+
+
+			<!-- Reply comments -->
+			<div class = 'replied-comments container mt-2'>
+				{% for reply in comment.replies.all %}
+					<blockquote class="blockquote">
+		  				<p class="mb-0">{{ reply.content }}</p>
+		  				<footer class="blockquote-footer">by <cite title="Source Title">{{ comment.user.username }} ({{ reply.timestamp|date:'m:H F d, Y' }})</cite></footer>
+					</blockquote>
+				{% endfor %}
+				<div class = 'form-group row'  style = 'display:none;' id = 'reply-hide'>
+					{% if user.is_active %}
+						<div>
+							<form action = '' method = 'POST'>
+									{% csrf_token %}
+									<input type="hidden" name = 'comment_id' value = '{{ comment.id }}'>
+									{{ form|crispy }}
+								<input type = 'submit' value = 'Add Comment' id = 'add_comment' data-toggle="modal" data-target=".bs-example-modal-sm">
+							</form>
+						</div>
+						{% endif %}
+				</div>
+			</div>
+			<hr>
 			{% endfor %}
 		</div>
 	</article>
@@ -139,5 +165,17 @@
 			})
 		})
 	})
+
 </script>
+
+
+<!-- Reply button -->
+<script>
+	$(document).ready(function(){
+		$('.reply-btn').click(function() {
+			$('#reply-hide').fadeToggle();
+		});
+	})
+</script>
+
 {% endblock jquery %}

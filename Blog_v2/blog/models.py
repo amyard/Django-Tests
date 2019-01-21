@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 import datetime
 
+from django.conf import settings
 
 # for slug
 from django.utils.text import slugify
@@ -23,6 +24,8 @@ class Post(models.Model):
 
 	likes = models.PositiveIntegerField(default = 0)
 	dislikes = models.PositiveIntegerField(default = 0)
+
+	user_reaction = models.ManyToManyField(settings.AUTH_USER_MODEL, blank = True, related_name = 'user_reaction')
 
 	class Meta:
 		ordering = ('-date_posted',)
@@ -62,6 +65,7 @@ class Comments(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	content = models.TextField(max_length=200)
 	timestamp = models.DateTimeField(default = datetime.datetime.now())
+	reply = models.ForeignKey('Comments', null = True, related_name = 'replies', on_delete = models.CASCADE)
 
 	def __str__(self):
 		return f'{self.post.title} - {self.user.username}'

@@ -140,7 +140,7 @@ class PostDetailView(FormMixin, DetailView):
 		context = super(PostDetailView, self).get_context_data(*args, **kwargs)
 		# context['object'] = self.get_object()
 		context['article'] = self.get_object()
-		context['comments'] = Comments.objects.filter(post = self.get_object()).order_by('-id')
+		context['comments'] = Comments.objects.filter(post = self.get_object(), reply = None).order_by('-id')
 		context['detail_post'] = True
 		context['form'] = self.get_form()
 		return context
@@ -150,9 +150,16 @@ class PostDetailView(FormMixin, DetailView):
 		form = CommentForm(request.POST or None)
 		if form.is_valid():
 			content = request.POST.get('content')
-			# user = self.request.user.username
-			# title = self.get_object().title
-			comment = Comments.objects.create(post = self.get_object(), user = request.user, content = content)
+
+			# For Reply Comments
+			reply_id = request.POST.get('comment_id')
+			comment_qs = None
+			if reply_id:
+				comment_qs = Comments.objects.get(id = reply_id)	
+
+
+			comment = Comments.objects.create(post = self.get_object(), user = request.user, 
+												content = content, reply = comment_qs)
 			comment.save()
 			return HttpResponseRedirect(reverse('post-detail', kwargs={'slug': self.get_object().slug}))
 			
@@ -231,7 +238,7 @@ class UserReactionView(View):
 
 	def get(self, request, *args, **kwargs):
 		article_id = self.request.GET.get('article_id')
-		article = Article.objects.get(id = article_id)
+		article = Post.objects.get(id = article_id)
 		like = self.request.GET.get('like')
 		dislike = self.request.GET.get('dislike')
 
@@ -251,5 +258,4 @@ class UserReactionView(View):
 			'dislikes': article.dislikes
 		}
 
-		# return JsonResponse(data)
-		return JsonResponse({'ok':'ok'})
+		return JsonResponse(data)

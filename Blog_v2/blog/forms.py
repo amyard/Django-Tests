@@ -27,8 +27,10 @@ class TagForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+	content = forms.CharField(label = '', widget = forms.Textarea(attrs = {'class':'form-control', 
+													'rows': 4, 'cols':100, 'placeholder': 'Type the comment'}))
 	class Meta:
 		model = Comments
 		fields = ['content']
 
-		widgets = {'content': forms.Textarea(attrs = {'class':'form-control', 'rows': 5, 'cols':150})}
+		# widgets = {'content': forms.Textarea(attrs = {'class':'form-control', 'rows': 5, 'cols':150})}
