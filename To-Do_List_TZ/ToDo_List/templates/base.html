@@ -33,18 +33,36 @@
 
 
 <body>
+<!-- 
+	<div class="sect" style = 'width: 25%;'>
+		<h3>All Tags:</h3>
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-light">
+				<a href="#">Today</a>
+			</li>
+			<li class="list-group-item list-group-item-light">
+				<a href="#">Next 7 days</a>
+			</li>
+		</ul>
+		</p>
+	</div> -->
 
 
 
-	<div class = 'row'>
+	<div class="row">
 
-	{% block sidebar %}
-	{% endblock %}
 
-		<article id = 'article-id'>
-			{% block content %}
-			{% endblock %}	
-		</article>
+		<div class="col-md-2 side-bar">
+		    {% block sidebar %}
+		    {% endblock %} 
+	    </div>
+
+	    <article id = 'article-id'>
+		    {% block content %}
+		    {% endblock %}
+	    </article>
+
+
 
 	</div>
 

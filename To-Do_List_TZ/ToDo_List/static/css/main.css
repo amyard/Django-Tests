@@ -7,9 +7,39 @@
 }
 
 #article-id {
-	width: 50%;
+	width: 55%;
 	min-height: 600px;
 	background-color: white;
-	margin-left: 25%;
 	margin-top: 1px;
+}
+
+
+.side-bar {
+	margin-left: 4%;
+}
+
+
+#pr-title {
+	margin-left: 10%;
+	color: #858585;
+	text-decoration: underline;
+}
+
+.list-group a, .first-ul a {
+	color: #858585;
+}
+
+.first-ul a {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+
+.circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #000;
+  float: left;
+  margin: 4px 5px 0px -2px;
 }

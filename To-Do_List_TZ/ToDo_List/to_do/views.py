@@ -1,18 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from django.views import View
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, get_user_model
+
 from user.models import UserAccount
+from .models import Project
+
 from user.forms import LoginForm, RegistrationForm
 
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView,)
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.db.models import Q
 
 
-
-
-# Create your views here.
-def home(request):
-	return render(request, 'to_do/base.html')
 
 
 #########################################################################################
@@ -79,3 +81,36 @@ class RegistrationView(View):
 			'form':form
 		}
 		return render(self.request, self.template_name, context)
+
+
+
+
+
+
+
+#########################################################################################
+##################################        TO-DO       ###################################
+#########################################################################################
+
+
+# Create your views here.
+def home(request):
+	return render(request, 'to_do/base.html')
+
+
+class ProjectListView(ListView):
+	model = Project
+	template_name = 'to_do/base.html'
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(ProjectListView, self).get_context_data(*args, **kwargs)
+		user = self.request.user
+
+		if user:
+			context['projects'] = self.model.objects.filter(user__username = user)
+		# else:
+		# 	context['projects'] = self.model.objects.all()
+
+
+		return context
+
