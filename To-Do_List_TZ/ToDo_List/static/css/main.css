@@ -14,6 +14,8 @@
 }
 
 
+
+
 .side-bar {
 	margin-left: 4%;
 }
@@ -42,4 +44,36 @@
   background: #000;
   float: left;
   margin: 4px 5px 0px -2px;
+}
+
+
+.container .circle {
+  margin: 4px 5px 0px 5px;
+}
+
+
+.container table {
+	width:100%;
+}
+
+.container table tr {
+	border-bottom: 1px solid black;
+}
+
+.container table td {
+	padding: 7px 0px;
+	font-size: 1.2em;
+}
+
+.square {
+  width: 15px;
+  height: 15px;
+  float: left;
+  margin: 4px 5px 0px 15px;
+  border: 1px solid black;
+}
+
+.task-td {
+	text-align: right;
+	margin-left: -20px;
 }

@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, get_user_model
 
 from user.models import UserAccount
-from .models import Project
+from .models import Project, Task
 
 from user.forms import LoginForm, RegistrationForm
 
@@ -13,6 +13,7 @@ from django.views.generic import (ListView, DetailView, CreateView, UpdateView, 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.db.models import Q
+from datetime import date, timedelta
 
 
 
@@ -101,6 +102,7 @@ def home(request):
 class ProjectListView(ListView):
 	model = Project
 	template_name = 'to_do/base.html'
+	start_date = date.today()
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(ProjectListView, self).get_context_data(*args, **kwargs)
@@ -108,9 +110,54 @@ class ProjectListView(ListView):
 
 		if user:
 			context['projects'] = self.model.objects.filter(user__username = user)
-		# else:
-		# 	context['projects'] = self.model.objects.all()
+			context['tasks'] = Task.objects.filter(project__user__username = user, timestamp__date = self.start_date)
+			context['title'] = 'Today'
+			context['day'] = self.start_date
+		return context
 
+
+class SevenDaysListView(ListView):
+	model = Project
+	template_name = 'to_do/base.html'
+	start_date = date.today()+timedelta(days = 1)
+	end_date = date.today()+timedelta(days = 8)
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(SevenDaysListView, self).get_context_data(*args, **kwargs)
+		user = self.request.user
+
+		if user:
+			context['projects'] = self.model.objects.filter(user__username = user)
+			context['tasks'] = Task.objects.filter(project__user__username = user, 
+												  timestamp__date__range = (self.start_date, self.end_date))
+			context['title'] = '7 days'
+			context['day'] = self.start_date
+			context['dates'] = Task.objects.filter(project__user__username = user, 
+												  timestamp__date__range = (self.start_date, self.end_date)).\
+												  order_by('timestamp__date').values('timestamp__date').distinct()
 
 		return context
 
+
+# class ProjectListView(ListView):
+# 	model = Project
+# 	template_name = 'to_do/base.html'
+# 	start_date = date.today()
+# 	end_date = None
+
+# 	def get_context_data(self, *args, **kwargs):
+# 		context = super(ProjectListView, self).get_context_data(*args, **kwargs)
+# 		user = self.request.user
+
+# 		if user:
+# 			context['projects'] = self.model.objects.filter(user__username = user)
+# 			context['title'] = 'Today'
+# 			if self.end_date == None:
+# 				context['tasks'] = Task.objects.filter(project__user__username = user, timestamp__date = self.start_date)
+# 			else:	
+# 				context['tasks'] = Task.objects.filter(project__user__username = user, 
+# 													  timestamp__date__range = (self.start_date, self.end_date))
+# 				context['dates'] = Task.objects.filter(project__user__username = user, 
+# 													  timestamp__date__range = (self.start_date, self.end_date)).\
+# 												  order_by('timestamp__date').values('timestamp__date').distinct()
+# 		return context

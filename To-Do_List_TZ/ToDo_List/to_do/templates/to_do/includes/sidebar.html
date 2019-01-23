@@ -1,0 +1,18 @@
+		  <div class="content-section">
+	          <ul class="list-group first-ul">
+	            <li class="list-group-item list-group-item-light"><a href="{% url 'base_view' %}">Today</a></li>
+	            <li class="list-group-item list-group-item-light"><a href="{% url 'task_7today' %}">Next 7 Days</a></li>
+	          </ul>
+	          <br><br>
+	          <h5 id = 'pr-title'>Projects:</h5>
+	          <ul class="list-group">
+
+	          	{% for project in projects %}
+	            <li class="list-group-item list-group-item-light">
+	            	<div class="circle" style = 'background-color: {{ project.color }}'></div>
+	            	<a href="">{{ project.name }}</a>
+	            </li>
+	            {% endfor %}
+
+	          </ul>
+	      </div>
