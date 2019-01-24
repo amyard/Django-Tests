@@ -15,6 +15,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.views import LogoutView
 
 
+
 urlpatterns = [
     # path('', home, name = 'base_view'),
     path('', ProjectListView.as_view(), name = 'base_view'),

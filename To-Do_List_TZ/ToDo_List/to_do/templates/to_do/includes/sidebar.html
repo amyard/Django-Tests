@@ -1,3 +1,5 @@
+{% load crispy_forms_tags %}
+
 		  <div class="content-section">
 	          <ul class="list-group first-ul">
 	            <li class="list-group-item list-group-item-light"><a href="{% url 'base_view' %}">Today</a></li>
@@ -9,10 +11,31 @@
 
 	          	{% for project in projects %}
 	            <li class="list-group-item list-group-item-light">
-	            	<div class="circle" style = 'background-color: {{ project.color }}'></div>
+	            	<div class="circle" style = 'background-color: {{ project.color|lower }}'></div>
 	            	<a href="">{{ project.name }}</a>
 	            </li>
 	            {% endfor %}
 
 	          </ul>
+	          <br>
+			  <h6 style = 'margin-left: 10%; color: #EF292B; cursor: pointer;' class = 'add-button-project'>+Add Project</h6>
+
 	      </div>
+
+
+			
+			<form class="form-signin form-project" action = '' method="POST" style = 'display: none;'>
+				<hr>
+					{{ form.error }}
+					{% csrf_token %}
+					
+					<div class = 'form-row'>
+						<div class="form-group col-md-7 mb-0">
+							{{ form.name|as_crispy_field }}
+						</div>
+						<div class="form-group col-md-5 mb-0">
+							{{ form.color|as_crispy_field }}
+						</div>
+					</div>
+				<input class="btn btn-primary pl-4 pr-4" type="submit" value="Add Project" name = 'form'>
+			</form>
