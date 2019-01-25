@@ -1,7 +1,7 @@
 {% load crispy_forms_tags %}
 
 		<div class="container">
-			<p><span class="glyphicon glyphicon-option-vertical"></span></p> 
+			<p><span class="glyphicon glyphicon-euro"></span></p> 
 			<h4 class = 'mt-3'>{{ title }} <span style = 'font-size: 0.7em;'>{{ day|date:'d M' }}</span> </h4> 
 		
 			{% for task in tasks %}
@@ -16,7 +16,8 @@
 			{% endfor %}
 
 			<br>
-			<h6 style = 'margin-left: 2%; color: #EF292B; cursor: pointer;' class = 'add-button-task'>+Add Task</h6>
+			
+			<h6 class = 'add-button-task'>+Add Task</h6>
 
 
 			<form class="form-signin form-task" action = '' method="POST" style = 'display:none;'>

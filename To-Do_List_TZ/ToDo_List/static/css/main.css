@@ -28,6 +28,19 @@
 }
 
 
+.add-button-task {
+	color: #EF292B;
+	margin-left: 2%;
+	cursor: pointer;
+}
+
+.add-button-project {
+	color: #EF292B;
+	margin-left: 10%;
+	cursor: pointer;	
+}
+
+
 .list-group a, .first-ul a {
 	color: #858585;
 }
@@ -48,11 +61,7 @@
 }
 
 
-/*.side-bar h6 {
-	margin-left: 10%;
-	color: red;
-}
-*/
+
 
 .container .circle {
   margin: 4px 5px 0px 5px;
@@ -84,3 +93,33 @@
 	text-align: right;
 	margin-left: -20px;
 }
+
+
+/*
+.actions {
+	float:right;
+	cursor: pointer;
+	display: block;
+}
+
+.operations {
+	border: 1px solid #A1A1A1;
+	padding-top: 5%;
+	display: none;
+	width: 60%;
+	position: absolute;
+	float: right;
+	top: 35%;
+	bottom: 10%;
+	left: 40%;
+}
+
+.actions:hover + div {
+	display: table;
+	background-color: grey;
+}
+
+.operations a {
+	display: block;
+	float: right;
+}*/
