@@ -1,7 +1,6 @@
 {% load crispy_forms_tags %}
 
-		<div class="container">
-			<p><span class="glyphicon glyphicon-euro"></span></p> 
+		<div class="container"> 
 			<h4 class = 'mt-3'>{{ title }} <span style = 'font-size: 0.7em;'>{{ day|date:'d M' }}</span> </h4> 
 		
 			{% for task in tasks %}

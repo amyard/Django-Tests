@@ -16,15 +16,12 @@
 	            	
 
 	            	<div class="dropdown" style = 'float:right;'>
-					  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></button>
+					  <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></button>
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					    <a class="dropdown-item" href="#">Delete</a>
-					    <a class="dropdown-item" href="#">Edit</a>
+					    <a class="dropdown-item" href="{% url 'project-delete' project.pk %}">Delete</a>
+					    <a class="dropdown-item" href="{% url 'project-update' project.pk %}">Edit</a>
 					  </div>
 					</div>
-
-						<a class="dropdown-item" href="#">Delete</a>
-					    <a class="dropdown-item" href="#">Edit</a>
 
 
 	            </li>
@@ -37,8 +34,8 @@
 	      </div>
 
 
-			
-			<form class="form-signin form-project" action = '' method="POST" style = 'display: none;'>
+			<!-- style = 'display: none;' -->
+			<form class="form-signin form-project" action = '' method="POST" >
 				<hr>
 					{{ form.error }}
 					{% csrf_token %}
@@ -51,5 +48,6 @@
 							{{ form.color|as_crispy_field }}
 						</div>
 					</div>
-				<input class="btn btn-primary pl-4 pr-4" type="submit" value="Add Project" name = 'form'>
+				<input class="btn btn-primary pl-6 pr-6" type="submit" value="Add" name = 'form'>
+				<a href="" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
 			</form>

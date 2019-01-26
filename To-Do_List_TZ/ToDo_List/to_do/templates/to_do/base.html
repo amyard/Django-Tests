@@ -29,12 +29,7 @@
 
 	{% if user.is_active %}
 
-		{% if title == 'Today'%}
-			{% include 'to_do/includes/today.html' %}
-		{% elif title == '7 days' %}
-			{% include 'to_do/includes/7days.html' %}
-		{% endif %}
-
+		{% include 'to_do/includes/content.html' %}
 
 	{% else %}
 		<h4>You must <a href="{% url 'login_view' %}">Log In</a> before see all.</h4>

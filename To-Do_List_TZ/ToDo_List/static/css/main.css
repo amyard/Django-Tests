@@ -1,5 +1,6 @@
-.row {
+body .row {
 	background-color: #EFEFEF;
+	position: relative;
 	margin-top: 3px;
 	margin-left: 0.5%;
 	width: 99%;
@@ -21,7 +22,11 @@
 }
 
 
-#pr-title {
+.container .uncomplited {
+	background-color: #F04F4F;
+}
+
+#pr-title {	
 	margin-left: 10%;
 	color: #858585;
 	text-decoration: underline;
@@ -94,32 +99,13 @@
 	margin-left: -20px;
 }
 
-
-/*
-.actions {
-	float:right;
-	cursor: pointer;
-	display: block;
+.container .dropdown {
+	margin-right: 60%;
 }
 
-.operations {
-	border: 1px solid #A1A1A1;
-	padding-top: 5%;
-	display: none;
-	width: 60%;
-	position: absolute;
-	float: right;
-	top: 35%;
-	bottom: 10%;
-	left: 40%;
-}
 
-.actions:hover + div {
-	display: table;
-	background-color: grey;
+.container .dropdown-item:hover, 
+.content-section .dropdown-item:hover {
+	background-color: #007BFF;
+	color: white;
 }
-
-.operations a {
-	display: block;
-	float: right;
-}*/
