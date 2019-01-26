@@ -10,8 +10,10 @@
 
     <!-- Bootstrap CSS -->
 
+	<link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
 
 	<title>
@@ -30,6 +32,7 @@
 		<a class="navbar-brand" href="">TODO</a>
 		<div class = 'd-inline'>
 			{% if user.is_active %}
+				<a href="{% url 'archive' %}"><i class="fas fa-ban icon-header"></i></a>
 				<a class="btn btn-primary" href="{% url 'logout_view' %}">Logout</a>
 		    {% else %}
 				<a class="btn btn-primary" href="{% url 'login_view' %}">Login</a>

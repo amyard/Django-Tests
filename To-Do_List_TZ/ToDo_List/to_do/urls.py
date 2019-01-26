@@ -9,7 +9,7 @@ from .views import (LoginView, RegistrationView,
 
                     # Update
                     TodayUpdate, 
-                    Test, 
+                    PrjectListView, ArchiveListView
 	)
 
 # for logout
@@ -31,8 +31,10 @@ urlpatterns = [
     path('update-project/<pk>', TodayUpdate.as_view(), name = 'project-update'),
 
     # projects
-    # path('<int:id>', Test.as_view(), name = 'test'),
-    path('<pk>-<name>', Test.as_view(), name = 'test'),
+    path('<pk>-<name>', PrjectListView.as_view(), name = 'project-list'),
+
+    # archive
+    path('archive/', ArchiveListView.as_view(), name = 'archive'),
 
     # users
     path('logout/', LogoutView.as_view(next_page = reverse_lazy('base_view')), name = 'logout_view'),

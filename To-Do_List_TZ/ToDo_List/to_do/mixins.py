@@ -1,13 +1,21 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
-from .models import Task
+from .models import Task, Project
 from django.http import HttpResponseRedirect
 from .forms import *
 from django.db.models import Count
+from datetime import date, timedelta
 
 
 User = get_user_model()
 
+
+class Today():
+	model = Project
+	template_name = 'to_do/base.html'
+	start_date = date.today()
+	form_class  = ProjectForm
+	form_class_two  = TaskForm
 
 
 class DetailMixin():
@@ -20,6 +28,7 @@ class DetailMixin():
 	redirect_path = None
 	title = None
 	detail = None
+	archive = None
 
 
 	def get_context_data(self, *args, **kwargs):
@@ -52,6 +61,15 @@ class DetailMixin():
 														project_id = ids).order_by('timestamp')
 				context['dates'] = Task.objects.filter(project__user__username = user, project_id = ids).\
 												  order_by('timestamp__date').values('timestamp__date').distinct()	
+
+			# for arhive
+			if self.archive:
+				context['uncomplited_tasks']  = None
+				context['tasks'] = Task.objects.filter(project__user__username = user,
+														status = 1).order_by('timestamp')
+				context['dates'] = Task.objects.filter(project__user__username = user, status = 1).\
+												  order_by('timestamp__date').values('timestamp__date').distinct()	
+
 
 			context['form'] = self.form_class
 			context['form2'] = self.form_class_two

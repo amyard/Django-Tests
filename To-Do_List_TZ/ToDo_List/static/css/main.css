@@ -14,7 +14,17 @@ body .row {
 	margin-top: 1px;
 }
 
+.icon-header {
+	font-size:2em; 
+	float:left; 
+	color: #858585; 
+	padding-top: 1%;
+	padding-right: 290px;
+}
 
+.icon-header:hover {
+	color: lightgrey;
+}
 
 
 .side-bar {

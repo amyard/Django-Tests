@@ -100,14 +100,15 @@ class RegistrationView(View):
 
 
 
-class ProjectListView(DetailMixin, CreateFormMixin, ListView):
-	model = Project
-	template_name = 'to_do/base.html'
-	start_date = date.today()
-	form_class  = ProjectForm
-	form_class_two  = TaskForm
-	redirect_path = '/'
+class ProjectListView(Today, DetailMixin, CreateFormMixin, ListView):
+	# model = Project
+	# template_name = 'to_do/base.html'
+	# start_date = date.today()
+	# form_class  = ProjectForm
+	# form_class_two  = TaskForm
+	# redirect_path = '/'
 	title = 'Today'
+	redirect_path = '/'
 
 
 
@@ -134,6 +135,39 @@ class ProjectDelete(DeleteMixin, DeleteView):
 
 class TaskDelete(DeleteMixin, DeleteView):
 	model = Task
+
+
+
+
+
+################################################################################
+########################    CAtegory List View     ##############################
+##################################################################################	
+
+
+class PrjectListView(Today, DetailMixin, CreateFormMixin, ListView):
+	# model = Project
+	# template_name = 'to_do/base.html'
+	# start_date = date.today()
+	# form_class  = ProjectForm
+	# form_class_two  = TaskForm
+	redirect_path = '#'
+	detail = True
+
+
+################################################################################
+########################    ARCHIVE     ##############################
+##################################################################################	
+
+
+class ArchiveListView(Today, DetailMixin, CreateFormMixin, ListView):
+	# model = Project
+	# template_name = 'to_do/base.html'
+	# start_date = date.today()
+	# form_class  = ProjectForm
+	# form_class_two  = TaskForm
+	redirect_path = '#'
+	archive = True
 
 
 
@@ -169,19 +203,3 @@ class TodayUpdate( DetailMixin, UpdateView):
 # 	def form_valid(self, form):
 # 		print(form.cleaned_data)
 # 		return super(LocationUpdateView, self).form_valid(form)
-
-
-
-################################################################################
-########################    Project     #########################################
-##################################################################################	
-
-
-class Test(DetailMixin, CreateFormMixin, ListView):
-	model = Project
-	template_name = 'to_do/base.html'
-	start_date = date.today()
-	form_class  = ProjectForm
-	form_class_two  = TaskForm
-	redirect_path = '#'
-	detail = True
