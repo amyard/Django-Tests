@@ -12,7 +12,14 @@
 	          	{% for project in projects %}
 	            <li class="list-group-item list-group-item-light">
 	            	<div class="circle" style = 'background-color: {{ project.color|lower }}'></div>
-	            	<a href="">{{ project.name }}</a> 
+	            	<a href="{% url 'test' project.id project.name %}">{{ project.name }}
+						{%for count in count_task%}
+							{% if project.id ==  count.project%}
+								({{count.count}})
+							{% endif %}
+						{%endfor%}
+
+	            	</a> 
 	            	
 
 	            	<div class="dropdown" style = 'float:right;'>

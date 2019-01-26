@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .models import Task
 from django.http import HttpResponseRedirect
 from .forms import *
+from django.db.models import Count
 
 
 User = get_user_model()
@@ -18,16 +19,19 @@ class DetailMixin():
 	form_class_two  = None
 	redirect_path = None
 	title = None
+	detail = None
 
 
 	def get_context_data(self, *args, **kwargs):
 		context = super().get_context_data(*args, **kwargs)
 		user = self.request.user
+		ids = self.kwargs.get('pk')
 
 		if user:
 			context['projects'] = self.model.objects.filter(user__username = user)
 			context['title'] = self.title
 			context['day'] = self.start_date
+			context['count_task'] = Task.objects.values('project').order_by('project').annotate(count = Count('title'))
 			context['uncomplited_tasks']  = Task.objects.filter(project__user__username = user).order_by('priority')
 			if self.end_date:
 				context['dates'] = Task.objects.filter(project__user__username = user, 
@@ -40,6 +44,15 @@ class DetailMixin():
 				context['dates'] = Task.objects.filter(project__user__username = user, 
 												  timestamp__date = self.start_date).\
 												  order_by('timestamp__date').values('timestamp__date').distinct()
+			
+			# List View by projects
+			if self.detail:
+				context['uncomplited_tasks']  = None
+				context['tasks'] = Task.objects.filter(project__user__username = user,
+														project_id = ids).order_by('timestamp')
+				context['dates'] = Task.objects.filter(project__user__username = user, project_id = ids).\
+												  order_by('timestamp__date').values('timestamp__date').distinct()	
+
 			context['form'] = self.form_class
 			context['form2'] = self.form_class_two
 

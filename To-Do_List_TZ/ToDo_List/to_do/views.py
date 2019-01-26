@@ -152,3 +152,36 @@ class TodayUpdate( DetailMixin, UpdateView):
 	redirect_path = '/'
 	title = 'Today'
 
+# class LocationUpdateView(UpdateView):
+# 	template_name = 'create.html'
+# 	form_class = LocationForm
+# 	queryset = Location.objects.all()
+# 	success_url = '/location/'
+
+# 	def get_object(self, *args, **kwargs):
+# 		room_ = self.kwargs.get('room')
+# 		bookcase_ = self.kwargs.get('bookcase')
+# 		shelf_ = self.kwargs.get('shelf')
+
+# 		return get_object_or_404(Location, room = room_, bookcase = bookcase_, shelf = shelf_)
+
+
+# 	def form_valid(self, form):
+# 		print(form.cleaned_data)
+# 		return super(LocationUpdateView, self).form_valid(form)
+
+
+
+################################################################################
+########################    Project     #########################################
+##################################################################################	
+
+
+class Test(DetailMixin, CreateFormMixin, ListView):
+	model = Project
+	template_name = 'to_do/base.html'
+	start_date = date.today()
+	form_class  = ProjectForm
+	form_class_two  = TaskForm
+	redirect_path = '#'
+	detail = True
