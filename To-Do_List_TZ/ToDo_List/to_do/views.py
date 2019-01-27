@@ -186,7 +186,7 @@ class MainUpdate(View):
 	form_class  = ProjectForm
 	form_class_two  = TaskForm
 	redirect_path = '/'
-	title = 'Today'
+	title = 'Detail'
 	queryset = Project.objects.all()
 	button_project_title = 'Edit Project'
 	button_task_title = 'Edit Task'
@@ -218,6 +218,7 @@ class MainUpdate(View):
 															 'button_action':self.button_action,
 															 'display': self.display_js,
 															 'uncomplited_tasks': None,
+															 'title': self.title,
 															 'tasks': Task.objects.filter(project__user__username = user, timestamp__gte = date.today()).order_by('timestamp'),
 															 'dates': Task.objects.filter(project__user__username = user, timestamp__gte = date.today()).order_by('timestamp__date').values('timestamp__date').distinct(),
 															 'projects': self.model.objects.filter(user__username = user),
@@ -247,7 +248,7 @@ class MainUpdate(View):
 			return self.form_invalid(form, form2 , **kwargs)
 		return render(request, self.template_name, context = {'form':form, 'form2':form2})
 
-		
+
 ################################################################################
 ########################    Done     #########################################
 ##################################################################################

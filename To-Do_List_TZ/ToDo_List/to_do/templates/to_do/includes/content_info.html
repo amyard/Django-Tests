@@ -1,4 +1,9 @@
 {% for date in dates %}
+
+
+					{% for task in tasks %}
+						{% if task.timestamp.date == date.timestamp__date  %}
+
 					<h4 class = 'mt-3'>{% if title == 'Today' %}{{ title }}{% endif %}
 
 						<span style = 'font-size: 0.7em;'>{{ date.timestamp__date|date:'d M' }}</span> </h4>
@@ -31,9 +36,6 @@
 							{% endif %}
 							{%endfor%}
 
-
-					{% for task in tasks %}
-						{% if task.timestamp.date == date.timestamp__date  %}
 
 							<table>
 								<tr>
