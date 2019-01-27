@@ -105,10 +105,10 @@ class CreateFormMixin():
 			form = self.form_class(request.POST or None)
 
 			if form.is_valid():
-				name = form.cleaned_data['name']
+				title = form.cleaned_data['title']
 				color = form.cleaned_data['color']
 				user = self.request.user
-				project = self.model.objects.create(name = name, color = color, user = user)
+				project = self.model.objects.create(title = title, color = color, user = user)
 				project.save()
 				return HttpResponseRedirect(self.redirect_path)
 

@@ -21,7 +21,7 @@
 										    <a class="dropdown-item" href="{% url 'task-delete' comp.pk %}">Delete</a>
 
 										    <!--  ТУТ БЫЛО task-update   -->
-										    <a class="dropdown-item" href="{% url 'update' comp.pk %}">Edit</a>
+										    <a class="dropdown-item" href="{% url 'update' comp.pk comp.title%}">Edit</a>
 										    <a class="dropdown-item" href="{% url 'task-done' comp.pk %}">Done</a>
 										  </div>
 										</div>
@@ -48,7 +48,7 @@
 										    <a class="dropdown-item" href="{% url 'task-delete' task.pk %}">Delete</a>
 
 										    <!-- ТУТ БЫЛО  task-update -->
-										    <a class="dropdown-item" href="{% url 'update' task.pk %}">Edit</a>
+										    <a class="dropdown-item" href="{% url 'update' task.pk task.title %}">Edit</a>
 										    <a class="dropdown-item" href="{% url 'task-done' task.pk %}">Done</a>
 										  </div>
 										</div>

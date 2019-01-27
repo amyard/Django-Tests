@@ -3,7 +3,7 @@ from .models import Project, Task
 
 
 class ProjectAdmin(admin.ModelAdmin):
-	list_display = ('name', 'user',)
+	list_display = ('title', 'user',)
 
 
 

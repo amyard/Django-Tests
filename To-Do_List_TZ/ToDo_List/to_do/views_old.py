@@ -128,10 +128,10 @@ def home(request):
 	# def post(self, request, *args, **kwargs):
 	# 	form = ProjectForm(request.POST or None)
 	# 	if form.is_valid():
-	# 		name = form.cleaned_data['name']
+	# 		title = form.cleaned_data['title']
 	# 		color = form.cleaned_data['color']
 	# 		user = self.request.user
-	# 		project = Project.objects.create(name = name, color = color, user = user)
+	# 		project = Project.objects.create(title = title, color = color, user = user)
 	# 		project.save()
 	# 		return HttpResponseRedirect('/')
 	# 	context = {
@@ -203,10 +203,10 @@ def home(request):
 # 			form = ProjectForm(request.POST or None)
 
 # 			if form.is_valid():
-# 				name = form.cleaned_data['name']
+# 				title = form.cleaned_data['title']
 # 				color = form.cleaned_data['color']
 # 				user = self.request.user
-# 				project = Project.objects.create(name = name, color = color, user = user)
+# 				project = Project.objects.create(title = title, color = color, user = user)
 # 				project.save()
 # 				return HttpResponseRedirect('/7days')
 
@@ -277,10 +277,10 @@ class ProjectListView(ListView):
 			form = ProjectForm(request.POST or None)
 
 			if form.is_valid():
-				name = form.cleaned_data['name']
+				title = form.cleaned_data['title']
 				color = form.cleaned_data['color']
 				user = self.request.user
-				project = Project.objects.create(name = name, color = color, user = user)
+				project = Project.objects.create(title = title, color = color, user = user)
 				project.save()
 				return HttpResponseRedirect('/')
 
@@ -356,10 +356,10 @@ class SevenDaysListView(DetailMixin, CreateFormMixin, ListView):
 	# 		form = ProjectForm(request.POST or None)
 
 	# 		if form.is_valid():
-	# 			name = form.cleaned_data['name']
+	# 			title = form.cleaned_data['title']
 	# 			color = form.cleaned_data['color']
 	# 			user = self.request.user
-	# 			project = Project.objects.create(name = name, color = color, user = user)
+	# 			project = Project.objects.create(title = title, color = color, user = user)
 	# 			project.save()
 	# 			return HttpResponseRedirect('/7days')
 

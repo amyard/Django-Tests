@@ -25,7 +25,7 @@ class ProjectForm(forms.ModelForm):
 
 
 
-	name = forms.CharField(label = '', widget = forms.TextInput(attrs = { 'class':'form-control', 
+	title = forms.CharField(label = '', widget = forms.TextInput(attrs = { 'class':'form-control', 
 																'placeholder':'Type Project',
 																}))
 	color = forms.CharField(label = '', widget = forms.TextInput(attrs = {'class':'form-control', 
@@ -33,7 +33,7 @@ class ProjectForm(forms.ModelForm):
 
 	class Meta:
 		model = Project
-		fields = ['name', 'color']
+		fields = ['title', 'color']
 
 	# def clean(self):
 	# 	name = self.cleaned_data['name'].lower()

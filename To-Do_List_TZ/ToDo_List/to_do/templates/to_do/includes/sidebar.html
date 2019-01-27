@@ -12,7 +12,7 @@
 	          	{% for project in projects %}
 	            <li class="list-group-item list-group-item-light">
 	            	<div class="circle" style = 'background-color: {{ project.color|lower }}'></div>
-	            	<a href="{% url 'project-list' project.id project.name %}">{{ project.name }}
+	            	<a href="{% url 'project-list' project.id project.title %}">{{ project.title }}
 						{%for count in count_task%}
 							{% if project.id ==  count.project%}
 								({{count.count}})
@@ -28,7 +28,7 @@
 					    <a class="dropdown-item" href="{% url 'project-delete' project.pk %}">Delete</a>
 
 					    <!-- ТУТ БЫЛО project-update -->
-					    <a class="dropdown-item" href="{% url 'update' project.pk %}">Edit</a>
+					    <a class="dropdown-item" href="{% url 'update' project.pk project.title %}">Edit</a>
 					  </div>
 					</div>
 
@@ -51,7 +51,7 @@
 					
 					<div class = 'form-row'>
 						<div class="form-group col-md-7 mb-0">
-							{{ form.name|as_crispy_field }}
+							{{ form.title|as_crispy_field }}
 						</div>
 						<div class="form-group col-md-5 mb-0">
 							{{ form.color|as_crispy_field }}
