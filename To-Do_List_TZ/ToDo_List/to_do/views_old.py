@@ -387,3 +387,132 @@ class SevenDaysListView(DetailMixin, CreateFormMixin, ListView):
 	# 		'form2':form2
 	# 	}
 	# 	return render(self.request, '/7days', context)
+
+
+
+################################################################################
+########################    UPDATE     #########################################
+##################################################################################	
+
+
+class ProjectUpdate(View):
+	model = Project
+	template_name = 'to_do/base.html'
+	start_date = date.today()
+	form_class  = ProjectForm
+	form_class_two  = TaskForm
+	redirect_path = '/'
+	title = 'Today'
+	queryset = Project.objects.all()
+	button_project_title = 'Edit Project'
+	button_task_title = 'Edit Task'
+	button_action = 'Edit'
+	display_js = 'block'
+
+
+	def get(self, request, **kwargs):
+		pk = self.kwargs.get('pk')
+		user = self.request.user
+		tag = Project.objects.get(id = pk)
+		form = ProjectForm(instance = tag)
+		form2 = TaskForm
+		self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
+		return render(request, 'to_do/base.html', context = {'form':form, 
+															 'form2':form2,
+															 'button_project_title': self.button_project_title,
+															 'button_task_title': self.button_task_title,
+															 'button_action':self.button_action,
+															 'display': self.display_js,
+															 'uncomplited_tasks': None,
+															 'tasks': Task.objects.filter(project__user__username = user, timestamp__gte = date.today()).order_by('timestamp'),
+															 'dates': Task.objects.filter(project__user__username = user, timestamp__gte = date.today()).order_by('timestamp__date').values('timestamp__date').distinct(),
+															 'projects': self.model.objects.filter(user__username = user),
+															 'count_task': Task.objects.filter(project__user__username = user, status = 0).values('project').order_by('project').annotate(count = Count('title'))
+															  })
+
+
+
+	def post(self, request, **kwargs):
+		pk = self.kwargs.get('pk')
+		tag = Project.objects.get(id = pk)
+		form = ProjectForm(request.POST, instance = tag)
+		form2 = TaskForm
+
+		if form.is_valid():
+			new_tag = form.save()
+			return HttpResponseRedirect(self.request.session.get('report_url'))
+		return render(request, self.template_name, context = {'form':form, 'form2':form2})
+
+
+class TaskUpdate(View):
+	model = Project
+	template_name = 'to_do/base.html'
+	start_date = date.today()
+	form_class  = ProjectForm
+	form_class_two  = TaskForm
+	redirect_path = '/'
+	title = 'Today'
+	queryset = Project.objects.all()
+	button_project_title = 'Edit Project'
+	button_task_title = 'Edit Task'
+	button_action = 'Edit'
+	display_js = 'block'
+
+
+	def get(self, request, **kwargs):
+		pk = self.kwargs.get('pk')
+		user = self.request.user
+		tag = Task.objects.get(id = pk)
+		form = ProjectForm
+		form2 = TaskForm(instance = tag)
+		self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
+		return render(request, 'to_do/base.html', context = {'form':form, 
+															 'form2':form2,
+															 'title': 'Detail',
+															 'button_project_title': self.button_project_title,
+															 'button_task_title': self.button_task_title,
+															 'button_action':self.button_action,
+															 'display': self.display_js,
+															 'uncomplited_tasks': None,
+															 'tasks': Task.objects.filter(project__user__username = user, timestamp__gte = date.today()).order_by('timestamp'),
+															 'dates': Task.objects.filter(project__user__username = user, timestamp__gte = date.today()).order_by('timestamp__date').values('timestamp__date').distinct(),
+															 'projects': self.model.objects.filter(user__username = user),
+															 'count_task': Task.objects.filter(project__user__username = user, status = 0).values('project').order_by('project').annotate(count = Count('title'))
+															  })
+
+
+
+	def post(self, request, **kwargs):
+		pk = self.kwargs.get('pk')
+		tag = Task.objects.get(id = pk)
+		form = ProjectForm
+		form2 = TaskForm(request.POST, instance = tag)
+
+		if form2.is_valid():
+			new_tag = form2.save()
+			return HttpResponseRedirect(self.request.session.get('report_url'))
+		return render(request, self.template_name, context = {'form':form, 'form2':form2})
+
+
+
+################################################################################
+########################    Done     #########################################
+##################################################################################
+
+
+class DoneView(View):
+	model = Task
+	template_name = 'to_do/base.html'
+
+
+	def get(self, reguest, **kwargs):
+		pk = self.kwargs.get('pk')
+		self.model.objects.filter(id = pk)
+		self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
+		return render(request, self.request.session['report_url'])
+
+	def get(self, reguest, **kwargs):
+		pk = self.kwargs.get('pk')
+		self.model.objects.filter(id = pk).update(status = 1)
+		self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
+		return HttpResponseRedirect(self.request.session['report_url'])

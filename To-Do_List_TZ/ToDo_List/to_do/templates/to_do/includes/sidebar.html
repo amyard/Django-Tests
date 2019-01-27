@@ -26,7 +26,9 @@
 					  <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></button>
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					    <a class="dropdown-item" href="{% url 'project-delete' project.pk %}">Delete</a>
-					    <a class="dropdown-item" href="{% url 'project-update' project.pk %}">Edit</a>
+
+					    <!-- ТУТ БЫЛО project-update -->
+					    <a class="dropdown-item" href="{% url 'update' project.pk %}">Edit</a>
 					  </div>
 					</div>
 

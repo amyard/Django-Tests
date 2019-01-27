@@ -19,7 +19,9 @@
 										  <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></button>
 										  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 										    <a class="dropdown-item" href="{% url 'task-delete' comp.pk %}">Delete</a>
-										    <a class="dropdown-item" href="{% url 'task-update' comp.pk %}">Edit</a>
+
+										    <!--  ТУТ БЫЛО task-update   -->
+										    <a class="dropdown-item" href="{% url 'update' comp.pk %}">Edit</a>
 										    <a class="dropdown-item" href="{% url 'task-done' comp.pk %}">Done</a>
 										  </div>
 										</div>
@@ -44,7 +46,9 @@
 										  <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></button>
 										  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 										    <a class="dropdown-item" href="{% url 'task-delete' task.pk %}">Delete</a>
-										    <a class="dropdown-item" href="{% url 'task-update' task.pk %}">Edit</a>
+
+										    <!-- ТУТ БЫЛО  task-update -->
+										    <a class="dropdown-item" href="{% url 'update' task.pk %}">Edit</a>
 										    <a class="dropdown-item" href="{% url 'task-done' task.pk %}">Done</a>
 										  </div>
 										</div>

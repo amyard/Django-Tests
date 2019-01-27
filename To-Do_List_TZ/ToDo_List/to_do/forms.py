@@ -35,14 +35,14 @@ class ProjectForm(forms.ModelForm):
 		model = Project
 		fields = ['name', 'color']
 
-	def clean(self):
-		name = self.cleaned_data['name'].lower()
-		color = self.cleaned_data['color'].lower()
+	# def clean(self):
+	# 	name = self.cleaned_data['name'].lower()
+	# 	color = self.cleaned_data['color'].lower()
 
-		if Project.objects.filter(name__iexact = name).count():
-			raise ValidationError("Projects's name already in use.")
-		if Project.objects.filter(name__iexact = color).count():
-			raise ValidationError("You can not use this color again.")
+		# if Project.objects.filter(name__iexact = name).count():
+		# 	raise ValidationError("Projects's name already in use.")
+		# if Project.objects.filter(name__iexact = color).count():
+		# 	raise ValidationError("You can not use this color again.")
 
 
 

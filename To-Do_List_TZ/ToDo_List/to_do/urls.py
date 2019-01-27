@@ -8,7 +8,7 @@ from .views import (LoginView, RegistrationView,
                     ProjectDelete,TaskDelete,
 
                     # Update
-                    ProjectUpdate, TaskUpdate, DoneView,
+                    ProjectUpdate, TaskUpdate, DoneView, MainUpdate,
                     PrjectListView, ArchiveListView
 	)
 
@@ -28,9 +28,10 @@ urlpatterns = [
     path('delete/task/<pk>', TaskDelete.as_view(), name = 'task-delete'),
 
     # update
-    path('update-project/<pk>', ProjectUpdate.as_view(), name = 'project-update'),
-    path('update-task/<pk>', TaskUpdate.as_view(), name = 'task-update'),
+    # path('update-project/<pk>', ProjectUpdate.as_view(), name = 'project-update'),
+    # path('update-task/<pk>', TaskUpdate.as_view(), name = 'task-update'),
     path('done-task/<pk>', DoneView.as_view(), name = 'task-done'),
+    path('update/<pk>', MainUpdate.as_view(), name = 'update'),
 
     # projects
     path('<pk>-<name>', PrjectListView.as_view(), name = 'project-list'),
