@@ -10,12 +10,16 @@ from datetime import date, timedelta
 User = get_user_model()
 
 
-class Today():
+class MainClass():
 	model = Project
 	template_name = 'to_do/base.html'
 	start_date = date.today()
 	form_class  = ProjectForm
 	form_class_two  = TaskForm
+	button_project_title = 'Add Project'
+	button_task_title = 'Add Task'
+	button_action = 'Add'
+	display = 'none'
 
 
 class DetailMixin():
@@ -29,6 +33,10 @@ class DetailMixin():
 	title = None
 	detail = None
 	archive = None
+	button_project_title = None
+	button_task_title = None
+	button_action = None
+	display = None
 
 
 	def get_context_data(self, *args, **kwargs):
@@ -37,19 +45,24 @@ class DetailMixin():
 		ids = self.kwargs.get('pk')
 
 		if user:
+			context['button_project_title'] = self.button_project_title
+			context['button_task_title'] = self.button_task_title
+			context['button_action'] = self.button_action
+			context['display'] = self.display
 			context['projects'] = self.model.objects.filter(user__username = user)
 			context['title'] = self.title
 			context['day'] = self.start_date
-			context['count_task'] = Task.objects.values('project').order_by('project').annotate(count = Count('title'))
-			context['uncomplited_tasks']  = Task.objects.filter(project__user__username = user).order_by('priority')
+			context['count_task'] = Task.objects.filter(project__user__username = user, status = 0).\
+														values('project').order_by('project').annotate(count = Count('title'))
+			context['uncomplited_tasks']  = Task.objects.filter(project__user__username = user, status = 0).order_by('priority')
 			if self.end_date:
 				context['dates'] = Task.objects.filter(project__user__username = user, 
 												  timestamp__date__range = (self.start_date, self.end_date)).\
 												  order_by('timestamp__date').values('timestamp__date').distinct()
-				context['tasks'] = Task.objects.filter(project__user__username = user, 
+				context['tasks'] = Task.objects.filter(project__user__username = user, status = 0,
 												  timestamp__date__range = (self.start_date, self.end_date))
 			else:
-				context['tasks'] = Task.objects.filter(project__user__username = user, timestamp__date = self.start_date)
+				context['tasks'] = Task.objects.filter(project__user__username = user, timestamp__date = self.start_date, status = 0)
 				context['dates'] = Task.objects.filter(project__user__username = user, 
 												  timestamp__date = self.start_date).\
 												  order_by('timestamp__date').values('timestamp__date').distinct()
@@ -57,7 +70,7 @@ class DetailMixin():
 			# List View by projects
 			if self.detail:
 				context['uncomplited_tasks']  = None
-				context['tasks'] = Task.objects.filter(project__user__username = user,
+				context['tasks'] = Task.objects.filter(project__user__username = user, status = 0,
 														project_id = ids).order_by('timestamp')
 				context['dates'] = Task.objects.filter(project__user__username = user, project_id = ids).\
 												  order_by('timestamp__date').values('timestamp__date').distinct()	
@@ -115,7 +128,7 @@ class CreateFormMixin():
 				task.save()
 				return HttpResponseRedirect(self.redirect_path)
 		else:
-			return self.form_invalid(form,form2 , **kwargs)
+			return self.form_invalid(form, form2 , **kwargs)
 
 
 		context = {

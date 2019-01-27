@@ -36,13 +36,13 @@
 
 	          </ul>
 	          <br>
-			  <h6 class = 'add-button-project'>+Add Project</h6>
+			  <h6 class = 'add-button-project'>+{{ button_project_title }}</h6>
 
 	      </div>
 
 
 			<!-- style = 'display: none;' -->
-			<form class="form-signin form-project" action = '' method="POST" >
+			<form class="form-signin form-project" action = '' method="POST" style = 'display: {{ display }}'>
 				<hr>
 					{{ form.error }}
 					{% csrf_token %}
@@ -55,6 +55,6 @@
 							{{ form.color|as_crispy_field }}
 						</div>
 					</div>
-				<input class="btn btn-primary pl-6 pr-6" type="submit" value="Add" name = 'form'>
+				<input class="btn btn-primary pl-6 pr-6" type="submit" value="{{ button_action }}" name = 'form'>
 				<a href="" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
 			</form>

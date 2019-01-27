@@ -1,92 +1,15 @@
 {% load crispy_forms_tags %}
+
 			<div class="container">
-				{% for date in dates %}
-					<h4 class = 'mt-3'>{% if title == 'Today' %}{{ title }}{% endif %}
-
-						<span style = 'font-size: 0.7em;'>{{ date.timestamp__date|date:'d M' }}</span> </h4>
-	 
-
-
-							<!-- UNCOMPLITED -->
-							{%for comp in uncomplited_tasks%}
-							{% if comp.timestamp.date < date.timestamp__date  %}
-							<table class = 'uncomplited'>
-								<tr>
-									<td style = 'width:5%;'><div class="square" style = 'background-color: {{ comp.get_priority_display|lower }}'></div></td>
-									<td style = 'width:65%;'>{{ comp.title }}</td>
-									<td class = 'task-td' style = 'width:20%; '>{{ comp.project }}</td>
-									<td style = 'width:10%;'><div class="circle" style = 'background-color: {{ comp.project.color|lower }}'></div></td>
-									<td>
-										<div class="dropdown" style = 'float:right;'>
-										  <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></button>
-										  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										    <a class="dropdown-item" href="{% url 'task-delete' comp.pk %}">Delete</a>
-										    <a class="dropdown-item" href="#">Edit</a>
-										    <a class="dropdown-item" href="#">Done</a>
-										  </div>
-										</div>
-									</td>
-								</tr>
-							</table>
-							{% endif %}
-							{%endfor%}
-
-
-					{% for task in tasks %}
-						{% if task.timestamp.date == date.timestamp__date  %}
-
-							<table>
-								<tr>
-									<td style = 'width:5%;'><div class="square" style = 'background-color: {{ task.get_priority_display|lower }}'></div></td>
-									<td style = 'width:65%;'>{{ task.title }}</td>
-									<td class = 'task-td' style = 'width:20%; '>{{ task.project }}</td>
-									<td style = 'width:10%;'><div class="circle" style = 'background-color: {{ task.project.color|lower }}'></div></td>
-									<td>
-										<div class="dropdown" style = 'float:right;'>
-										  <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></button>
-										  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										    <a class="dropdown-item" href="{% url 'task-delete' task.pk %}">Delete</a>
-										    <a class="dropdown-item" href="#">Edit</a>
-										    <a class="dropdown-item" href="#">Done</a>
-										  </div>
-										</div>
-									</td>
-								</tr>
-							</table>
-
-						{% endif %}
-					{% endfor %}
-
-				{% endfor %}
-
-				<br>
-					<h6 class = 'add-button-task'>+Add Task</h6>
-
-
-					<form class="form-signin form-task" action = '' method="POST" style = 'display:none;'>
+				{% if title == 'Detail' %}
+					<br>
+					{% include 'to_do/includes/content_form.html' %}
 					<hr>
-						{{ form2.error }}
-						{% csrf_token %}
+					{% include 'to_do/includes/content_info.html' %}
+				{% else %}
+					{% include 'to_do/includes/content_info.html' %}
+					<br>
+					{% include 'to_do/includes/content_form.html' %}
+				{% endif %}
 
-						<div class = 'form-row'>
-							<div class="form-group col-md-6 mb-0">
-								{{ form2.title|as_crispy_field }}
-							</div>
-							<div class="form-group col-md-6 mb-0">
-								{{ form2.timestamp|as_crispy_field }}
-							</div>
-						</div>
-
-						<div class = 'form-row' style = 'float:right;'>
-							<div class="form-group col-md-6 mb-0">
-								{{ form2.project|as_crispy_field }}
-							</div>
-							<div class="form-group col-md-6 mb-0">
-								{{ form2.priority|as_crispy_field }}
-							</div>
-						</div>
-
-						<input class="btn btn-primary pl-4 pr-4" type="submit" value="Add" name = 'form2'>
-						<a href="" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
-					</form>
 			</div>

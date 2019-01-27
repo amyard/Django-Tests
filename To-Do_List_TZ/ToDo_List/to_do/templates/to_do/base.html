@@ -20,7 +20,6 @@
 	          </ul>
 		 </div>
 	{% endif %}
-
 {% endblock %}
 
 
@@ -32,8 +31,10 @@
 		{% include 'to_do/includes/content.html' %}
 
 	{% else %}
+	<div class = 'container'>
 		<h4>You must <a href="{% url 'login_view' %}">Log In</a> before see all.</h4>
 		<h5>If you don't have an account, you can <a href="{% url 'registration' %}">Register</a></h5>
+	</div>
 	{% endif %}
 
 {% endblock %}
