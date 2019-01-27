@@ -16,10 +16,12 @@
 First experience in Django
 
 #### GeekForLess
-Some Test
+Test Task
 
 
 #### Blog_v2
 new Blog (Django 2.0): Class Based View, CRUD system, Login/Logout/Reset Passwords, Like/Dislike Button, Comments, Reply Comments, html tags.  
 
-Need to do: multiply Images, Create Archive by month.
+
+#### To-Do_List_TZ
+Test Task
