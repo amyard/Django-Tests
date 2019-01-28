@@ -1,4 +1,6 @@
-reqests
+requests
 bs4
 numpy
 django
+fake_useragent
+selenium
