@@ -12,16 +12,20 @@
     pip install -r requirement.txt
 ***
 
-#### MyAwesomeBlog
+#### 1. MyAwesomeBlog (Done) 
 First experience in Django
 
-#### GeekForLess
+#### 2. GeekForLess (Done)
 Test Task
 
 
-#### Blog_v2
+#### 3. Blog_v2 (Done)
 new Blog (Django 2.0): Class Based View, CRUD system, Login/Logout/Reset Passwords, Like/Dislike Button, Comments, Reply Comments, html tags.  
 
 
-#### To-Do_List_TZ
+#### 4. To-Do_List_TZ (Done)
+Test Task
+
+
+#### 5. Job_Parsing (Start)
 Test Task
