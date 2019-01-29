@@ -52,6 +52,8 @@ class DetailMixin():
 			context['projects'] = self.model.objects.filter(user__username = user)
 			context['title'] = self.title
 			context['day'] = self.start_date
+			context['tests'] = Project.objects.filter(user__username = user).\
+										annotate(count=Count('project__title')).values('title', 'count')
 			context['count_task'] = Task.objects.filter(project__user__username = user, status = 0).\
 														values('project').order_by('project').annotate(count = Count('title'))
 			context['uncomplited_tasks']  = Task.objects.filter(project__user__username = user, status = 0).order_by('priority')

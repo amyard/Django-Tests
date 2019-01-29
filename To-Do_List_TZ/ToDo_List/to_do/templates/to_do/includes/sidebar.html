@@ -18,6 +18,11 @@
 								({{count.count}})
 							{% endif %}
 						{%endfor%}
+						{%for test in tests%}
+							{% if project.title ==  test.title and test.count == 0 %}
+								({{ test.count }})							
+							{% endif %}
+						{%endfor%}
 
 	            	</a> 
 	            	
@@ -25,8 +30,16 @@
 	            	<div class="dropdown" style = 'float:right;'>
 					  <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></button>
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					  	<a class="dropdown-item" href="{% url 'project-delete' project.pk %}">Delete</a>
-					    <!-- ТУТ БЫЛО project-update -->
+					  	{%for count in count_task%}
+							{% if project.id ==  count.project %}
+								<a class="dropdown-item" href="{% url 'project-delete' project.pk %}">Delete</a>
+							{% endif %}
+						{%endfor%}
+						{%for test in tests%}
+							{% if project.title ==  test.title and test.count == 0 %}
+								<a class="dropdown-item">Delete</a>
+							{% endif %}
+						{%endfor%}
 					    <a class="dropdown-item" href="{% url 'update' project.pk project.title %}">Edit</a>
 					  </div>
 					</div>
