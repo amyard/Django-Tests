@@ -32,12 +32,12 @@
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					  	{%for count in count_task%}
 							{% if project.id ==  count.project %}
-								<a class="dropdown-item" href="{% url 'project-delete' project.pk %}">Delete</a>
+								<a class="dropdown-item">Delete</a>
 							{% endif %}
 						{%endfor%}
 						{%for test in tests%}
 							{% if project.title ==  test.title and test.count == 0 %}
-								<a class="dropdown-item">Delete</a>
+								<a class="dropdown-item"  href="{% url 'project-delete' project.pk %}">Delete</a>
 							{% endif %}
 						{%endfor%}
 					    <a class="dropdown-item" href="{% url 'update' project.pk project.title %}">Edit</a>
