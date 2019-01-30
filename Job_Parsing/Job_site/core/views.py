@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import CreateView, ListView
+from django.views.generic import (CreateView, ListView, DeleteView,)
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -17,50 +17,86 @@ from users.models import Subscriber
 
 
 #####################################################################################
-######################################  ADD CITIE    ################################
+######################################  ADD CITY    ################################
 #####################################################################################
 
 
-
-# class CityCreateView(LoginRequiredMixin, CreateView):
-# 	form = CityForm
-# 	fields = '__all__'
-# 	success_url = '/'
-# 	queryset = City.objects.all()
-# 	template_name = 'core/create.html'
-
-# 	def form_valid(self, form):
-# 		print(form.cleaned_data)
-# 		return super().form_valid(form)
-
-# 	def test_func(self):
-# 		city = self.get_object()
-# 		if self.request.user == user.is_superuser:
-# 			return True
-# 		return False
 
 
 class CityCreateView(ListView):
 	model = City
 	template_name = 'core/create.html'
 	form = CityForm
+	buttom_title = 'Add city'
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(CityCreateView, self).get_context_data(*args, **kwargs)
 		context['cities'] = self.model.objects.all()
 		context['form'] = self.form
+		context['buttom_title'] = self.buttom_title
 		return context	
 
 	def post(self, request, *args, **kwargs):
 		form = self.form(request.POST or None)
+		cities = self.model.objects.all()
 		if form.is_valid():
 			title = form.cleaned_data['title']
 			slug = form.cleaned_data['slug']
 			number_id = form.cleaned_data['number_id']
 			city = self.model.objects.create(title = title, slug = slug, number_id = number_id)
 			city.save()
-			return HttpResponseRedirect('/')
-		return render(self.request, self.template_name, context = {'form':form})
+			return HttpResponseRedirect('../create-city')
+		return render(self.request, self.template_name, context = {'form':form, 'cities': cities})
+
+
+#####################################################################################
+###################################   DELETE CITY    ################################
+#####################################################################################
+
+
+
+class CityDelete(DeleteView):
+	model = City 
+
+	def get(self, *args, **kwargs):
+		return self.post(*args, **kwargs)
+
+	def get_success_url(self, **kwargs):
+		return self.request.META.get('HTTP_REFERER')
+
+
+
+#####################################################################################
+###################################   UPDATE CITY    ################################
+#####################################################################################
+
+
+
+class CityUpdate(View):
+	model = City
+	template_name = 'core/create.html'
+	form = CityForm
+	buttom_title = 'Edit'
+
+	def get(self, request, *args, **kwargs):
+		pk = self.kwargs.get('pk')
+		title = self.kwargs.get('title')
+		city = self.model.objects.get(pk = pk, title = title)
+		cities = self.model.objects.all()
+		form = self.form(instance = city)
+		self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
+		return render(self.request, self.template_name, context = {'form':form, 'cities':cities, 'buttom_title':self.buttom_title})
+
+	def post(self, request, **kwargs):
+		pk = self.kwargs.get('pk')
+		cities = self.model.objects.all()
+		city = self.model.objects.get(pk = pk)
+		form = self.form(request.POST, instance = city)
+		if form.is_valid():
+			new_city = form.save()
+			return HttpResponseRedirect(self.request.session.get('report_url'))
+		return render(request, self.template_name, context = {'form':form})
+
 
 
 #####################################################################################
@@ -85,7 +121,7 @@ class LoginView(View):
 			sub = authenticate(username=username, password=password)
 			if sub:
 				login(self.request, sub)	
-			return HttpResponseRedirect('/create-city')
+			return HttpResponseRedirect('/')
 		context = {
 				'form':form
 		}

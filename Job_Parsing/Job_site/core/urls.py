@@ -1,6 +1,6 @@
 from django.urls import path, include
 from .views import (MainHome,  LoginView, RegistrationView,
-					CityCreateView,
+					CityCreateView, CityDelete, CityUpdate,
 			)
 
 from django.urls import reverse_lazy
@@ -9,7 +9,11 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('', MainHome.as_view(), name = 'base_view'),
+
+    # city
     path('create-city/', CityCreateView.as_view(), name='create-city'),
+    path('delete-city/<pk>-<title>', CityDelete.as_view(), name='delete-city'),
+	path('update-city/<pk>-<title>', CityUpdate.as_view(), name='update-city'),
 
 
     # users

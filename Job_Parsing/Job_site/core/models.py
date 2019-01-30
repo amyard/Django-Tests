@@ -20,12 +20,15 @@ class City(models.Model):
 	number_id = models.PositiveIntegerField(unique = True)
 
 	def __str__(self):
-		return self.title
+		return self.title 
 
 	def save(self, *args, **kwargs):
 		if not self.id:
 			self.slug = gen_slug(self.title)
-		super().save(*args, **kwargs)
+		super().save(*args, **kwargs)\
+
+	class Meta:
+		ordering = ('number_id', )
 
 
 class JobDescr(models.Model):
