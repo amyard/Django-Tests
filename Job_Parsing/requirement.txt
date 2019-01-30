@@ -4,3 +4,4 @@ numpy
 django
 fake_useragent
 selenium
+pytils

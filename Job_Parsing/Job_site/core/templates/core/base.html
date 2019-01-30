@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+	<div class = 'container'>
+		<form method = 'POST'action = '' class = 'form-group' style = 'width: 70%; margin-left: 15%;'>
+			{% csrf_token %}
+			{{ form|crispy }}
+			<button class = 'btn btn-outline-info' type = 'Submit'>Find job</button>
+		</form>
+
+		<hr><br>
+		{{ city }}
+	</div>
+{% endblock %}
