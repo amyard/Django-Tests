@@ -22,22 +22,45 @@ from users.models import Subscriber
 
 
 
-class CityCreateView(LoginRequiredMixin, CreateView):
-	form = CityForm
-	fields = '__all__'
-	success_url = '/'
-	queryset = City.objects.all()
+# class CityCreateView(LoginRequiredMixin, CreateView):
+# 	form = CityForm
+# 	fields = '__all__'
+# 	success_url = '/'
+# 	queryset = City.objects.all()
+# 	template_name = 'core/create.html'
+
+# 	def form_valid(self, form):
+# 		print(form.cleaned_data)
+# 		return super().form_valid(form)
+
+# 	def test_func(self):
+# 		city = self.get_object()
+# 		if self.request.user == user.is_superuser:
+# 			return True
+# 		return False
+
+
+class CityCreateView(ListView):
+	model = City
 	template_name = 'core/create.html'
+	form = CityForm
 
-	def form_valid(self, form):
-		print(form.cleaned_data)
-		return super().form_valid(form)
+	def get_context_data(self, *args, **kwargs):
+		context = super(CityCreateView, self).get_context_data(*args, **kwargs)
+		context['cities'] = self.model.objects.all()
+		context['form'] = self.form
+		return context	
 
-	def test_func(self):
-		city = self.get_object()
-		if self.request.user == user.is_superuser:
-			return True
-		return False
+	def post(self, request, *args, **kwargs):
+		form = self.form(request.POST or None)
+		if form.is_valid():
+			title = form.cleaned_data['title']
+			slug = form.cleaned_data['slug']
+			number_id = form.cleaned_data['number_id']
+			city = self.model.objects.create(title = title, slug = slug, number_id = number_id)
+			city.save()
+			return HttpResponseRedirect('/')
+		return render(self.request, self.template_name, context = {'form':form})
 
 
 #####################################################################################
@@ -62,7 +85,7 @@ class LoginView(View):
 			sub = authenticate(username=username, password=password)
 			if sub:
 				login(self.request, sub)	
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect('/create-city')
 		context = {
 				'form':form
 		}

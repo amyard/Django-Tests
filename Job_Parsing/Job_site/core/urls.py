@@ -1,5 +1,7 @@
 from django.urls import path, include
-from .views import (MainHome, CityCreateView, LoginView, RegistrationView, )
+from .views import (MainHome,  LoginView, RegistrationView,
+					CityCreateView,
+			)
 
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LogoutView
