@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
-
+from users.models import Subscriber
 
 # Автоматичесий слаг с кирилици на латиницу
 from django.utils.text import slugify
@@ -38,7 +38,7 @@ class JobDescr(models.Model):
 	site = models.IntegerField(choices = WEB_SITES, default = RABOTA)
 	timestamp = models.DateTimeField(blank = True, default = timezone.now)
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, related_name = 'user',
-							 blank = True, default = 2)
+							 blank = True)
 
 
 	def __str__(self):

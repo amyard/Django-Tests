@@ -7,6 +7,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import City, JobDescr
 from .forms import CityForm, JobForm
 
+from users.forms import LoginForm, RegistrationForm
+from django.contrib.auth import authenticate, login, get_user_model
+from users.models import Subscriber
+
+
 
 
 
@@ -14,6 +19,7 @@ from .forms import CityForm, JobForm
 #####################################################################################
 ######################################  ADD CITIE    ################################
 #####################################################################################
+
 
 
 class CityCreateView(LoginRequiredMixin, CreateView):
@@ -32,6 +38,68 @@ class CityCreateView(LoginRequiredMixin, CreateView):
 		if self.request.user == user.is_superuser:
 			return True
 		return False
+
+
+#####################################################################################
+######################################     LOGIN     ################################
+#####################################################################################
+User = get_user_model()
+
+
+class LoginView(View):
+	template_name = 'users/login.html'
+	form = LoginForm
+
+	def get(self, request, *args, **kwargs):
+		form = self.form
+		return render(request, self.template_name, context = {'form':form})
+
+	def post(self, request, *args,**kwargs):
+		form = self.form(request.POST or None)
+		if form.is_valid():
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password']
+			sub = authenticate(username=username, password=password)
+			if sub:
+				login(self.request, sub)	
+			return HttpResponseRedirect('/')
+		context = {
+				'form':form
+		}
+		return render(self.request, self.template_name, context)
+
+
+
+#####################################################################################
+######################################  REGISTRATION  ###############################
+#####################################################################################
+
+class RegistrationView(View):
+	template_name = 'users/registration.html'
+	form = RegistrationForm
+
+	def get(self, request,*args,**kwargs):
+		form = self.form
+		context = {
+				'form':form
+		}
+		return render(self.request, self.template_name, context)
+
+	def post(self, request, *args, **kwargs):
+		form = self.form(request.POST or None)
+		if form.is_valid():
+			new_user = form.save(commit = False)
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password']
+			new_user.set_password(password)
+			password_check = form.cleaned_data['password_check']
+			new_user.save()
+			Subscriber.objects.create(user = User.objects.get(username=new_user.username))
+			return HttpResponseRedirect('../login')
+		context = {
+			'form':form
+		}
+		return render(self.request, self.template_name, context)
 
 
 
@@ -72,6 +140,7 @@ class MainHome(ListView):
 			number_id = City.objects.values_list('number_id', flat=True).get(title = city)
 
 			# для работа надо отправить job, site, number_id - для неправильных адресов   job = для правильных
+			print(user)
 			print(slug)
 			print(number_id)
 			print(job)

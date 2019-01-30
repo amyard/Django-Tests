@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+	Вход - {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+	
+<div class="container mt-4">
+	<h3 class = 'text-center'>Авторизация пользователя:</h3>
+	<hr>
+		<form class="form-signin" action = '' method="POST">
+				{{ form.error }}
+				{% csrf_token %}
+				{{ form|crispy }}
+		<input class="btn btn-primary pl-4 pr-4" type="submit" value="Войти">
+		</form>
+
+</div>
+
+{% endblock %}

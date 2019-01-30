@@ -37,8 +37,8 @@
 				{% endif %}
 				<a class="btn btn-primary" href="{% url 'logout_view' %}">Logout</a>
 		    {% else %}
-				<a class="btn btn-primary" href="">Login</a>
-			    <a class="btn btn-primary" href="">Register</a>
+				<a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+			    <a class="btn btn-primary" href="{% url 'registration' %}">Register</a>
 		    {% endif %}
 		</div>
 	</nav>
