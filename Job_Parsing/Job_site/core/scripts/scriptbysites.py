@@ -34,7 +34,7 @@ def rabota(job, city, site, number_id):
 			pages = base_url+'&pg='
 		else:
 			job = job
-			city = city.lower()
+			city = city
 			base_url = f'https://rabota.ua/zapros/{job}/{city}'
 			pages = base_url+'/pg'
 		return city, job, base_url, pages
@@ -69,8 +69,6 @@ def rabota(job, city, site, number_id):
 					date =  'Сегодня' if re.search('час', date)  else date 
 				except:
 					date = 'Сегодня'
-
-				print(date)
 				jobs.append({'url':domain+str(url), 'title':title, 'descript':short, 'company':company, 'date':date})	
 
 

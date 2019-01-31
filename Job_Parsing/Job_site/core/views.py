@@ -12,7 +12,7 @@ from django.contrib.auth import authenticate, login, get_user_model
 from users.models import Subscriber
 
 
-
+from core.scripts.mainscript import main_script
 
 
 
@@ -199,12 +199,8 @@ class MainHome(ListView):
 			number_id = City.objects.values_list('number_id', flat=True).get(title = city)
 
 			# для работа надо отправить job, site, number_id - для неправильных адресов   job = для правильных
-			print(user)
-			print(slug)
-			print(number_id)
-			print(job)
-			print(city)
-			print(site)
+			data = main_script(job, city, site, number_id)
+			# print(data)
 			return render(self.request, self.template_name, context = {'form':form, 'city': city})
 		context = {
 			'form':form, 

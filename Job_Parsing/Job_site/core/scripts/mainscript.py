@@ -1,4 +1,4 @@
-from script_by_sites import rabota
+from .scriptbysites import rabota
 
 
 ##############################################################################################
@@ -7,22 +7,19 @@ from script_by_sites import rabota
 
 
 
-job = 'python'
-city = 'киев'
-site = 0
-number_id = 1
+job = None
+city = None
+site = None
+number_id = None
 
-def main(job, city, site, number_id):
+def main_script(job, city, site, number_id):
 
 	if site == 0:
 		# RABOTA.UA
-		print('RABOTA')
 		data = rabota(job, city, site, number_id)
 		return data
 
 		
 	else:
 		# WORK.UA
-		print('WORK')
-
-main(job, city, site, number_id)
+		data = rabota()
