@@ -13,7 +13,7 @@
 ***
 
 #### 1. MyAwesomeBlog (Done) 
-First experience in Django
+Simple blog
 
 #### 2. GeekForLess (Done)
 Test Task
