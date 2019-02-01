@@ -38,3 +38,42 @@ hr {
 	width: 35%;
 	height: 42%;
 }
+
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  margin-bottom: 2%;
+  border: 1px solid #007BFF;
+  border-radius: 5px;
+}
+
+
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #007BFF;
+}
+
+.content-section:hover {
+	box-shadow: 0px 0px 10px grey;
+}
+
+
+.article-metadata a {
+	color: #007BFF;
+	text-shadow: 0px 0px 1px #333;
+}
+
+
+.article-metadata a:hover {
+  color: #333;
+  text-shadow: 0px 0px 1px #007BFF;
+  text-decoration: none;
+}
+
+
+.article-content {
+  white-space: pre-line;
+}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import City, JobDescr
+from .models import City, JobDescr, Job
 
 # Register your models here.
 
@@ -17,3 +17,4 @@ class JobAdmin(admin.ModelAdmin):
 
 admin.site.register(City, CityAdmin)
 admin.site.register(JobDescr, JobAdmin)
+admin.site.register(Job)

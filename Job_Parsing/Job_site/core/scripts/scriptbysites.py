@@ -35,6 +35,8 @@ def rabota(job, city, site, number_id):
 		else:
 			job = job
 			city = city
+			# base_url = f'https://rabota.ua/jobsearch/vacancy_list?regionId={city}&keyWords={job}'
+			# pages = base_url+'&pg='
 			base_url = f'https://rabota.ua/zapros/{job}/{city}'
 			pages = base_url+'/pg'
 		return city, job, base_url, pages
@@ -49,7 +51,8 @@ def rabota(job, city, site, number_id):
 	def get_total_vacations(html):
 		soup = BeautifulSoup(html, 'html.parser')
 		total = soup.find('span', class_= 'fd-fat-merchant').text
-		return(np.ceil(int(total)/20))
+		# return(np.ceil(int(total)/20))
+		return(np.ceil(int(total)/20), total)
 
 
 	def get_data(html, domain):
@@ -66,7 +69,7 @@ def rabota(job, city, site, number_id):
 
 				try:
 					date = ''.join(div.find('div', class_='f-vacancylist-bottomblock').find('p').text.strip().split(','))
-					date =  'Сегодня' if re.search('час', date)  else date 
+					date =  'Сегодня' if re.search('час', date) or re.search('мин', date)  else date 
 				except:
 					date = 'Сегодня'
 				jobs.append({'url':domain+str(url), 'title':title, 'descript':short, 'company':company, 'date':date})	
@@ -79,16 +82,44 @@ def rabota(job, city, site, number_id):
 	# получим значения
 	city, job, base_url, pages = get_main_info(job, city, site, number_id)
 
-	# проверяем правильность запроса
-	req = session.get(base_url, headers=headers)
-	if req.status_code == 200:
-		total_pages = get_total_vacations(get_html(base_url))
 
-		# парсим
-		for i in range(1, int(total_pages)+1):
-			url = pages+str(i)
-			get_data(get_html(url), domain)
+	try:
+		req = session.get(base_url, headers=headers)
+		if req.status_code == 200:
+			# total_pages = get_total_vacations(get_html(base_url))
+			total_pages, total = get_total_vacations(get_html(base_url))
 
-	elif req.status_code != 200:
-		print('Wrong data')
-	return(jobs)
+			# парсим
+			for i in range(1, int(total_pages)+1):
+				url = pages+str(i)
+				get_data(get_html(url), domain)
+
+			# return(jobs)
+			return total, jobs	
+		elif req.status_code != 200:
+			total = -1
+			jobs = None
+			return total, jobs	
+	except:
+
+		base_url = f'https://rabota.ua/jobsearch/vacancy_list?regionId={number_id}&keyWords={job}'
+		pages = base_url+'&pg='
+
+		req = session.get(base_url, headers=headers)
+		if req.status_code == 200:
+			# total_pages = get_total_vacations(get_html(base_url))
+			total_pages, total = get_total_vacations(get_html(base_url))
+
+			# парсим
+			for i in range(1, int(total_pages)+1):
+				url = pages+str(i)
+				get_data(get_html(url), domain)
+
+			# return(jobs)
+			return total, jobs	
+		elif req.status_code != 200:
+			total = -1
+			jobs = None
+			return total, jobs
+
+	

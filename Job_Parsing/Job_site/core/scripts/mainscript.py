@@ -16,8 +16,8 @@ def main_script(job, city, site, number_id):
 
 	if site == 0:
 		# RABOTA.UA
-		data = rabota(job, city, site, number_id)
-		return data
+		total, data = rabota(job, city, site, number_id)
+		return total, data
 
 		
 	else:

@@ -22,4 +22,42 @@
 			<button class = 'btn btn-outline-info' type = 'Submit'>Find job</button>
 		</form>
 	</div>
+
+
+	
+	{% if count_t == -1  %}
+
+	<div class = 'container mt-4'>
+		<h3 class = 'text-center mt-3'>Неправильно заданные параментры поиска.</h3>
+		<hr>
+	</div>
+
+	{% else %}
+
+	{% if count_t %}
+	<div class = 'container mt-4'>
+		<h3 class = 'text-center mt-3'>Было найдено {{ count_t }} вакансий.</h3>
+		<hr>	
+		{% if data.exists %}	
+		{% for df in data %}
+		<article class="media content-section">
+			<div class="media-body">
+				<div class="article-metadata">
+					<h4><a href="{{ df.url }}">{{ df.title }}</a></h4>
+					<b>{{ df.company }}</b>
+				</div>
+ 		
+			<p class="article-content">{{ df.description }}</p>	
+			<i style = 'float: right;'>{{ df.date }}</i>		
+			
+			</div>
+		</article>
+		{% endfor %}
+	</div>
+
+	{% endif %}
+	{% endif %}
+	{% endif %}
 {% endblock %}
+
+

@@ -46,3 +46,17 @@ class JobDescr(models.Model):
 
 	def __str__(self):
 		return self.job
+
+
+class Job(models.Model):
+	job = models.CharField(max_length=70)
+	city = models.CharField(max_length=70)
+	site = models.CharField(max_length=70)
+	title = models.CharField(max_length=120)
+	url = models.URLField(max_length=200)
+	description = models.TextField(blank = True)
+	company = models.CharField(max_length=70)
+	date = models.CharField(max_length=70)
+
+	def __str__(self):
+		return f'{self.job} - {self.company} - {self.date}'

@@ -4,7 +4,7 @@ from django.views.generic import (CreateView, ListView, DeleteView,)
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import City, JobDescr
+from .models import City, JobDescr, Job
 from .forms import CityForm, JobForm
 
 from users.forms import LoginForm, RegistrationForm
@@ -13,7 +13,6 @@ from users.models import Subscriber
 
 
 from core.scripts.mainscript import main_script
-
 
 
 #####################################################################################
@@ -191,6 +190,8 @@ class MainHome(ListView):
 			city = form.cleaned_data['city']
 			site = form.cleaned_data['site']
 
+			# если "все регионы" - то заместт город должно быть "украина"
+
 			if request.user.is_authenticated:
 				job = self.model.objects.create(job = job, city = city, site = site, user = user)
 				job.save()
@@ -198,15 +199,17 @@ class MainHome(ListView):
 			slug = City.objects.values_list('slug', flat=True).get(title = city)
 			number_id = City.objects.values_list('number_id', flat=True).get(title = city)
 
-			# для работа надо отправить job, site, number_id - для неправильных адресов   job = для правильных
-			data = main_script(job, city, site, number_id)
-			# print(data)
-			return render(self.request, self.template_name, context = {'form':form, 'city': city})
+			if Job.objects.filter(job=job, city=city, site=site).exists():
+				Job.objects.filter(job=job, city=city, site=site).delete()
+			# sc = main_script(str(job), city, site, number_id)
+			count_t, sc = main_script(str(job), city, site, number_id)
+
+			if sc != None:
+				[ Job.objects.create(job=job, city=city, site=site, title=i['title'], url=i['url'], 
+					description=i['descript'], company=i['company'], date=i['date']) for i in sc ]
+			data = Job.objects.filter(job=job, city=city, site=site)
+			return render(self.request, self.template_name, context = {'form':form, 'data': data, 'count_t':count_t})
 		context = {
-			'form':form, 
-			'city': city
+			'form':form
 		}
 		return render(self.request, self.template_name, context)
-
-
-
