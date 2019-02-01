@@ -122,5 +122,5 @@ class Books(models.Model):
 	def __str__(self):
 		return self.book.title
 
-	def get_absolute_url(self):
-		return reverse('book_unique_detail', kwargs = {'pk':self.pk, 'title':self.book.title})
+	# def get_absolute_url(self):
+	# 	return reverse('book_unique_detail', kwargs = {'pk':self.pk, 'title':self.book.title})
