@@ -9,14 +9,17 @@
 			{% csrf_token %}
 
 			<div class = 'form-row'>
-				<div class = 'form-group col-md-6 mb-0'>
+				<div class = 'form-group col-md-5 mb-0'>
 					{{ form.job|as_crispy_field }}
 				</div>
-				<div class = 'form-group col-md-3 mb-0' style = 'margin-left: 2%;'>
+				<div class = 'form-group col-md-2 mb-0' style = 'margin-left: 2%;'>
 					{{ form.city|as_crispy_field }}
 				</div>
 				<div class = 'form-group col-md-2 mb-0' style = 'margin-left: 2%;'>
 					{{ form.site|as_crispy_field }}
+				</div>
+				<div class = 'form-group col-md-2 mb-0' style = 'margin-left: 2%;'>
+					{{ form.period|as_crispy_field }}
 				</div>
 			</div>
 			<button class = 'btn btn-outline-info' type = 'Submit'>Find job</button>

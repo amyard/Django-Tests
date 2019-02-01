@@ -36,9 +36,16 @@ class JobDescr(models.Model):
 	WORK = 1
 	WEB_SITES = ((RABOTA, 'rabota.ua'), (WORK, 'work.ua'))
 
+	TODAY = 0
+	WEEK = 1
+	WEEK2 = 2
+	MONTH = 3
+	FIND_PERIOD = ((TODAY,'Сегодня'), (WEEK,'7 дней'), (WEEK2,'14 дней'), (MONTH,'Месяц'))
+
 	job = models.CharField(max_length=70)
 	city = models.ForeignKey(City, on_delete = models.DO_NOTHING, related_name = 'city')
 	site = models.IntegerField(choices = WEB_SITES, default = RABOTA)
+	period = models.IntegerField(choices = FIND_PERIOD, default = MONTH)
 	timestamp = models.DateTimeField(blank = True, default = timezone.now)
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, related_name = 'user',
 							 blank = True)

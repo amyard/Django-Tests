@@ -10,7 +10,7 @@ from .forms import CityForm, JobForm
 from users.forms import LoginForm, RegistrationForm
 from django.contrib.auth import authenticate, login, get_user_model
 from users.models import Subscriber
-
+from django.db.models import Q
 
 from core.scripts.mainscript import main_script
 
@@ -171,6 +171,7 @@ class MainHome(ListView):
 	form = JobForm
 	template_name = 'core/base.html'
 
+
 	def get_context_data(self, *args, **kwargs):
 		context = super(MainHome, self).get_context_data( *args, **kwargs)
 		context['form'] = self.form
@@ -189,8 +190,15 @@ class MainHome(ListView):
 			job = form.cleaned_data['job']
 			city = form.cleaned_data['city']
 			site = form.cleaned_data['site']
+			period = form.cleaned_data['period']
+
+			##################################################################
+			############          Работает с rabota.ua          ##############
+			##################################################################
 
 			# если "все регионы" - то заместт город должно быть "украина"
+			if city == 'все регионы':
+				city = 'украина'
 
 			if request.user.is_authenticated:
 				job = self.model.objects.create(job = job, city = city, site = site, user = user)
@@ -201,15 +209,32 @@ class MainHome(ListView):
 
 			if Job.objects.filter(job=job, city=city, site=site).exists():
 				Job.objects.filter(job=job, city=city, site=site).delete()
-			# sc = main_script(str(job), city, site, number_id)
 			count_t, sc = main_script(str(job), city, site, number_id)
 
 			if sc != None:
 				[ Job.objects.create(job=job, city=city, site=site, title=i['title'], url=i['url'], 
 					description=i['descript'], company=i['company'], date=i['date']) for i in sc ]
-			data = Job.objects.filter(job=job, city=city, site=site)
+			if period == 0:
+				data = Job.objects.filter(job=job, city=city, site=site, 
+										  date__icontains = 'Сегодня')
+				count_t = data.count
+			elif period == 1:
+				data = Job.objects.filter(Q(date__icontains = 'Сегодня')|Q(date__icontains = 'дн'),
+											job=job, city=city, site=site)										  
+				count_t = data.count
+			elif period == 2:
+				data = Job.objects.filter(Q(date__icontains = 'Сегодня')|Q(date__icontains = 'дн')|Q(date__icontains = '1 нед'),
+											job=job, city=city, site=site)										  
+				count_t = data.count
+			else:
+				data = Job.objects.filter(job=job, city=city, site=site)
+
+			
 			return render(self.request, self.template_name, context = {'form':form, 'data': data, 'count_t':count_t})
 		context = {
 			'form':form
 		}
 		return render(self.request, self.template_name, context)
+
+
+

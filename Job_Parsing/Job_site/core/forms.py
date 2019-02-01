@@ -11,4 +11,4 @@ class CityForm(forms.ModelForm):
 class JobForm(forms.ModelForm):
 	class Meta:
 		model = JobDescr
-		fields = ['job', 'city', 'site']
+		fields = ['job', 'city', 'site', 'period']
