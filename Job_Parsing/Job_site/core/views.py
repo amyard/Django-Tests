@@ -193,13 +193,16 @@ class MainHome(ListView):
 			period = form.cleaned_data['period']
 
 			##################################################################
-			############          Работает с rabota.ua          ##############
+			############           НАЧИНАЕМ СКРИПТИТЬ           ##############
 			##################################################################
 
-			# если "все регионы" - то заместт город должно быть "украина"
+			# если "все регионы" - то заместю город должно быть "украина"
 			if city == 'все регионы':
 				city = 'украина'
+			elif city == 'днепр':
+				city = 'днепропетровск'
 
+			# если пользовался залогинился, то сохраняем в БД, что искал этот чел
 			if request.user.is_authenticated:
 				job = self.model.objects.create(job = job, city = city, site = site, user = user)
 				job.save()
@@ -207,13 +210,19 @@ class MainHome(ListView):
 			slug = City.objects.values_list('slug', flat=True).get(title = city)
 			number_id = City.objects.values_list('number_id', flat=True).get(title = city)
 
+
+			# удаляем из БД записы по новым критериям, дабы не выгружать старые данные
 			if Job.objects.filter(job=job, city=city, site=site).exists():
 				Job.objects.filter(job=job, city=city, site=site).delete()
-			count_t, sc = main_script(str(job), city, site, number_id)
+			count_t, sc = main_script(str(job), city, slug, site, number_id)
 
+
+			# заполняем БД новыми данными
 			if sc != None:
 				[ Job.objects.create(job=job, city=city, site=site, title=i['title'], url=i['url'], 
 					description=i['descript'], company=i['company'], date=i['date']) for i in sc ]
+
+			# в зависимости от того, какой выбран период отоюражения данных, отображаем те данные
 			if period == 0:
 				data = Job.objects.filter(job=job, city=city, site=site, 
 										  date__icontains = 'Сегодня')
@@ -228,6 +237,7 @@ class MainHome(ListView):
 				count_t = data.count
 			else:
 				data = Job.objects.filter(job=job, city=city, site=site)
+				count_t = data.count
 
 			
 			return render(self.request, self.template_name, context = {'form':form, 'data': data, 'count_t':count_t})

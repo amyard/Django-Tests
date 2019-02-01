@@ -1,4 +1,4 @@
-from .scriptbysites import rabota
+from .scriptbysites import rabota, work
 
 
 ##############################################################################################
@@ -12,7 +12,7 @@ city = None
 site = None
 number_id = None
 
-def main_script(job, city, site, number_id):
+def main_script(job, city, slug, site, number_id):
 
 	if site == 0:
 		# RABOTA.UA
@@ -22,4 +22,5 @@ def main_script(job, city, site, number_id):
 		
 	else:
 		# WORK.UA
-		data = rabota()
+		total, data = work(job, slug, site, number_id)
+		return total, data

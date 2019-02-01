@@ -38,27 +38,32 @@
 	{% else %}
 
 	{% if count_t %}
-	<div class = 'container mt-4'>
-		<h3 class = 'text-center mt-3'>Было найдено {{ count_t }} вакансий.</h3>
-		<hr>	
-		{% if data.exists %}	
-		{% for df in data %}
-		<article class="media content-section">
-			<div class="media-body">
-				<div class="article-metadata">
-					<h4><a href="{{ df.url }}">{{ df.title }}</a></h4>
-					<b>{{ df.company }}</b>
+		<div class = 'container mt-4'>
+			<h3 class = 'text-center mt-3'>Было найдено {{ count_t }} вакансий.</h3>
+			<hr>	
+			{% if data.exists %}	
+			{% for df in data %}
+			<article class="media content-section">
+				<div class="media-body">
+					<div class="article-metadata">
+						<h4><a href="{{ df.url }}">{{ df.title }}</a></h4>
+						<b>{{ df.company }}</b>
+					</div>
+	 		
+				<p class="article-content">{{ df.description }}</p>	
+				<i style = 'float: right;'>{{ df.date }}</i>		
+				
 				</div>
- 		
-			<p class="article-content">{{ df.description }}</p>	
-			<i style = 'float: right;'>{{ df.date }}</i>		
-			
-			</div>
-		</article>
-		{% endfor %}
-	</div>
+			</article>
+			{% endfor %}
+		</div>
 
-	{% endif %}
+		{% endif %}
+	{% elif count_t == 0 %}
+		<div class = 'container mt-4'>
+			<h3 class = 'text-center mt-3'>Было найдено 0 вакансий.</h3>
+		<hr>
+	</div>
 	{% endif %}
 	{% endif %}
 {% endblock %}
