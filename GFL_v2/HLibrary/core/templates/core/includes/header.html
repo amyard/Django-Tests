@@ -27,11 +27,11 @@
           Actions (Edit/Create)
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item dd-item" href="">General info about book</a>
-          <a class="dropdown-item dd-item" href="">Info about book</a>
-          <a class="dropdown-item dd-item" href="">Subscriber</a>
-          <a class="dropdown-item dd-item" href="">Location</a>
-          <a class="dropdown-item dd-item" href="">Genre</a>
+          <a class="dropdown-item dd-item" href="{% url 'general-book' %}">General info about book</a>
+          <a class="dropdown-item dd-item" href="{% url 'book-info' %}">Info about book</a>
+          <a class="dropdown-item dd-item" href="{% url 'subscribers' %}">Subscriber</a>
+          <a class="dropdown-item dd-item" href="{% url 'locations' %}">Location</a>
+          <a class="dropdown-item dd-item" href="{% url 'genre' %}">Genre</a>
         </div>
       </li>
 

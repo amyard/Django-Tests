@@ -1,0 +1,165 @@
+<div class = 'container mt-4 cont-sidebar-right'>
+		<h3 class = 'text-center mt-3'>{{ title }}</h3>
+		<hr>
+
+
+		<div class ='row'>
+
+
+<!-- BOOK DESCRIPTION INFO -->
+{% if title == 'Book description:' %}
+
+		{% for cat in categories %}
+		  <div class="col-sm-2 cont-section" >
+		    <div class="thumbnail">
+		       <div class="caption">
+		        <h3 class = 'text-center mt-2'>{{ cat.title }}</h3>
+		        <hr>
+		        <p>
+		          <strong>Author:</strong> {{ cat.author }}<br>
+		          <strong>Published in:</strong> {{ cat.published }}<br>
+		          <strong>Genre:</strong> {{ cat.genre }}<br><br>
+
+		          <h5 class ='text-center'>Position in library:</h5>
+		          <strong>Room:</strong> {{ cat.position.room }}<br>
+		          <strong>Bookcase:</strong> {{ cat.position.bookcase }}<br>
+		          <strong>Shelf:</strong> {{ cat.position.shelf }}<br>
+		        </p>
+		        <p class = 'actions'>
+
+		        	<!-- ЗАФИГАЧИТЬ ХРЕФ -->
+		        	<a href="" class = 'btn btn-primary btn-sm'>Update</a>
+			      	<a href="" class = 'btn btn-danger btn-sm'>Delete</a>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		{% endfor %}
+
+{% endif %}
+
+
+<!-- GENRE -->
+{% if title == 'Genre' %}
+
+		{% for cat in categories %}
+		  <div class="col-sm-2 cont-section" >
+		    <div class="thumbnail">
+		       <div class="caption">
+		        <h3 class = 'text-center'>{{ cat.genre }}</h3>
+		        <p class = 'actions'>
+
+		        	<!-- ЗАФИГАЧИТЬ ХРЕФ -->
+		        	<a href="" class = 'btn btn-primary btn-sm'>Update</a>
+			      	<a href="" class = 'btn btn-danger btn-sm'>Delete</a>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		{% endfor %}
+
+{% endif %}
+
+
+<!-- LOCATION INFO -->
+{% if title == 'Locations' %}
+
+		{% for cat in categories %}
+		  <div class="col-sm-2 cont-section" >
+		    <div class="thumbnail">
+		       <div class="caption">
+		        <p>
+		          <b>Room:</b> {{ cat.room }}<br>
+		          <b>Bookcase in:</b> {{ cat.bookcase }}<br>
+		          <b>Shelf:</b> {{ cat.shelf }}<br><br>
+		        </p>
+
+
+		        <p class = 'actions'>
+
+		        	<!-- ЗАФИГАЧИТЬ ХРЕФ -->
+		        	<a href="" class = 'btn btn-primary btn-sm'>Update</a>
+			      	<a href="" class = 'btn btn-danger btn-sm'>Delete</a>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		{% endfor %}
+
+{% endif %}
+
+
+<!-- SUBSCRIBERS INFO -->
+{% if title == 'Subscribers' %}
+
+		{% for cat in categories %}
+		  <div class="col-sm-3 cont-section2" >
+		    <div class="thumbnail">
+		       <div class="caption">
+		       	<h3 class = 'text-center mt-2'>{{ cat.fullname }}</h3>
+		       	<hr>
+		        <p>
+		          <b>Birthday:</b> {{ cat.birthday }}<br>
+		          <b>Address:</b> {{ cat.address }}<br>
+		          <b>Phone number:</b> {{ cat.phone }}
+		        </p>
+
+
+		        <p class = 'actions'>
+
+		        	<!-- ЗАФИГАЧИТЬ ХРЕФ -->
+		        	<a href="" class = 'btn btn-primary btn-sm'>Update</a>
+			      	<a href="" class = 'btn btn-danger btn-sm'>Delete</a>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		{% endfor %}
+
+{% endif %}
+
+
+
+<!-- SUBSCRIBERS INFO -->
+{% if title == 'Book status' %}
+
+		{% for cat in categories %}
+		  <div class="col-sm-3 cont-section2" >
+		    <div class="thumbnail">
+		       <div class="caption">
+		       	<h3 class = 'text-center mt-2'>{{ cat.book.title }}</h3>
+		       	<hr>
+		        <p>
+		          <b>Subscriber:</b> {{ cat.person_subscription.fullname }}<br>
+
+		          {% if cat.status_of_book == 0 %}
+		            <b>Status of book:</b> {{ cat.get_status_of_book_display }}<br>
+		          {% else %}
+		            <b>Date of issue:</b> {{ cat.date_of_issue }}<br>
+		            <b>Date of return:</b> {{ cat.date_of_return }}<br>
+		            <b>Status of book:</b> {{ cat.get_status_of_book_display }}<br>
+		          {% endif %}
+
+		        </p>
+
+
+		        <p class = 'actions'>
+
+		        	<!-- ЗАФИГАЧИТЬ ХРЕФ -->
+		        	<a href="" class = 'btn btn-primary btn-sm'>Update</a>
+			      	<a href="" class = 'btn btn-danger btn-sm'>Delete</a>
+			      	<a href="" class = 'btn btn-dark btn-sm'>Read More</a>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		{% endfor %}
+
+{% endif %}
+
+
+		
+		{% include 'core/includes/paggination.html' %}
+		</div>
+
+	</div>

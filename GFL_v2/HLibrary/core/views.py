@@ -1,12 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import (Books, Genre, Location, Person, BookInfo, )
 from django.views.generic import CreateView, UpdateView, ListView, DetailView
 from django.views import View
 from datetime import date, timedelta
 
-from .mixins import ListMixins
+from .mixins import ListMixins, DetailAndCreate
 from django.db.models import Q
+
+from .forms import *
 
 
 ####################################################################################################
@@ -85,3 +87,64 @@ class SearchView(View):
 		}
 
 		return render(self.request, self.template_name, context)
+
+
+
+####################################################################################################
+########################################       BOOK DESC       ########################################
+####################################################################################################
+
+
+class BookDescription(DetailAndCreate, ListView):
+	model = BookInfo
+	template_name = 'core/detail.html'
+	form = BookInfoForm
+	title = 'Book description:'
+	redirect_path = 'book-info'
+	form_title = 'Add Book Description'
+	form_buttom = 'Add info'
+	paginate_by = 10
+
+				
+class GenreDescription(DetailAndCreate, ListView):
+	model = Genre
+	template_name = 'core/detail.html'
+	form = GenreForm
+	title = 'Genre'
+	redirect_path = 'genre'
+	form_title = 'Add New Genre'
+	form_buttom = 'Add genre'
+	paginate_by = 20
+
+
+class LocationDescription(DetailAndCreate, ListView):
+	model = Location
+	template_name = 'core/detail.html'
+	form = LocationForm
+	title = 'Locations'
+	redirect_path = 'locations'
+	form_title = 'Add New Location'
+	form_buttom = 'Add location'
+	paginate_by = 20
+
+
+class PersonDescription(DetailAndCreate, ListView):
+	model = Person
+	template_name = 'core/detail.html'
+	form = PersonForm
+	title = 'Subscribers'
+	redirect_path = 'subscribers'
+	form_title = 'Add New Person'
+	form_buttom = 'Add person'
+	paginate_by = 12
+
+
+class GeneralBookDescription(DetailAndCreate, ListView):
+	model = Books
+	template_name = 'core/detail.html'
+	form = BookForm
+	title = 'Book status'
+	redirect_path = 'general-book'
+	form_title = 'Add New Book'
+	form_buttom = 'Add book'
+	paginate_by = 12

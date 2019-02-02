@@ -10,10 +10,42 @@ from datetime import date, timedelta
 
 # Create your models here.
 class Genre(models.Model):
-	title = models.CharField(max_length=50, unique = True)
+	genre = models.CharField(max_length=50, unique = True)
 
 	def __str__(self):
-		return self.title
+		return self.genre
+
+	class Meta:
+		ordering = ['id']
+
+
+
+class LocationManager(models.Manager):
+	def all_with_prefetch_location(self):
+		qs = self.get_queryset()
+
+		return qs.prefetch_related(
+					'position_information',
+			)
+
+		
+
+class Location(models.Model):
+	room = models.PositiveIntegerField()
+	bookcase = models.PositiveIntegerField()
+	shelf = models.PositiveIntegerField()
+
+	objects = LocationManager()
+
+	def __str__(self):
+		return 'Room: {}, Bookcase: {}, Shelf: {}'.format(self.room, self.bookcase, self.shelf)
+	
+	class Meta:
+		ordering = ['id']
+
+
+
+
 
 
 
@@ -32,41 +64,20 @@ class BookInfo(models.Model):
 	author = models.CharField(max_length=150)
 	published = models.CharField(max_length=4)
 
-	genre = models.ForeignKey(Genre, on_delete = models.DO_NOTHING)
+	genre = models.ForeignKey(Genre, on_delete = models.DO_NOTHING, related_name = 'genre_info')
 
 	# position here
-	position = models.ForeignKey('Location', on_delete = models.CASCADE, related_name = 'position_information')
+	position = models.ForeignKey(Location, on_delete = models.CASCADE, related_name = 'position_information')
 	
 	objects = BookManager()
 
 	def __str__(self):
 		return self.title
 
-	# def get_absolute_url(self):
-	# 	return reverse('book_unique_detail', kwargs = {'pk':self.pk, 'title':self.title})
+	class Meta:
+		ordering = ['id']
 
 
-
-
-
-
-class LocationManager(models.Manager):
-	def all_with_prefetch_location(self):
-		qs = self.get_queryset()
-
-		return qs.prefetch_related(
-					'position_information',
-			)
-
-class Location(models.Model):
-	room = models.PositiveIntegerField()
-	bookcase = models.PositiveIntegerField()
-	shelf = models.PositiveIntegerField()
-
-	objects = LocationManager()
-
-	def __str__(self):
-		return 'Room: {}, Bookcase: {}, Shelf: {}'.format(self.room, self.bookcase, self.shelf)
 
 
 
@@ -79,6 +90,8 @@ class PersonManager(models.Manager):
 		return qs.prefetch_related(
 					'subscriber',
 			)
+
+
 
 class Person(models.Model):
 
@@ -97,6 +110,9 @@ class Person(models.Model):
 	def __str__(self):
 		return '{} {}'.format(self.lastname, self.firstname)
 
+	class Meta:
+		ordering = ['id']
+		unique_together = ['lastname', 'firstname', 'birthday']
 
 
 

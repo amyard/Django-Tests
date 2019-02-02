@@ -7,8 +7,9 @@
 	box-shadow: 0px 0px 10px #007BFF;
 }
 
-hr {
+.row hr {
 	border-color: #007BFF;
+
 }
 
 nav .dd-item:hover {
@@ -19,8 +20,52 @@ nav .dd-item:hover {
 	width: 350px;
 }*/
 
-footer {
+/*footer {
 	position: fixed;
 	bottom: 0px;
 	width: 100%;
+	margin-top: 20px;
+}*/
+
+
+footer {
+	margin-top: 20px;
+}
+
+.row .sidebar-form {
+	margin-left: 3%;
+	width: 22%;
+}
+
+.row .cont-sidebar-right {
+	width: 70%;
+	margin-right: 5%;
+}
+
+.cont-section {
+	border: 0.5px solid #007BFF;
+	box-shadow: 0px 0px 7px grey;
+	margin:5px 0px 10px 30px;
+}
+
+.cont-section:hover {
+	border: 0.5px solid grey;
+	box-shadow: 0px 0px 10px grey;
+}
+
+.actions {
+	margin-left: 8%;
+}
+
+.cont-section2 {
+	border: 0.5px solid #007BFF;
+	box-shadow: 0px 0px 7px grey;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	margin-left: 6%;
+}
+
+.cont-section2:hover {
+	border: 0.5px solid grey;
+	box-shadow: 0px 0px 10px grey;
 }
