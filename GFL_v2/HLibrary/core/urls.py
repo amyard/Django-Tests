@@ -8,4 +8,5 @@ urlpatterns = [
     path('books-on-hands', BooksOnHandsListView.as_view(), name = 'books-on-hands'),
     path('books-in-library', BooksInLibraryListView.as_view(), name = 'books-in-library'),
     path('need-return-books', NeedReturnBookListView.as_view(), name = 'need-return-books'),
+    path(r'search', SearchView.as_view(), name = 'search-view'),
 ]

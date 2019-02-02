@@ -15,7 +15,9 @@ nav .dd-item:hover {
 	background: #B8DAFF;
 }
 
-
+/*nav form input .search-form {
+	width: 350px;
+}*/
 
 footer {
 	position: fixed;

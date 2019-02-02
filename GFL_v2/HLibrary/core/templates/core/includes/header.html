@@ -21,14 +21,33 @@
       </li>
 
 
+      <!-- Second Dropdon -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Actions (Edit/Create)
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item dd-item" href="">General info about book</a>
+          <a class="dropdown-item dd-item" href="">Info about book</a>
+          <a class="dropdown-item dd-item" href="">Subscriber</a>
+          <a class="dropdown-item dd-item" href="">Location</a>
+          <a class="dropdown-item dd-item" href="">Genre</a>
+        </div>
+      </li>
 
-
+      <li class="nav-item">
+        <a class="nav-link text-light" href="#">Statistics</a>
+      </li>
     </ul>
 
+      <!-- Search button -->
+      <form class="form-inline my-2 my-lg-0" method = 'GET' action = "{% url 'search-view' %}">
+        <div class="form-group mr-2">
+          <input type="text" class="form-control search-form" placeholder="Search by title or subscriber" name = 'q' style = 'width: 250px;'>
+        </div>
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+      </form>
 
-<!--     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form> -->
+    
   </div>
 </nav>
