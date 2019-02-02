@@ -19,4 +19,12 @@ urlpatterns = [
     path(r'general-book', GeneralBookDescription.as_view(), name = 'general-book'),
 
     
+    # Delete Views
+    path(r'delete/book-info/<pk>', BookInfoDelete.as_view(), name = 'delete-book-info'),
+    path(r'delete/genre/<pk>', GenreDelete.as_view(), name = 'delete-genre'),
+    path(r'delete/location/<pk>', LocationDelete.as_view(), name = 'delete-location'),
+    path(r'delete/person/<pk>', PersonDelete.as_view(), name = 'delete-person'),
+    path(r'delete/general-book/<pk>', GeneralBookDelete.as_view(), name = 'delete-general-book'),
 ]
+
+

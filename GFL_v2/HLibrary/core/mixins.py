@@ -6,6 +6,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 
 
+
+##########################################################################################
+#######################            LIST VIEWS FOR GENERAL PAGE      ######################
+##########################################################################################
+
+
 class ListMixins():
 	queryset = None
 	template_name = None
@@ -21,6 +27,11 @@ class ListMixins():
 		
 		return context
 
+
+
+##########################################################################################
+#######################             DETAIL AND CREATE VIEWS         ######################
+##########################################################################################
 
 
 class DetailAndCreate():
@@ -53,3 +64,18 @@ class DetailAndCreate():
 		context = {'form': form, 'categories': self.model.objects.all(), 'title': self.title, 'form_title': self.form_title, 
 				   'form_buttom': self.form_buttom}
 		return render(self.request, self.template_name, context)
+
+
+
+##########################################################################################
+################################             DELETE VIEWS       ##########################
+##########################################################################################
+
+class DeleteMixin():
+	model = None
+
+	def get(self, *args, **kwargs):
+		return self.post(*args, **kwargs)
+
+	def get_success_url(self, **kwargs):
+		return self.request.META.get('HTTP_REFERER')

@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import (Books, Genre, Location, Person, BookInfo, )
-from django.views.generic import CreateView, UpdateView, ListView, DetailView
+from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
 from django.views import View
 from datetime import date, timedelta
 
-from .mixins import ListMixins, DetailAndCreate
+from .mixins import ListMixins, DetailAndCreate, DeleteMixin
 from django.db.models import Q
 
 from .forms import *
@@ -91,7 +91,7 @@ class SearchView(View):
 
 
 ####################################################################################################
-########################################       BOOK DESC       ########################################
+##################################      CREATE AND LISTVIEWS      ##################################
 ####################################################################################################
 
 
@@ -148,3 +148,25 @@ class GeneralBookDescription(DetailAndCreate, ListView):
 	form_title = 'Add New Book'
 	form_buttom = 'Add book'
 	paginate_by = 12
+
+
+
+####################################################################################################
+##################################          DELETE VIEWS          ##################################
+####################################################################################################
+
+
+class GenreDelete(DeleteMixin, DeleteView):
+	model = Genre
+
+class BookInfoDelete(DeleteMixin, DeleteView):
+	model = BookInfo
+
+class LocationDelete(DeleteMixin, DeleteView):
+	model = Location
+
+class PersonDelete(DeleteMixin, DeleteView):
+	model = Person
+
+class GeneralBookDelete(DeleteMixin, DeleteView):
+	model = Books

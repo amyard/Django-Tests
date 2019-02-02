@@ -41,7 +41,7 @@ class Location(models.Model):
 		return 'Room: {}, Bookcase: {}, Shelf: {}'.format(self.room, self.bookcase, self.shelf)
 	
 	class Meta:
-		ordering = ['id']
+		ordering = ['-id']
 
 
 
@@ -75,7 +75,7 @@ class BookInfo(models.Model):
 		return self.title
 
 	class Meta:
-		ordering = ['id']
+		ordering = ['-id']
 
 
 
@@ -111,7 +111,7 @@ class Person(models.Model):
 		return '{} {}'.format(self.lastname, self.firstname)
 
 	class Meta:
-		ordering = ['id']
+		ordering = ['-id']
 		unique_together = ['lastname', 'firstname', 'birthday']
 
 
@@ -137,6 +137,9 @@ class Books(models.Model):
 
 	def __str__(self):
 		return self.book.title
+
+	class Meta:
+		ordering = ['-id']
 
 	# def get_absolute_url(self):
 	# 	return reverse('book_unique_detail', kwargs = {'pk':self.pk, 'title':self.book.title})
