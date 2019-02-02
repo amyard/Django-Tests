@@ -6,7 +6,7 @@ from django.views import View
 from datetime import date, timedelta
 
 from .mixins import ListMixins, DetailAndCreate, DeleteMixin, UpdateMixin
-from django.db.models import Q
+from django.db.models import Q, Sum, Count
 
 from .forms import *
 
@@ -231,3 +231,42 @@ class GeneralBookUpdate(UpdateMixin, View):
 	form_title = 'Edit Book'
 	paginate_by = 12
 	sub_category = 'General Info'
+
+
+
+####################################################################################################
+##################################          UNIQUE BOOK           ##################################
+####################################################################################################
+
+
+class BooksInfoDetailView(DetailView):
+	model = Books
+	template_name = 'core/unique-book.html'
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(BooksInfoDetailView, self).get_context_data(*args, **kwargs)
+		context['title'] = self.kwargs.get('book')
+		context['book'] = self.get_object()
+
+		return context
+
+
+####################################################################################################
+##################################          Statistics            ##################################
+####################################################################################################
+
+
+class StatisticListView(ListView):
+	model = Books
+	template_name = 'core/statistics.html'
+	title = 'Statistics'
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(StatisticListView, self).get_context_data(*args, **kwargs)
+		context['title'] = self.title
+		context['statistics'] = self.model.objects.all().order_by('-date_of_issue')
+		context['uniq_vals'] = self.model.objects.values('date_of_issue').distinct().order_by('-date_of_issue')
+		context['count_vals'] = self.model.objects.values('date_of_issue', 'status_of_book').order_by('-date_of_issue').annotate(Count('status_of_book'))
+		context['general_count'] = self.model.objects.values('date_of_issue').order_by('-date_of_issue').annotate(Count('status_of_book'))
+
+		return context

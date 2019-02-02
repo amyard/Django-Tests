@@ -18,7 +18,7 @@
 			{% for book in books %}
 			<tr>	
 				<!--  НЕ ЗАБУДЬ ПУТЬ УКАЗАТЬ В HREF   -->
-				<td class="text-center"><a href="">{{ book.book }}</a></td>
+				<td class="text-center"><a href="{% url 'unique-book' book.pk book.book %}">{{ book.book }}</a></td>
 				<td class="text-center">{{ book.person_subscription }}</td>
 				<td class="text-center">{{ book.date_of_issue }}</td>
 				<td class="text-center">{{ book.date_of_return }}</td>	
@@ -51,7 +51,7 @@
 					{% for book in found_books %}
 					<tr>	
 						<!--  НЕ ЗАБУДЬ ПУТЬ УКАЗАТЬ В HREF   -->
-						<td class="text-center"><a href="">{{ book.book }}</a></td>
+						<td class="text-center"><a href="{% url 'unique-book' book.pk book.book %}">{{ book.book }}</a></td>
 						<td class="text-center">{{ book.person_subscription }}</td>
 						<td class="text-center">{{ book.date_of_issue }}</td>
 						<td class="text-center">{{ book.date_of_return }}</td>

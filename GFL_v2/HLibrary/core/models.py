@@ -141,6 +141,3 @@ class Books(models.Model):
 
 	class Meta:
 		ordering = ['-id']
-
-	# def get_absolute_url(self):
-	# 	return reverse('book_unique_detail', kwargs = {'pk':self.pk, 'title':self.book.title})
