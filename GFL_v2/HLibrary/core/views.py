@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import (Books, Genre, Location, Person, BookInfo, )
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
 from django.views import View
 from datetime import date, timedelta
 
-from .mixins import ListMixins, DetailAndCreate, DeleteMixin
+from .mixins import ListMixins, DetailAndCreate, DeleteMixin, UpdateMixin
 from django.db.models import Q
 
 from .forms import *
@@ -43,7 +43,7 @@ class BooksInLibraryListView(ListMixins, ListView):
 
 
 # This books need to return
-class NeedReturnBookListView(ListView):
+class NeedReturnBookListView(ListMixins, ListView):
 	queryset = Books.objects.filter(
 							Q(date_of_issue__lte = date.today() - timedelta(days=14))|
 							Q(status_of_book = -1))
@@ -104,6 +104,7 @@ class BookDescription(DetailAndCreate, ListView):
 	form_title = 'Add Book Description'
 	form_buttom = 'Add info'
 	paginate_by = 10
+	sub_category = 'Book description'
 
 				
 class GenreDescription(DetailAndCreate, ListView):
@@ -115,6 +116,7 @@ class GenreDescription(DetailAndCreate, ListView):
 	form_title = 'Add New Genre'
 	form_buttom = 'Add genre'
 	paginate_by = 20
+	sub_category = 'Genre'
 
 
 class LocationDescription(DetailAndCreate, ListView):
@@ -126,6 +128,7 @@ class LocationDescription(DetailAndCreate, ListView):
 	form_title = 'Add New Location'
 	form_buttom = 'Add location'
 	paginate_by = 20
+	sub_category = 'Location'
 
 
 class PersonDescription(DetailAndCreate, ListView):
@@ -137,6 +140,7 @@ class PersonDescription(DetailAndCreate, ListView):
 	form_title = 'Add New Person'
 	form_buttom = 'Add person'
 	paginate_by = 12
+	sub_category = 'Subscriber'
 
 
 class GeneralBookDescription(DetailAndCreate, ListView):
@@ -148,6 +152,7 @@ class GeneralBookDescription(DetailAndCreate, ListView):
 	form_title = 'Add New Book'
 	form_buttom = 'Add book'
 	paginate_by = 12
+	sub_category = 'General Info'
 
 
 
@@ -170,3 +175,59 @@ class PersonDelete(DeleteMixin, DeleteView):
 
 class GeneralBookDelete(DeleteMixin, DeleteView):
 	model = Books
+
+
+####################################################################################################
+##################################          UPDATE VIEWS          ##################################
+####################################################################################################
+
+class GenreUpdate(UpdateMixin, View):
+	model = Genre
+	template_name = 'core/detail.html'
+	form = GenreForm
+	title = 'Genre'
+	form_title = 'Edit Genre'
+	paginate_by = 20
+	sub_category = 'Genre'
+
+
+
+class BookUpdate(UpdateMixin, View):
+	model = BookInfo
+	template_name = 'core/detail.html'
+	form = BookInfoForm
+	title = 'Book description:'
+	form_title = 'Edit Book Description'
+	paginate_by = 10
+	sub_category = 'Book description'
+
+
+class LocationUpdate(UpdateMixin, View):
+	model = Location
+	template_name = 'core/detail.html'
+	form = LocationForm
+	title = 'Location description:'
+	form_title = 'Edit Location'
+	paginate_by = 20
+	sub_category = 'Location'
+
+
+
+class PersonUpdate(UpdateMixin, View):
+	model = Person
+	template_name = 'core/detail.html'
+	form = PersonForm
+	title = 'Subscriber description:'
+	form_title = 'Edit Subscriber'
+	paginate_by = 12
+	sub_category = 'Subscriber'
+
+
+class GeneralBookUpdate(UpdateMixin, View):
+	model = Books
+	template_name = 'core/detail.html'
+	form = BookForm
+	title = 'General information'
+	form_title = 'Edit Book'
+	paginate_by = 12
+	sub_category = 'General Info'

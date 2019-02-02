@@ -7,7 +7,7 @@
 
 
 <!-- BOOK DESCRIPTION INFO -->
-{% if title == 'Book description:' %}
+{% if sub_category == 'Book description' %}
 
 		{% for cat in categories %}
 		  <div class="col-sm-2 cont-section" >
@@ -28,7 +28,7 @@
 		        <p class = 'actions'>
 
 		        	<!-- ЗАФИГАЧИТЬ ХРЕФ -->
-		        	<a href="" class = 'btn btn-primary btn-sm'>Update</a>
+		        	<a href="{% url 'update-book-info' cat.pk %}" class = 'btn btn-primary btn-sm'>Update</a>
 			      	<a href="{% url 'delete-book-info' cat.pk %}" class = 'btn btn-danger btn-sm'>Delete</a>
 		        </p>
 		      </div>
@@ -40,7 +40,7 @@
 
 
 <!-- GENRE -->
-{% if title == 'Genre' %}
+{% if sub_category == 'Genre' %}
 
 		{% for cat in categories %}
 		  <div class="col-sm-2 cont-section" >
@@ -50,7 +50,7 @@
 		        <p class = 'actions'>
 
 		        	<!-- ЗАФИГАЧИТЬ ХРЕФ -->
-		        	<a href="" class = 'btn btn-primary btn-sm'>Update</a>
+		        	<a href="{% url 'update-genre' cat.pk %}" class = 'btn btn-primary btn-sm'>Update</a>
 			      	<a href="{% url 'delete-genre' cat.pk %}" class = 'btn btn-danger btn-sm'>Delete</a>
 		        </p>
 		      </div>
@@ -62,7 +62,7 @@
 
 
 <!-- LOCATION INFO -->
-{% if title == 'Locations' %}
+{% if sub_category == 'Location' %}
 
 		{% for cat in categories %}
 		  <div class="col-sm-2 cont-section" >
@@ -78,7 +78,7 @@
 		        <p class = 'actions'>
 
 		        	<!-- ЗАФИГАЧИТЬ ХРЕФ -->
-		        	<a href="" class = 'btn btn-primary btn-sm'>Update</a>
+		        	<a href="{% url 'update-locations' cat.pk %}" class = 'btn btn-primary btn-sm'>Update</a>
 			      	<a href="{% url 'delete-location' cat.pk %}" class = 'btn btn-danger btn-sm'>Delete</a>
 		        </p>
 		      </div>
@@ -90,7 +90,7 @@
 
 
 <!-- SUBSCRIBERS INFO -->
-{% if title == 'Subscribers' %}
+{% if sub_category == 'Subscriber' %}
 
 		{% for cat in categories %}
 		  <div class="col-sm-3 cont-section2" >
@@ -108,7 +108,7 @@
 		        <p class = 'actions'>
 
 		        	<!-- ЗАФИГАЧИТЬ ХРЕФ -->
-		        	<a href="" class = 'btn btn-primary btn-sm'>Update</a>
+		        	<a href="{% url 'update-subscribers' cat.pk %}" class = 'btn btn-primary btn-sm'>Update</a>
 			      	<a href="{% url 'delete-person' cat.pk %}" class = 'btn btn-danger btn-sm'>Delete</a>
 		        </p>
 		      </div>
@@ -121,7 +121,7 @@
 
 
 <!-- SUBSCRIBERS INFO -->
-{% if title == 'Book status' %}
+{% if sub_category == 'General Info' %}
 
 		{% for cat in categories %}
 		  <div class="col-sm-3 cont-section2" >
@@ -146,7 +146,7 @@
 		        <p class = 'actions'>
 
 		        	<!-- ЗАФИГАЧИТЬ ХРЕФ -->
-		        	<a href="" class = 'btn btn-primary btn-sm'>Update</a>
+		        	<a href="{% url 'update-general-book' cat.pk %}" class = 'btn btn-primary btn-sm'>Update</a>
 			      	<a href="{% url 'delete-general-book' cat.pk %}" class = 'btn btn-danger btn-sm'>Delete</a>
 			      	<a href="" class = 'btn btn-dark btn-sm'>Read More</a>
 		        </p>
@@ -159,5 +159,5 @@
 	
 		
 		</div>
-		{% include 'core/includes/paggination.html' %}
+		{% include 'core/includes/detail/paggination.html' %}
 	</div>

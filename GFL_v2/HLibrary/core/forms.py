@@ -18,12 +18,12 @@ class LocationForm(forms.ModelForm):
 			'shelf': forms.TextInput(attrs={'class':'form-control'})
 		}
 
-	def clean(self):
-		room = self.cleaned_data['room']
-		bookcase = self.cleaned_data['bookcase']
-		shelf = self.cleaned_data['shelf']
-		if Location.objects.filter(room=room, bookcase=bookcase, shelf=shelf).exists():
-			raise forms.ValidationError('Such Position in library already in use.')
+	# def clean(self):
+	# 	room = self.cleaned_data['room']
+	# 	bookcase = self.cleaned_data['bookcase']
+	# 	shelf = self.cleaned_data['shelf']
+	# 	if Location.objects.filter(room=room, bookcase=bookcase, shelf=shelf).exists():
+	# 		raise forms.ValidationError('Such Position in library already in use.')
 
 
 
@@ -68,17 +68,17 @@ class PersonForm(forms.ModelForm):
 			'phone': forms.TextInput(attrs={'class':'form-control'})
 		}
 
-	def clean(self):
-		firstname = self.cleaned_data['firstname']
-		lastname = self.cleaned_data['lastname']
-		address = self.cleaned_data['address']
-		phone = self.cleaned_data['phone']
-		if Person.objects.filter(firstname=firstname, lastname=lastname).exists():
-			raise forms.ValidationError('User with such fullname already exists.')
-		if Person.objects.filter(address=address).exists():
-			raise forms.ValidationError('Address is in DB')
-		if Person.objects.filter(phone=phone).exists():
-			raise forms.ValidationError('Such phonenumber is in DB.')
+	# def clean(self):
+	# 	firstname = self.cleaned_data['firstname']
+	# 	lastname = self.cleaned_data['lastname']
+	# 	address = self.cleaned_data['address']
+	# 	phone = self.cleaned_data['phone']
+	# 	if Person.objects.filter(firstname=firstname, lastname=lastname).exists():
+	# 		raise forms.ValidationError('User with such fullname already exists.')
+	# 	if Person.objects.filter(address=address).exists():
+	# 		raise forms.ValidationError('Address is in DB')
+	# 	if Person.objects.filter(phone=phone).exists():
+	# 		raise forms.ValidationError('Such phonenumber is in DB.')
 
 
 # class PersonUpdateForm(forms.ModelForm):
@@ -138,13 +138,13 @@ class BookInfoForm(forms.ModelForm):
 			'author': forms.TextInput(attrs={'class':'form-control'})
 			}
 
-	def clean(self):
-		title = self.cleaned_data['title']
-		position = self.cleaned_data['position']
-		if BookInfo.objects.filter(title=title).exists():
-			raise forms.ValidationError('We have such book')
-		if BookInfo.objects.filter(position=position).exists():
-			raise forms.ValidationError('You can choose this position. There are some book')
+	# def clean(self):
+	# 	# title = self.cleaned_data['title']
+	# 	position = self.cleaned_data['position']
+	# 	# if BookInfo.objects.filter(title=title).exists():
+	# 	# 	raise forms.ValidationError('We have such book')
+	# 	if BookInfo.objects.filter(position=position).exists():
+	# 		raise forms.ValidationError('You can choose this position. There are some book')
 
 
 # class BookUpdateInfoForm(forms.ModelForm):

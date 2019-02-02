@@ -25,6 +25,15 @@ urlpatterns = [
     path(r'delete/location/<pk>', LocationDelete.as_view(), name = 'delete-location'),
     path(r'delete/person/<pk>', PersonDelete.as_view(), name = 'delete-person'),
     path(r'delete/general-book/<pk>', GeneralBookDelete.as_view(), name = 'delete-general-book'),
+
+    # Update
+    path(r'update/genre/<pk>', GenreUpdate.as_view(), name = 'update-genre'),
+    path(r'update/book-info/<pk>', BookUpdate.as_view(), name = 'update-book-info'),    
+    path(r'update/locations/<pk>', LocationUpdate.as_view(), name = 'update-locations'),
+    path(r'update/subscribers/<pk>', PersonUpdate.as_view(), name = 'update-subscribers'),
+    path(r'update/general-book/<pk>', GeneralBookUpdate.as_view(), name = 'update-general-book'),
+
 ]
 
+GeneralBookUpdate
 
