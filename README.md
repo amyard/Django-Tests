@@ -24,8 +24,12 @@ new Blog (Django 2.0): Class Based View, CRUD system, Login/Logout/Reset Passwor
 
 
 #### 4. To-Do_List_TZ 
-Test Task
+Test Task.
 
 
 #### 5. Job_Parsing 
-Test Task - парсим rabota.ua и work.ua по городам, периодам, профессиям и отображаем полученные данные.
+Test Task - parse work.ua and rabota.ua.
+
+
+#### 6. GFL_v2
+Redo test task for GeekForLess
