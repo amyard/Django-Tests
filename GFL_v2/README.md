@@ -1,10 +1,4 @@
-﻿# GeekForLess
-
-> Переделанное тестовое задание.
-> Вам потребуется:
-    django2.0 и выше версии
-    python3.6 или 3.7
-    устанновленный пакет django-crispy-forms
+﻿# GeekForLess_v2 (переделанное)
 
 
 admin panel:    
