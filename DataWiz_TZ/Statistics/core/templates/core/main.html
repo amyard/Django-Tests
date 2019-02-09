@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 
 {% block title %}
@@ -8,9 +9,25 @@
 
 
 {% block content %}
-<div class = 'container mt-4'>
-	<h2>BLABLA</h2>
 
-	{{test}}
-</div>
+<div class = 'container mt-4 cont-sidebar-left'>
+		<h3 class = 'text-center mt-3'>Поиск по датам:</h3>
+		<hr>
+		<form method = 'POST'action = '' class = 'form-group'>
+			{{ form.error }}
+			{% csrf_token %}
+			{{ form|crispy }}
+			<button class = 'btn btn-outline-info' type = 'Submit'>Поиск</button>
+			<a href="" id="cancel" name="cancel" class="btn btn-primary">Cancel</a>
+		</form>	
+	</div>
+
+	<div class = 'container mt-4 cont-sidebar-right'>
+		<h3 class = 'text-center mt-3'>Статистика:</h3>
+		<hr>
+	</div>
+
+
+
+
 {% endblock %}

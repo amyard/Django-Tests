@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from django.views import View
 
+from .forms import SearchDateForm
+
 
 # login and registration
 from users.forms import RegistrationForms, LoginForm
@@ -13,16 +15,6 @@ from django.contrib.auth import authenticate, login, get_user_model
 # def index(request):
 # 	return render(request, 'core/main.html', context = {'test':'<h1>TEST</h1>'})
 
-
-class GeneralList(ListView):
-	model = Profile
-	template_name = 'core/main.html'
-
-	def get_context_data(self, *args, **kwargs):
-		context = super(GeneralList, self).get_context_data(*args, **kwargs)
-		context['test'] = self.model.objects.all()
-
-		return context
 
 
 
@@ -92,3 +84,34 @@ class RegistrationView(View):
 #####################################################################################
 ######################################  LIST VIEW    ################################
 #####################################################################################
+
+
+class GeneralList(View):
+	model = Profile
+	template_name = 'core/main.html'
+	form = SearchDateForm
+
+	# def get_context_data(self, *args, **kwargs):
+	# 	context = super(GeneralList, self).get_context_data(*args, **kwargs)
+	# 	context['test'] = self.model.objects.all()
+	# 	context['form'] = self.form
+	# 	return context
+
+	def get(self, request, **kwargs):
+		form = self.form
+		context = {'form':form, 'test': self.model.objects.all()}	
+		return render(self.request, self.template_name, context = context)
+
+
+	def post(self, request, *args, **kwargs):
+		form = self.form(request.POST or None)
+		if form.is_valid():
+			start_period = form.cleaned_data['start_period']
+			end_date = form.cleaned_data['end_date']
+
+			print(start_period)
+			print(end_date)
+
+			return HttpResponseRedirect('/')
+		context = {'form':form, 'test': self.model.objects.all()}	
+		return render(self.request, self.template_name, context = context)

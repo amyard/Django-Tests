@@ -20,6 +20,16 @@
 	margin-left: 30%;
 }
 
-hr {
+body hr {
 	border-color: #007BFF;
+}
+
+.row .cont-sidebar-right {
+	width: 70%;
+	margin-right: 2%;
+}
+
+.row .cont-sidebar-left {
+	margin-left: 2%;
+	width: 25%;
 }
