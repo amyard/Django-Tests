@@ -31,8 +31,20 @@
 <body>
 
 
-{% block header %}
-{% endblock %}
+    <header class="site-header">
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">Main Statistic</a>
+        <div class = 'd-inline'>
+            {% if user.is_active %}
+                <a class="btn btn-primary" href="{% url 'logout_view' %}">Logout</a>
+            {% else %}
+                <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-primary" href="{% url 'registration' %}">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+    </header>
+
 
 
 
@@ -52,6 +64,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
+{% block jquery %}
+{% endblock %}
 
 </body>
 
