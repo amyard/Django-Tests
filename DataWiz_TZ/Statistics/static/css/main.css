@@ -39,3 +39,26 @@ body hr {
 	text-align: center;
 	color: white;
 }
+
+.row table tr td  {
+	text-align: center;
+}
+
+.wrapper .active { 
+	color: white; 
+	background-color: #007BFF;
+}
+
+
+.tab {
+	margin: 5px 5px 5px 0px;
+	padding: 5px 10px 5px 10px;
+	border: 1px solid black;
+	border-radius: 5px;
+	font-size: 1.2em;
+	background-color: lightgrey;
+}
+
+.tab:hover {
+	cursor: pointer;
+}

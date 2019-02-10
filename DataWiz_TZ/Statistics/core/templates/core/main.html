@@ -24,13 +24,36 @@
 
 	<div class = 'container mt-4 cont-sidebar-right'>
 		<h3 class = 'text-center mt-3'>Статистика:</h3>
-		<hr>
-		{% for df in dfs %}
-			{{ df|safe }}<br>
-		{% endfor %}
+		<hr>		
+
+		
+
+		<div class="wrapper">
+		    <div class="tabs">
+		    	{% for dt in uniq_date %}
+		        <span class="tab">{{ dt }}</span>
+		        {% endfor %}       
+		    </div>
+		    <div class="tab_content mt-3">
+		    	{% for df in dfs %}
+		        <div class="tab_item">{{ df|safe }}</div>
+		        {% endfor %}
+		    </div>
+		</div>
+
 	</div>
 
 
 
 
+{% endblock %}
+
+{% block jquery %}
+<script>
+	$(".tab_item").not(":first").hide();
+	$(".wrapper .tab").click(function() {
+		$(".wrapper .tab").removeClass("active").eq($(this).index()).addClass("active");
+		$(".tab_item").hide().eq($(this).index()).fadeIn()
+	}).eq(0).addClass("active");
+</script>
 {% endblock %}
