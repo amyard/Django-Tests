@@ -33,3 +33,7 @@ Test Task - parse work.ua and rabota.ua.
 
 #### 6. GFL_v2
 Redo test task for GeekForLess
+
+
+#### 7. DataWiz_TZ
+Test task for DataWiz
