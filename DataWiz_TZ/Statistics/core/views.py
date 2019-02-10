@@ -5,6 +5,8 @@ from django.views import View
 
 from .forms import SearchDateForm
 
+from core.script_API.script import main_script
+
 
 # login and registration
 from users.forms import RegistrationForms, LoginForm
@@ -105,13 +107,20 @@ class GeneralList(View):
 
 	def post(self, request, *args, **kwargs):
 		form = self.form(request.POST or None)
+		user = self.request.user
 		if form.is_valid():
 			start_period = form.cleaned_data['start_period']
 			end_date = form.cleaned_data['end_date']
 
-			print(start_period)
-			print(end_date)
+			if user.is_authenticated:
+				dfs, pos, neg, uniq_date = main_script(date_from=start_period, date_to=end_date, log = user.username, pas = user.password)
+			else:
+				dfs, pos, neg, uniq_date = main_script(date_from=start_period, date_to=end_date)
 
-			return HttpResponseRedirect('/')
+			# for i in range(len(dfs)):
+			#     print(dfs[i], '\n')
+			# return HttpResponseRedirect('/')
+			return render(self.request, self.template_name, context = {'form':form, 'dfs': dfs, 'pos':pos, 'neg':neg, 'uniq_date':uniq_date})
+			
 		context = {'form':form, 'test': self.model.objects.all()}	
 		return render(self.request, self.template_name, context = context)

@@ -33,3 +33,9 @@ body hr {
 	margin-left: 2%;
 	width: 25%;
 }
+
+.row table thead th  {
+	background-color: #007BFF;
+	text-align: center;
+	color: white;
+}

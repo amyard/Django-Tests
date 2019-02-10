@@ -25,6 +25,9 @@
 	<div class = 'container mt-4 cont-sidebar-right'>
 		<h3 class = 'text-center mt-3'>Статистика:</h3>
 		<hr>
+		{% for df in dfs %}
+			{{ df|safe }}<br>
+		{% endfor %}
 	</div>
 
 
