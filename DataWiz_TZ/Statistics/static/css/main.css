@@ -34,6 +34,11 @@ body hr {
 	width: 25%;
 }
 
+
+
+
+
+
 .row table thead th  {
 	background-color: #007BFF;
 	text-align: center;
@@ -43,6 +48,20 @@ body hr {
 .row table tr td  {
 	text-align: center;
 }
+
+.wrapper .tab_item2 {
+	width: 49%;
+	float: left;
+}
+
+.wrapper .tab_item3 {
+	width: 49%;
+	float: right;
+}
+
+
+
+
 
 .wrapper .active { 
 	color: white; 

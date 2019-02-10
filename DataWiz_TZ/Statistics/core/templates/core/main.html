@@ -38,6 +38,14 @@
 		    	{% for df in dfs %}
 		        <div class="tab_item">{{ df|safe }}</div>
 		        {% endfor %}
+
+		        {% for df in pos %}
+		        <div class="tab_item2">{{ df|safe }}</div>
+		        {% endfor %}
+
+		        {% for df in neg %}
+		        <div class="tab_item3">{{ df|safe }}</div>
+		        {% endfor %}
 		    </div>
 		</div>
 
@@ -51,9 +59,13 @@
 {% block jquery %}
 <script>
 	$(".tab_item").not(":first").hide();
+	$(".tab_item2").not(":first").hide();
+	$(".tab_item3").not(":first").hide();	
 	$(".wrapper .tab").click(function() {
 		$(".wrapper .tab").removeClass("active").eq($(this).index()).addClass("active");
 		$(".tab_item").hide().eq($(this).index()).fadeIn()
+		$(".tab_item2").hide().eq($(this).index()).fadeIn()
+		$(".tab_item3").hide().eq($(this).index()).fadeIn()
 	}).eq(0).addClass("active");
 </script>
 {% endblock %}

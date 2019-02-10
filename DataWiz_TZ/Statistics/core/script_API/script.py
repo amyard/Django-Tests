@@ -93,11 +93,13 @@ def main_script(date_from, date_to, log = 'test1@mail.com', pas = '1qaz'):
 	        merged = pd.merge(small_qty, small_turnover, on = 'name')
 	        merged = merged[['Зміна кількості продаж','Зміна обороту']].reset_index().sort_values('Зміна обороту', ascending = True)
 	    
-	    positive = merged[merged['Зміна обороту'] > 0].sort_values('Зміна обороту', ascending = False)
-	    negative = merged[merged['Зміна обороту'] < 0].sort_values('Зміна обороту', ascending = True)
+	    merged = merged.rename(columns = {'name':'Назва товару'})
 
-	    positive_df.append(positive)
-	    negative_df.append(negative)
+	    positive = merged[merged['Зміна обороту'] > 0].sort_values('Зміна обороту', ascending = False).reset_index(drop = True)
+	    negative = merged[merged['Зміна обороту'] < 0].sort_values('Зміна обороту', ascending = True).reset_index(drop = True)
+
+	    positive_df.append(positive.to_html(classes="table table-bordered table-hover posit"))
+	    negative_df.append(negative.to_html(classes="table table-bordered table-hover negat"))
 
 
 	return all_df, positive_df, negative_df, uniq_date
