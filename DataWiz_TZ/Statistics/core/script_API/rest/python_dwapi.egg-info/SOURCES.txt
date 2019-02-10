@@ -1,0 +1,14 @@
+README.md
+setup.py
+dwapi/__init__.py
+dwapi/datawiz.py
+dwapi/datawiz_auth.py
+dwapi/datawiz_upload.py
+dwapi/test/__init__.py
+dwapi/test/settings.py
+dwapi/test/test_sums.py
+python_dwapi.egg-info/PKG-INFO
+python_dwapi.egg-info/SOURCES.txt
+python_dwapi.egg-info/dependency_links.txt
+python_dwapi.egg-info/requires.txt
+python_dwapi.egg-info/top_level.txt

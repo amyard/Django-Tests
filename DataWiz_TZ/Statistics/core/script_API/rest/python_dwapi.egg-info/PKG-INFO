@@ -1,0 +1,12 @@
+Metadata-Version: 1.2
+Name: python-dwapi
+Version: 0.3.dev0
+Summary: Library to communicate with datawiz.io API
+Home-page: http://github.com/datawizio/pythonAPI/
+Author: Victor Daniluk
+Author-email: unittest.co@gmail.com
+Maintainer: Victor Daniluk
+Maintainer-email: unittest.co@gmail@com
+License: http://www.gnu.org/copyleft/gpl.html
+Description: UNKNOWN
+Platform: any

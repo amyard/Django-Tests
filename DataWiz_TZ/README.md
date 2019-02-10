@@ -10,3 +10,5 @@ admin panel:
 - python3.6
 - django2.1
 
+
+> https://dw-tz.herokuapp.com/

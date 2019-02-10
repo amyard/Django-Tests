@@ -1,6 +1,5 @@
-from dwapi import datawiz
-# python-dwapi
-
+# from dwapi import datawiz
+from . import datawiz
 
 from datetime import date, timedelta, datetime
 import pandas as pd

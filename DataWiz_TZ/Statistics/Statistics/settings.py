@@ -25,7 +25,7 @@ SECRET_KEY = '%(yw%1+wz@xb4)1t7jy_d!0+8u-uswn^$amka+*^geh3=m3(sx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'datawiz-tz.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'dw-tz.herokuapp.com']
 
 
 # Application definition
