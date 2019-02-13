@@ -1,5 +1,5 @@
-# from dwapi import datawiz
-from . import datawiz
+from dwapi import datawiz
+# from . import datawiz
 
 from datetime import date, timedelta, datetime
 import pandas as pd
@@ -11,7 +11,7 @@ warnings.filterwarnings('ignore')
 pd.options.display.float_format = '{:.2f}'.format
 
 def main_script(date_from, date_to, log = 'test1@mail.com', pas = '1qaz'):
-	dw = datawiz.DW(log, pas)
+	dw = datawiz.DW(API_KEY = log, API_SECRET = pas)
 
 	#####################################################################################
 	############################     ПЕРВАЯ ТАБЛ - ПО КАТЕГОРЯИМ    #####################

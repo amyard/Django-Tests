@@ -93,11 +93,6 @@ class GeneralList(View):
 	template_name = 'core/main.html'
 	form = SearchDateForm
 
-	# def get_context_data(self, *args, **kwargs):
-	# 	context = super(GeneralList, self).get_context_data(*args, **kwargs)
-	# 	context['test'] = self.model.objects.all()
-	# 	context['form'] = self.form
-	# 	return context
 
 	def get(self, request, **kwargs):
 		form = self.form
@@ -109,17 +104,20 @@ class GeneralList(View):
 		form = self.form(request.POST or None)
 		user = self.request.user
 		if form.is_valid():
+
+
+
 			start_period = form.cleaned_data['start_period']
 			end_date = form.cleaned_data['end_date']
 
-			if user.is_authenticated:
-				dfs, pos, neg, uniq_date = main_script(date_from=start_period, date_to=end_date, log = user.username, pas = user.password)
+			if user.is_authenticated and not user.is_superuser:
+
+				password = Profile.objects.values_list('password', flat=True).get(user__username = user.username)
+
+				dfs, pos, neg, uniq_date = main_script(date_from=start_period, date_to=end_date, log = user.username, pas = password)
 			else:
 				dfs, pos, neg, uniq_date = main_script(date_from=start_period, date_to=end_date)
 
-			# for i in range(len(dfs)):
-			#     print(dfs[i], '\n')
-			# return HttpResponseRedirect('/')
 			return render(self.request, self.template_name, context = {'form':form, 'dfs': dfs, 'pos':pos, 'neg':neg, 'uniq_date':uniq_date})
 			
 		context = {'form':form, 'test': self.model.objects.all()}	
