@@ -57,24 +57,38 @@ class DetailMixin():
 			context['count_task'] = Task.objects.filter(project__user__username = user, status = 0).\
 														values('project').order_by('project').annotate(count = Count('title'))
 			context['uncomplited_tasks']  = Task.objects.filter(project__user__username = user, status = 0).order_by('priority')
+			
+
+			# 7 дней
 			if self.end_date:
 				context['dates'] = Task.objects.filter(project__user__username = user, 
 												  timestamp__date__range = (self.start_date, self.end_date)).\
 												  order_by('timestamp__date').values('timestamp__date').distinct()
 				context['tasks'] = Task.objects.filter(project__user__username = user, status = 0,
 												  timestamp__date__range = (self.start_date, self.end_date))
+
+			# Today
 			else:
 				context['tasks'] = Task.objects.filter(project__user__username = user, timestamp__date = self.start_date, status = 0)
-				context['dates'] = Task.objects.filter(project__user__username = user, 
+
+				# если на сегодня нету новых заданий, дабы отображались старые невыполненные задания
+				qs = Task.objects.filter(project__user__username = user, 
 												  timestamp__date = self.start_date).\
 												  order_by('timestamp__date').values('timestamp__date').distinct()
-			
-			# List View by projects
+				if qs:
+					context['dates'] = qs
+				else: 
+					context['dates'] = Task.objects.filter(project__user__username = user, 
+												  timestamp__date__gte =  date.today()).\
+												  order_by('timestamp__date').values('timestamp__date').distinct()[:1]	
+
+
+			# List View by projects - детализация по категориям
 			if self.detail:
 				context['uncomplited_tasks']  = None
 				context['tasks'] = Task.objects.filter(project__user__username = user, status = 0,
 														project_id = ids).order_by('timestamp')
-				context['dates'] = Task.objects.filter(project__user__username = user, project_id = ids).\
+				context['dates'] = Task.objects.filter(project__user__username = user, project_id = ids, status = 0).\
 												  order_by('timestamp__date').values('timestamp__date').distinct()	
 
 			# for arhive
@@ -116,15 +130,13 @@ class CreateFormMixin():
 
 
 		elif 'form2' in request.POST:
-			form2 = self.form_class_two(request.POST or None)
+			form2 = self.form_class_two(request.POST or None, user = self.request.user.username)
 
 			if form2.is_valid():
 				title = form2.cleaned_data['title']
 				timestamp = form2.cleaned_data['timestamp']
 				project = form2.cleaned_data['project']
 				priority = form2.cleaned_data['priority']
-
-				user = self.request.user
 				task = Task.objects.create(title = title, timestamp = timestamp, project = project,
 										   priority = priority)
 				task.save()

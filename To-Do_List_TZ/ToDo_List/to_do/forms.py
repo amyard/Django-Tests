@@ -3,26 +3,8 @@ from .models import Project, Task
 from django.core.exceptions import ValidationError
 
 
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
-
-
-# from django.conf import settings
-
 
 class ProjectForm(forms.ModelForm):
-
-	# def __init__(self, *args, **kwargs):
-	# 	super().__init__(*args, **kwargs)
-	# 	self.helper = FormHelper()
-	# 	self.helper.layout = Layout(
-	# 		Row(
-	# 			Column('name', css_class = 'form-group col-md-8 mb-0'),
-	# 			Column('color', css_class = 'form-group col-md-4 mb-0'),
-	# 			css_class = 'form-row'
-	# 			)
-	# 		)
-
 
 
 	title = forms.CharField(label = '', widget = forms.TextInput(attrs = { 'class':'form-control', 
@@ -53,10 +35,27 @@ class ProjectForm(forms.ModelForm):
 class TaskForm(forms.ModelForm):
 
 	def __init__(self, *args, **kwargs):
+		user = kwargs.pop('user','')
 		super(TaskForm, self).__init__(*args, **kwargs)
+		# print(user)
+		# print(Project.objects.filter(user__username = user))
+
+		# self.fields['project'] = forms.ModelChoiceField(queryset=Project.objects.all())		
+		self.fields['project'] = forms.ModelChoiceField(queryset=Project.objects.filter(user__username = user))
+		# self.fields['project'] = forms.ModelChoiceField(queryset=Project.objects.filter(user__exact = str(user)))
+		# self.fields['project'] = forms.ModelChoiceField(queryset=Project.objects.filter(user = user))
+
+		# print(Project.objects.filter(user__username = user))
+
+		# self.fields['project'].queryset = Project.objects.filter(user__username = user)
+		# self.fields['project'].queryset = Task.objects.filter(project = Project.objects.filter(user = user))
+
+		# self.fields['project'] = forms.ModelChoiceField(queryset=Project.objects.filter(user__username__icontains = user))
+		# self.fields['project'] = forms.ModelChoiceField(queryset=Project.objects.values_list('project', flat=True).get(user = user))
 		
 		self.fields['project'].label = ''
 		self.fields['priority'].label = ''
+		
 
 
 
@@ -65,11 +64,15 @@ class TaskForm(forms.ModelForm):
 	timestamp = forms.DateTimeField(label = '', widget = forms.DateInput(format=('%Y-%m-%d'), 
 												attrs = { 'type':'date'}))
 
-	project = forms.Select()
-	# project = forms.ModelChoiceField(queryset=Project.objects.filter(user__username = _user))
+	# project = forms.Select()
+	# project = forms.ModelChoiceField(queryset=Project.objects.filter(user = user))
 	# project = forms.ModelChoiceField(queryset=Project.objects.all())
 	priority = forms.Select()
 
 	class Meta:
 		model = Task
 		fields = ['title', 'timestamp', 'project', 'priority']
+
+
+
+	

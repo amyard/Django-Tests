@@ -21,6 +21,8 @@ from .forms import ProjectForm, TaskForm
 
 from .mixins import *
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 #########################################################################################
 ##################################        USERS       ###################################
@@ -98,33 +100,18 @@ class RegistrationView(View):
 #########################################################################################
 
 
-
-
-class ProjectListView(MainClass, DetailMixin, CreateFormMixin, ListView):
-	# model = Project
-	# template_name = 'to_do/base.html'
-	# start_date = date.today()
-	# form_class  = ProjectForm
-	# form_class_two  = TaskForm
-	# redirect_path = '/'
+class ProjectListView(LoginRequiredMixin, MainClass, DetailMixin, CreateFormMixin, ListView):
 	title = 'Today'
 	redirect_path = '/'
 
 
 
-class SevenDaysListView(MainClass, DetailMixin, CreateFormMixin, ListView):
-	# model = Project
-	# template_name = 'to_do/base.html'
+class SevenDaysListView(LoginRequiredMixin, MainClass, DetailMixin, CreateFormMixin, ListView):
+
 	start_date = date.today()+timedelta(days = 1)
 	end_date = date.today()+timedelta(days = 8)
-	# form_class  = ProjectForm
-	# form_class_two  = TaskForm
 	redirect_path = '/7days'
 	title = '7 days'
-	# button_project_title = 'Add Project'
-	# button_task_title = 'Add Task'
-	# button_action = 'Add'
-
 
 
 ################################################################################
@@ -149,11 +136,6 @@ class TaskDelete(DeleteMixin, DeleteView):
 
 
 class PrjectListView(MainClass, DetailMixin, CreateFormMixin, ListView):
-	# model = Project
-	# template_name = 'to_do/base.html'
-	# start_date = date.today()
-	# form_class  = ProjectForm
-	# form_class_two  = TaskForm
 	redirect_path = '#'
 	detail = True
 
@@ -164,11 +146,6 @@ class PrjectListView(MainClass, DetailMixin, CreateFormMixin, ListView):
 
 
 class ArchiveListView(MainClass, DetailMixin, CreateFormMixin, ListView):
-	# model = Project
-	# template_name = 'to_do/base.html'
-	# start_date = date.today()
-	# form_class  = ProjectForm
-	# form_class_two  = TaskForm
 	redirect_path = '#'
 	archive = True
 
