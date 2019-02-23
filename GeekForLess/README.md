@@ -1,9 +1,15 @@
-# GeekForLess
+﻿# GeekForLess
 
-
+1. Версия 1 - Library Helper
 admin panel:    
     login - admin
     password - qwerty12345
+
+2. Версия 2 - HLibrary
+admin panel:    
+    login - admin
+    password - zaza1234
+
 
 
 ## Концепция и основная идея
