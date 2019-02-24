@@ -1,0 +1,12 @@
+{% load crispy_forms_tags %}
+	<div class = 'container mt-4 sidebar-form'>
+		<h3 class = 'text-center mt-3'>{{ form_title }}</h3>
+		<hr>
+		<form method = 'POST'action = '' class = 'form-group' enctype = 'multipart/form-data'>
+			{% csrf_token %}
+			{{ form|crispy }}
+			<button class = 'btn btn-outline-info' type = 'Submit'>{{ form_buttom }}</button>
+
+			<a href="" id="cancel" name="cancel" class="btn btn-primary">Cancel</a>
+		</form>	
+	</div>

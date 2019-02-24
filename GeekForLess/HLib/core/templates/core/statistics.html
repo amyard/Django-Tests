@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+
+{% if title.exists %}
+	{% block title %}
+		{{ title }} - {{ block.super }}
+	{% endblock %}
+{% endif %}
+
+
+
+{% block header %}
+	{% include 'core/includes/main/header.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="container mt-4 mb-4">
+
+	{% for vals in uniq_vals %}
+	    <h3 class = 'text-center mt-5'>{{ vals.date_of_issue }}</h3>
+	    <hr>
+
+	  <!-- General Info -->
+	  {% for g_vals in general_count %}
+	  {% if vals.date_of_issue == g_vals.date_of_issue %}
+	    Books in use: {{ g_vals.status_of_book__count }}<br>
+	  {% endif %}
+	  {% endfor %}
+
+
+
+	{% for c_vals in count_vals %}
+	{% if vals.date_of_issue == c_vals.date_of_issue %}
+
+	  <!-- In Library -->
+	  {% if c_vals.status_of_book == 0 %}
+	    Books were returned: {{ c_vals.status_of_book__count }}<br>
+	  {% endif %}
+
+	    <!-- On hands -->
+	  {% if c_vals.status_of_book == 1 %}
+	    Books on hands: {{ c_vals.status_of_book__count }}<br>
+	  {% endif %}
+
+	    <!-- Need return  -->
+	  {% if c_vals.status_of_book == -1 %}
+	  Need return: {{ c_vals.status_of_book__count }}<br>
+	  {% endif %}
+
+	{% endif %}
+	{% endfor %}
+
+	  <table class="table table-bordered mb-2 table-hover">
+	  	<thead class="table-primary">
+	      <tr>  
+	        <th class="text-center"><b>Book title</b></th>
+	        <th class="text-center"><b>Person</b></th>
+	        <th class="text-center"><b>Status of Book</b></th>
+	        <th class="text-center"><b>Date of return</b></th>
+	      </tr>
+	    </thead>
+
+
+	    <tbody>
+	      {% for stat in statistics %}
+	      {% if stat.date_of_issue == vals.date_of_issue %}
+	      <tr>  
+	        <td class="text-center"><a href="{% url 'unique-book' stat.pk stat.book %}">{{ stat.book }}</a></td>
+	        <td class="text-center">{{ stat.person_subscription }}</td>
+	        <td class="text-center">{{ stat.get_status_of_book_display }}</td>
+	        {% if stat.status_of_book == 0 %}
+	        	<td class="text-center"></td>
+
+	        <!-- ADD HERE SHIT -->
+	        {% elif stat.status_of_book == 1 and stat.date_of_return < today or stat.status_of_book == -1 %}
+	        	<td class="text-center statist-status" >{{ stat.date_of_return }}</td> 
+
+
+	        {% else %}
+	        	<td class="text-center">{{ stat.date_of_return }}</td>  
+	        {% endif %}
+	      </tr>
+
+	      {% endif %}
+	      {% endfor %}      
+	    </tbody>
+	    </table>
+
+	  {% endfor %}
+
+	  <hr>
+
+		
+</div>
+
+{% endblock %}
+
+
+
+
+
+{% block footer %}
+	{% include 'core/includes/main/footer.html' %}
+{% endblock %}

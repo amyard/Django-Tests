@@ -1,0 +1,103 @@
+.container {
+	border: 0.5px solid #007BFF;
+	box-shadow: 0px 0px 7px grey;
+}
+
+.container:hover {
+	box-shadow: 0px 0px 10px #007BFF;
+}
+
+body hr {
+	border-color: #007BFF;
+
+}
+
+nav .dd-item:hover {
+	background: #B8DAFF;
+}
+
+
+
+
+footer {
+	margin-top: 20px;
+}
+
+body .sidebar-form {
+	margin-left: 3%;
+	width: 22%;
+	float: left;
+}
+
+body .cont-sidebar-right {
+	width: 70%;
+	margin-right: 2%;
+	margin-bottom: 3%;
+	float: right;
+}
+
+.cont-section {
+	border: 0.5px solid #007BFF;
+	box-shadow: 0px 0px 7px grey;
+	margin:5px 0px 10px 30px;
+}
+
+.cont-section:hover {
+	border: 0.5px solid grey;
+	box-shadow: 0px 0px 10px grey;
+}
+
+.actions, .actions-genre, .actions-subscriber, .actions-general {
+	margin-left: 8%;
+	padding-top: 20px;
+	position: absolute;
+	bottom: 3%;
+}
+
+.actions-genre {
+	bottom: -10%;
+}
+
+.actions-subscriber, .actions-general {
+	bottom: -3%;
+}
+
+.actions-hidden {
+	margin-left: 8%;
+	padding-top: 5%;
+}
+
+.cont-section2 {
+	border: 0.5px solid #007BFF;
+	box-shadow: 0px 0px 7px grey;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	margin-left: 6%;
+}
+
+.cont-section2:hover {
+	border: 0.5px solid grey;
+	box-shadow: 0px 0px 10px grey;
+}
+
+
+.statist-status {
+	background-color: #FF230F;
+	color: white;
+}
+
+.lib-book {
+	font-weight: bold;
+}
+
+.th-table {
+	width: 25%;
+}
+
+.th-search {
+	width: 20%;
+}
+
+.book-title {
+	height: 65px;
+}

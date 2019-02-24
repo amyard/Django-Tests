@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+
+{% if title.exists %}
+	{% block title %}
+		{{ title }} - {{ block.super }}
+	{% endblock %}
+{% endif %}
+
+
+
+{% block header %}
+	{% include 'core/includes/main/header.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+	<div class="container mt-4 mb-4">
+
+		<h1 class="text-center">{{ book.book.title }}</h1>
+		<h3 class="text-center">Status of book: {{ book.get_status_of_book_display }}</h3>
+
+		{% if book.status_of_book == 1 %}
+			<span>Subscriber will return book at {{ book.date_of_return }}</span>
+		{% endif %}
+
+		{% if book.status_of_book == -1 %}
+			<span>Subscriber didn't return book at {{ book.date_of_return }}</span>
+		{% endif %}
+
+		<hr>
+		<div class = 'row'>
+			<div class="col-sm-4">
+				<h3>About book:</h3>
+				<p>
+					Author: {{book.book.author}} <br>
+					Genre: {{ book.book.genre }} <br>
+					Book was published in year {{ book.book.published }} <br>
+				</p>
+			</div>
+
+			{% if book.status_of_book == 0 %}
+			<div class="col-sm-4">
+				<h3>Position in library:</h3>
+				<p>
+					Room: {{book.book.position.room}} <br>
+					Bookcase: {{ book.book.position.bookcase }} <br>
+					Shelf: {{ book.book.position.shelf }} <br>
+				</p>
+			</div>
+			
+			{% else %}
+			<div class="col-sm-4">
+				<h3>Info about subscriber: </h3>
+				<p>
+					Full name: {{book.person_subscription.fullname }} <br>
+					Birthday: {{ book.person_subscription.birthday }} <br>
+					Address: {{ book.person_subscription.address }} <br>
+					Phone-number: {{ book.person_subscription.phone }} <br>
+				</p>
+			</div>
+
+			{% endif %}
+		</div>
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+{% block footer %}
+	{% include 'core/includes/main/footer.html' %}
+{% endblock %}
