@@ -222,7 +222,7 @@ class PersonUpdate(UpdateMixin, View):
 class GeneralBookUpdate(UpdateMixin, View):
 	model = Books
 	template_name = 'core/detail.html'
-	form = BookForm
+	form = BookFormUpdate
 	title = 'General information'
 	form_title = 'Edit Book'
 	paginate_by = 12

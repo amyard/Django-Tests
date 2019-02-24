@@ -123,28 +123,12 @@ class BookForm(forms.ModelForm):
 			}
 
 
+class BookFormUpdate(forms.ModelForm):
 
-#######################################################################################################
-########################         попробовать локации переделать             ###########################
-#######################################################################################################
-########################         или FORMSET             ###########################
-#######################################################################################################
-
-
-
-# class BookInfoForm(forms.ModelForm):
-# 	class Meta:
-# 		model = BookInfo
-# 		exclude = ('position',)
-
-# 		widgets = {
-# 			'title': forms.TextInput(attrs={'class':'form-control'}),
-# 			'author': forms.TextInput(attrs={'class':'form-control'})
-# 			}
-
-
-# 	def __init__(self, *args, **kwargs):
-# 		super(BookInfoForm, self).__init__(*args, **kwargs)
-# 		self.fields['room']=forms.ModelChoiceField(queryset=Location.objects.values_list('room', flat=True))
-# 		self.fields['bookcase']=forms.ModelChoiceField(queryset=Location.objects.values_list('bookcase', flat=True))
-# 		self.fields['shelf']=forms.ModelChoiceField(queryset=Location.objects.values_list('shelf', flat=True))
+	class Meta:
+		model = Books
+		fields = ['book','person_subscription','date_of_issue','date_of_return','status_of_book']
+		widgets = {
+			'date_of_issue': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+			'date_of_return': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'})
+			}
