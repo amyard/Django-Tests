@@ -23,17 +23,17 @@ Test Task
 new Blog (Django 2.0): Class Based View, CRUD system, Login/Logout/Reset Passwords, Like/Dislike Button, Comments, Reply Comments, html tags.  
 
 
-#### 4. To-Do_List_TZ 
-Test Task.
+#### 4. Light_IT 
+Test Task for Light IT.
 
 
 #### 5. Job_Parsing 
 Test Task - parse work.ua and rabota.ua.
 
 
-#### 6. GFL_v2
-Redo test task for GeekForLess
-
-
-#### 7. DataWiz_TZ
+#### 6. DataWiz_TZ
 Test task for DataWiz
+
+
+#### 7. PNR_Hunter
+Test task for PNR Hunter
