@@ -184,6 +184,21 @@ class DeleteAllTasks(View):
 		return HttpResponseRedirect(self.request.session['report_url'])
 
 
+class DeleteUser(View):
+	model = User
+	template_name = 'core/main.html'
+
+
+	# def get(self, reguest, **kwargs):
+	# 	self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
+	# 	return render(self.request, self.request.session['report_url'])
+
+	def get(self, reguest, **kwargs):
+		self.model.objects.filter(username = self.request.user).delete()
+		self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
+		return redirect('registration-view')
+
+
 
 
 #########################################################################################

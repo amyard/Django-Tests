@@ -31,6 +31,7 @@
 		<a class="navbar-brand" href="{% url 'base-view' %}">TODO</a>
 		<div class = 'd-inline'>
 			{% if user.is_active %}
+				<a href="{% url 'delete-user' %}" id="cancel" name="cancel" class="btn btn-danger">Delete User Account</a>
 				<a class="btn btn-primary" href="{% url 'logout-view' %}">Logout</a>
 				<a href="{% url 'delete-all-tasks' %}" id="cancel" name="cancel" class="btn btn-danger">Delete All Tasks</a>
 		    {% else %}

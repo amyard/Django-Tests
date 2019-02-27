@@ -3,7 +3,7 @@ from django.urls import path
 from .views import (LoginView, RegistrationView,
 	ProjectCreateListView, ProjectListView,
 	MainUpdate,
-	ProjectDelete, TaskDelete, DeleteAllTasks,)
+	ProjectDelete, TaskDelete, DeleteAllTasks, DeleteUser, )
 
 # for logout
 from django.urls import reverse_lazy
@@ -24,6 +24,7 @@ urlpatterns = [
 	path('delete/project/<pk>-<title>', ProjectDelete.as_view(), name = 'project-delete'),
 	path('delete/task/<pk>-<title>', TaskDelete.as_view(), name = 'task-delete'),
 	path('delete-all-tasks/', DeleteAllTasks.as_view(), name = 'delete-all-tasks'),
+	path('delete-user/', DeleteUser.as_view(), name = 'delete-user'),
 
     # user
     path('logout/', LogoutView.as_view(next_page = reverse_lazy('base-view')), name ='logout-view'),
