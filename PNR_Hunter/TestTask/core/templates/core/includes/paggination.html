@@ -1,6 +1,6 @@
 			<hr>
 			<!-- Pagination -->
-			<nav aria-label="Page navigation" class="float-left nav-pagg">   
+			<nav aria-label="Page navigation" class="float-left nav-pagg">
 				<ul class="pagination">
 					{% if tasks.has_previous %}
 					<li class="page-item">
@@ -12,7 +12,11 @@
 					{% endif %}
 
 					{% for n in tasks.paginator.page_range %}
-					  {% if tasks.number == n %}
+
+					  {% if tasks.paginator.page_range|length == 1 %}
+					  	<li class="page-item active">					      
+					    </li>
+					  {% elif tasks.number == n %}
 					    <li class="page-item active">
 					      <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>
 					    </li>

@@ -29,11 +29,22 @@
 	<header class="site-header">
 	<nav class="navbar navbar-dark bg-primary">
 		<a class="navbar-brand" href="{% url 'base-view' %}">TODO</a>
+
+
+		<!-- Search button -->
+	      <form class="form-inline my-2 my-lg-0" method = 'GET' action = "{% url 'search-view' %}">
+	        <div class="form-group mr-2">
+	          <input type="text" class="form-control float-right search-form" placeholder="Поиск заданий" name = 'q' style = 'width: 250px;'>
+	        </div>
+	        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Найти</button>
+	      </form>
+
+
 		<div class = 'd-inline'>
 			{% if user.is_active %}
 				<a href="{% url 'delete-user' %}" id="cancel" name="cancel" class="btn btn-danger">Delete User Account</a>
-				<a class="btn btn-primary" href="{% url 'logout-view' %}">Logout</a>
 				<a href="{% url 'delete-all-tasks' %}" id="cancel" name="cancel" class="btn btn-danger">Delete All Tasks</a>
+				<a class="btn btn-primary" href="{% url 'logout-view' %}">Logout</a>
 		    {% else %}
 				<a class="btn btn-primary" href="{% url 'login-view' %}">Login</a>
 			    <a class="btn btn-primary" href="{% url 'registration-view' %}">Register</a>

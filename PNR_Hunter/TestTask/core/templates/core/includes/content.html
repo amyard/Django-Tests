@@ -4,11 +4,11 @@
 			<article class="media mb-3 content-section">
 				<div class="media-body">
 					<div class="article-metadata ml-5 mt-3 mr-5">
-						<h4 class="float-left"><a href="">{{ task.title }}</a></h4>
+						<h4 class="float-left">{{ task.title }}</h4>
 						<i class="float-left ml-3 mt-1"> ({{ task.get_priority_display }} приоритет выполнения)</i>
 						<b class="float-right"> {{ task.project }}</b>
 					</div>
-					<p class=" ml-3 mr-3 article-content">{{ task.description|truncatewords:25 }}</p>
+					<p class=" ml-3 mr-3 article-content">{{ task.description }}</p>
 
 					<p class = 'float-right actions'>
 			        	<a href="{% url 'update' task.pk task.title %}" class = 'btn btn-primary btn-sm ml-2 mr-2'>Update</a>

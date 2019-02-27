@@ -4,7 +4,7 @@ from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Project, Task
-from .forms import ProjectForm, TaskForm
+from .forms import ProjectForm, TaskForm, ProjectFormUpdate, TaskFormUpdate
 from .mixins import *
 from django.core.paginator import Paginator
 from django.db.models import Count
@@ -73,7 +73,7 @@ class RegistrationView(View):
 ##################################        Category    ###################################
 #########################################################################################
 
-class ProjectCreateListView( View):
+class ProjectCreateListView(View, CreateMixin):
 	model = Project
 	model2 = Task
 	template_name = 'core/main.html'
@@ -86,118 +86,6 @@ class ProjectCreateListView( View):
 
 	def get_queryset(self):
 		return self.model2.objects.filter(project__user__username = self.request.user)
-
-
-	def get(self, request, **kwargs):
-		user = self.request.user
-		projects = self.model.objects.filter(user__username = user)
-		df = self.get_queryset()
-	
-		p = Paginator(df, self.paginate_by)
-		page_number = request.GET.get('page')
-		page = p.get_page(page_number)
-
-		title = self.title
-		form2 = self.form2(user = self.request.user)
-		form = self.form
-
-		count_tasks = self.model.objects.filter(user__username = user).annotate(count=Count('project__title')).values('title', 'count')
-
-		context = {'projects':projects, 'tasks':page, 'title':title, 'form':form, 'form2':form2, 'count_tasks':count_tasks}
-
-		return render(request, self.template_name, context)
-
-
-	def form_invalid(self, form, form2, **kwargs):
-		return self.render_to_response(self.get({'form':form, 'form2':form2 }))
-
-
-	def post(self, request, **kwargs):
-		form = self.form
-		form2 = self.form2
-
-		if 'form2' in request.POST:
-			form2 = self.form2(request.POST or None, user = self.request.user)
-			if form2.is_valid():
-				form2.save()
-				return HttpResponseRedirect(self.redirect_path)
-
-			else:
-				print(form2.errors)
-		elif 'form' in request.POST:
-			form = self.form(request.POST or None, user = self.request.user)
-			if form.is_valid():
-				form = form.save(commit = False)
-				form.user = request.user
-				form.save()
-				return HttpResponseRedirect(self.redirect_path)
-		else:
-			return render(self.request, self.template_name, {'form2':form2, 'form':form})
-
-		user = self.request.user
-		projects = self.model.objects.filter(user__username = user)
-		df = self.get_queryset()
-	
-		p = Paginator(df, self.paginate_by)
-		page_number = request.GET.get('page')
-		page = p.get_page(page_number)
-
-		title = self.title
-		count_tasks = self.model.objects.filter(user__username = user).annotate(count=Count('project__title')).values('title', 'count')
-
-
-		context = {'form2':form2, 'form':form, 'tasks':page, 'projects':projects, 'title':title, 'count_tasks':count_tasks}
-
-		return render(self.request, self.template_name, context)
-
-
-
-
-
-
-#########################################################################################
-##################################        DELETE      ###################################
-#########################################################################################
-
-class ProjectDelete(DeleteMixin, DeleteView):
-	model = Project
-
-class TaskDelete(DeleteMixin, DeleteView):
-	model = Task
-
-
-
-
-
-class DeleteAllTasks(View):
-	model2 = Task
-	template_name = 'core/main.html'
-
-
-	def get(self, reguest, **kwargs):
-		self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
-		return render(self.request, self.request.session['report_url'])
-
-	def get(self, reguest, **kwargs):
-		self.model2.objects.filter(project__user__username = self.request.user).delete()
-		self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
-		return HttpResponseRedirect(self.request.session['report_url'])
-
-
-class DeleteUser(View):
-	model = User
-	template_name = 'core/main.html'
-
-
-	# def get(self, reguest, **kwargs):
-	# 	self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
-	# 	return render(self.request, self.request.session['report_url'])
-
-	def get(self, reguest, **kwargs):
-		self.model.objects.filter(username = self.request.user).delete()
-		self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
-		return redirect('registration-view')
-
 
 
 
@@ -214,6 +102,20 @@ class ProjectListView(ProjectCreateListView, View):
 
 
 #########################################################################################
+##########################              SEARCH             ##############################
+#########################################################################################
+
+class SearchView(ProjectCreateListView, View):
+	paginate_by = 30
+	
+	def get_queryset(self):
+		query = self.request.GET.get('q')
+		return self.model2.objects.filter(Q(project__title__icontains = query)|Q(title__icontains = query), project__user__username = self.request.user)
+
+
+
+
+#########################################################################################
 ##########################              UPDATE             ##############################
 #########################################################################################
 
@@ -224,11 +126,12 @@ class MainUpdate(View):
 	model2 = Task
 	template_name = 'core/main.html'
 	title = 'Main page'
-	form = ProjectForm
-	form2 = TaskForm
+	form = ProjectFormUpdate
+	form2 = TaskFormUpdate
 	redirect_path = '/'
 	detail = None
 	paginate_by = 5
+
 
 	def get_queryset(self):
 		return self.model2.objects.filter(project__user__username = self.request.user)
@@ -303,4 +206,55 @@ class MainUpdate(View):
 		context = {'form2':form2, 'form':form, 'tasks':page, 'projects':projects, 'detail': self.detail, 'title':title,'count_tasks':count_tasks}
 		
 		return render(self.request, self.template_name, context)
+
+
+
+
+
+#########################################################################################
+##################################        DELETE      ###################################
+#########################################################################################
+
+class ProjectDelete(DeleteMixin, DeleteView):
+	model = Project
+
+class TaskDelete(DeleteMixin, DeleteView):
+	model = Task
+
+
+
+
+
+class DeleteAllTasks(View):
+	model2 = Task
+	template_name = 'core/main.html'
+
+
+	def get(self, reguest, **kwargs):
+		self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
+		return render(self.request, self.request.session['report_url'])
+
+	def get(self, reguest, **kwargs):
+		self.model2.objects.filter(project__user__username = self.request.user).delete()
+		self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
+		return HttpResponseRedirect(self.request.session['report_url'])
+
+
+class DeleteUser(View):
+	model = User
+	template_name = 'core/main.html'
+
+
+	# def get(self, reguest, **kwargs):
+	# 	self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
+	# 	return render(self.request, self.request.session['report_url'])
+
+	def get(self, reguest, **kwargs):
+		self.model.objects.filter(username = self.request.user).delete()
+		self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
+		return redirect('registration-view')
+
+
+
+
 

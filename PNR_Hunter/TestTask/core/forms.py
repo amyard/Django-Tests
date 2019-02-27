@@ -55,3 +55,47 @@ class TaskForm(forms.ModelForm):
 			Q(title = title)|
 			Q(title__iexact = title.lower())).count():
 			raise forms.ValidationError('Задание с таким именем существует.')
+
+
+
+
+
+
+
+class ProjectFormUpdate(forms.ModelForm):
+
+	def __init__(self, *args, **kwargs):
+		self.user = kwargs.pop('user', '')
+		super(ProjectFormUpdate, self).__init__(*args, **kwargs)
+
+
+	title = forms.CharField(label = '', widget = forms.TextInput(attrs = { 'class':'form-control', 
+		'placeholder':'Введите категорию'}))
+
+	class Meta:
+		model = Project
+		fields = ['title']
+
+
+
+
+class TaskFormUpdate(forms.ModelForm):
+
+	def __init__(self, *args, **kwargs):
+		self.user = kwargs.pop('user', '')
+		super(TaskFormUpdate, self).__init__(*args, **kwargs)
+		try:
+			self.fields['project'] = forms.ModelChoiceField(queryset = Project.objects.filter(user = self.user))
+		except:
+			self.fields['project'] = forms.ModelChoiceField(queryset = Project.objects.all())
+		self.fields['project'].label = ''
+		self.fields['priority'].label = ''
+
+	title = forms.CharField(label = '', widget = forms.TextInput(attrs = {'placeholder':'Название задания'}))
+	description = forms.CharField(label = '', widget = forms.Textarea(attrs = {'placeholder':'Описание задания', 'rows':4, 'cols':150}))
+	priority = forms.Select()
+
+
+	class Meta:
+		model = Task
+		fields = ['title', 'description', 'priority', 'project']

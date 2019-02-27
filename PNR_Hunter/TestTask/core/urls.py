@@ -3,7 +3,8 @@ from django.urls import path
 from .views import (LoginView, RegistrationView,
 	ProjectCreateListView, ProjectListView,
 	MainUpdate,
-	ProjectDelete, TaskDelete, DeleteAllTasks, DeleteUser, )
+	ProjectDelete, TaskDelete, DeleteAllTasks, DeleteUser, 
+	SearchView,)
 
 # for logout
 from django.urls import reverse_lazy
@@ -19,6 +20,9 @@ urlpatterns = [
 
 	# update
 	path('update/<int:pk>-<str:title>', MainUpdate.as_view(), name = 'update'),
+
+	# search
+	path('search/', SearchView.as_view(), name = 'search-view'),
 
 	# delete
 	path('delete/project/<pk>-<title>', ProjectDelete.as_view(), name = 'project-delete'),
