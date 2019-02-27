@@ -10,9 +10,7 @@
 
 
 {% block sidebar %}
-	{% if user.is_active %}
-		{{ projects }}
-	{% endif %}
+	{% include 'core/includes/sidebar.html' %}
 {% endblock %}
 
 
@@ -21,7 +19,14 @@
 
 	{% if user.is_active %}
 
-		<p>HERE WAS SHIT content</p>
+	<div class = 'container mt-5 mb-5 cont-sidebar-right'>
+
+			{% include 'core/includes/content.html' %}
+			{% include 'core/includes/paggination.html' %}					
+
+	</div>
+
+		
 	          	
 
 	{% else %}
@@ -30,5 +35,27 @@
 		<h5>If you don't have an account, you can <a href="{% url 'registration-view' %}">Register</a></h5>
 	</div>
 	{% endif %}
+
+{% endblock %}
+
+
+
+{% block jquery %}
+
+<script>
+	$(document).ready(function(){
+		$('.add-category').click(function() {
+			$('.form-project').fadeToggle();
+		});
+	})
+</script>
+
+<script>
+	$(document).ready(function(){
+		$('.add-task').click(function() {
+			$('.form-task').fadeToggle();
+		});
+	})
+</script>
 
 {% endblock %}

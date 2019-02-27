@@ -1,0 +1,68 @@
+{% load crispy_forms_tags %}			
+
+			{% for task in tasks %}
+			<article class="media mb-3 content-section">
+				<div class="media-body">
+					<div class="article-metadata ml-5 mt-3 mr-5">
+						<h4 class="float-left"><a href="">{{ task.title }}</a></h4>
+						<i class="float-left ml-3 mt-1"> ({{ task.get_priority_display }} приоритет выполнения)</i>
+						<b class="float-right"> {{ task.project }}</b>
+					</div>
+					<p class=" ml-3 mr-3 article-content">{{ task.description|truncatewords:25 }}</p>
+
+					<p class = 'float-right actions'>
+			        	<a href="{% url 'update' task.pk task.title %}" class = 'btn btn-primary btn-sm ml-2 mr-2'>Update</a>
+				      	<a href="{% url 'task-delete' task.pk task.title %}" class = 'btn btn-danger btn-sm'>Delete</a>
+		        	</p>
+
+				</div>
+			</article>
+			{% endfor %}
+
+			<br>
+			<h6 class = 'add-task'>+Добавить задание:</h6>
+			<form class = 'form-sigin mb-3 form-task' action = '' method = 'POST' content='text/html; charset=UTF-8'>
+
+				{% if form2.errors %}
+				    {% for field in form2 %}
+				        {% for error in field.errors %}
+				            <div class="alert alert-danger">
+				                <strong>{{ error|escape }}</strong>
+				            </div>
+				        {% endfor %}
+				    {% endfor %}
+				    {% for error in form2.non_field_errors %}
+				        <div class="alert alert-danger">
+				            <strong>{{ error|escape }}</strong>
+				        </div>
+				    {% endfor %}
+				{% endif %}
+				
+				{% csrf_token %}
+
+				<div class = 'form-row'>
+					<div class="form-group col-md-6 mb-0">
+						<!-- {{ form2.task_title.error }} -->
+						{{ form2.title|as_crispy_field }}
+					</div>
+
+					<div class="form-group col-md-2 mb-0" style="margin-left: 16.6%;">
+						<!-- {{ form2.project.errors }} -->
+						{{ form2.project|as_crispy_field }}
+					</div>
+					<div class="form-group col-md-2 mb-0">
+						<!-- {{ form2.project.errors }} -->
+						{{ form2.priority|as_crispy_field }}
+					</div>
+
+				</div>
+				<div class = 'form-row'>
+					<div class="form-group">
+<!-- 						{{ form2.description.errors }} -->
+						{{ form2.description|as_crispy_field }}
+					</div>
+				</div>	
+
+				<input class="btn btn-primary pl-4 pr-4" type="submit" value="Добавить" name = 'form2'>
+				<a href="" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
+			</form>

@@ -1,0 +1,53 @@
+{% load crispy_forms_tags %}
+
+{% if user.is_active %}
+	<div class="content-section mt-5">
+		<div class = 'sidebar-content'>
+			<h5 class = 'text-center mt-3'>Категории:</h5>
+			<ul class="list-group mb-3">
+				{% for project in projects %}
+					<li class="list-group-item list-group-item-light">
+
+						<a href="{% url 'project-detail' project.id project.title %}">{{ project.title }}
+
+							{% for count in count_tasks %}
+								{% if project.title ==  count.title %}
+									({{count.count}})
+								{% endif %}
+							{% endfor %}
+
+						</a>
+
+						<div class="dropdown float-right">
+						  <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></button>
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+						  	{% for count in count_tasks %}
+								{% if project.title ==  count.title and count.count == 0 %}
+									<a class="dropdown-item"  href="{% url 'project-delete' project.pk project.title %}">Delete</a>
+								{% elif project.title ==  count.title %}
+									<a class="dropdown-item">Delete</a>
+								{% endif %}
+							{% endfor %}
+							
+						    <a class="dropdown-item" href="{% url 'update' project.pk project.title  %}">Edit</a>
+						  </div>
+						</div>
+
+					</li>
+				{% endfor %}
+			</ul>
+
+			<br>
+			<h6 class = 'add-category'>+Добавить категорию:</h6>
+			<form class = 'form-sigin mb-3 form-project' action = '' method = 'POST' content='text/html; charset=UTF-8'>
+				{{ form.error }}
+				{% csrf_token %}
+				{{ form|crispy }}
+				<input class="btn btn-primary pl-4 pr-4" type="submit" value="Добавить" name = 'form'>
+				<a href="" id="cancel" name="cancel" class="btn btn-default">Cancel</a>
+			</form>
+			<hr>
+		</div>
+	</div>
+{% endif %}

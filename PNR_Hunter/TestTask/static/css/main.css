@@ -5,10 +5,70 @@ body .container {
 	width: 40%;
 }
 
-body .container:hover {
+body .container:hover,
+body .content-section:hover,
+body .cont-sidebar-right:hover {
 	box-shadow: 0px 0px 10px #007BFF;
 }
 
 body hr {
 	border-color: #007BFF;
+}
+
+body .content-section {
+	border: 0.5px solid #007BFF;
+	box-shadow: 0px 0px 7px grey;
+	width: 20%;
+	margin-left: 3%;
+	float: left;
+}
+
+.sidebar-content {
+	width: 	90%;
+	margin-left: 5%;
+}
+
+body .cont-sidebar-right {
+	float: left;
+	width: 70%;
+	margin-left: 5%;
+}
+
+.add-category,
+.add-task {
+	color: red;
+}
+
+.add-category:hover,
+.add-task:hover {
+	cursor: pointer;
+}
+
+/*.form-task,
+.form-project {
+	display: none;
+}*/
+
+.container .content-section {
+	border: 0.5px solid #007BFF;
+	box-shadow: 0px 0px 7px grey;
+	width: 102%;
+	margin-left: -1%;
+}
+
+.container .content-section {
+	box-shadow: 0px 0px 10px grey;
+}
+
+.container .article-metadata {
+	float: left; 
+	width: 90%;
+}
+
+.container .actions {
+	margin-right: 5%;
+}
+
+.container .nav-pagg {
+	margin-left: 45%; 
 }
