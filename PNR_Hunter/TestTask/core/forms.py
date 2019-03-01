@@ -33,10 +33,10 @@ class TaskForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		self.user = kwargs.pop('user', '')
 		super(TaskForm, self).__init__(*args, **kwargs)
-		try:
-			self.fields['project'] = forms.ModelChoiceField(queryset = Project.objects.filter(user = self.user))
-		except:
-			self.fields['project'] = forms.ModelChoiceField(queryset = Project.objects.all())
+		# try:
+		self.fields['project'] = forms.ModelChoiceField(queryset = Project.objects.filter(user = self.user))
+		# except:
+		# 	self.fields['project'] = forms.ModelChoiceField(queryset = Project.objects.all())
 		self.fields['project'].label = ''
 		self.fields['priority'].label = ''
 

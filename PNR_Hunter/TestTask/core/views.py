@@ -142,13 +142,13 @@ class MainUpdate(View):
 		title = self.kwargs.get('title')
 
 		try:
-			tag = self.model.objects.get(id = pk)
+			tag = self.model.objects.get(id = pk, title = title)
 			tag2 = None
 			form = self.form(instance = tag)
 			form2 = self.form2
 		except:
 			tag = None
-			tag2 = self.model2.objects.get(id = pk)
+			tag2 = self.model2.objects.get(id = pk, title = title)
 			form = self.form
 			form2 = self.form2(instance = tag2)
 		self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
@@ -157,9 +157,15 @@ class MainUpdate(View):
 		user = self.request.user
 		projects = self.model.objects.filter(user__username = user)
 		df = self.model2.objects.filter(project__user__username = user)
-	
+
+		# отображает страницу, где находится данный атрибут
 		p = Paginator(df, self.paginate_by)
-		page_number = request.GET.get('page')
+		if '?page=' in self.request.session['report_url']:
+			num = self.request.session['report_url'].split('?page=')[-1]
+			print(num)
+		else:
+			num = 1
+		page_number = request.GET.get('page', num)
 		page = p.get_page(page_number)
 
 		title = self.title
@@ -171,7 +177,7 @@ class MainUpdate(View):
 
 	def post(self, request, **kwargs):
 		form = self.form
-		form2 = self.form2
+		form2 = self.form2(user = self.request.user)
 		pk = self.kwargs.get('pk')
 
 		if 'form' in request.POST:
@@ -196,8 +202,14 @@ class MainUpdate(View):
 		projects = self.model.objects.filter(user__username = user)
 		df = self.get_queryset()
 	
+		# отображает страницу, где находится данный атрибут
 		p = Paginator(df, self.paginate_by)
-		page_number = request.GET.get('page')
+		if '?page=' in self.request.META.get('HTTP_REFERER'):
+			num = self.request.META.get('HTTP_REFERER').split('?page=')[-1]
+			print(num)
+		else:
+			num = 1
+		page_number = request.GET.get('page', num)
 		page = p.get_page(page_number)
 
 		title = self.title

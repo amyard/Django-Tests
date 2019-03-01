@@ -62,7 +62,7 @@ class CreateMixin(MultipleObjectMixin):
 
 	def post(self, request, **kwargs):
 		form = self.form
-		form2 = self.form2
+		form2 = self.form2(user = self.request.user)
 
 		if 'form2' in request.POST:
 			form2 = self.form2(request.POST or None, user = self.request.user)
