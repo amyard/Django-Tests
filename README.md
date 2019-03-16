@@ -16,7 +16,7 @@
 Simple blog
 
 #### 2. GeekForLess 
-Test Task
+Library Helper
 
 
 #### 3. Blog_v2 
@@ -24,16 +24,16 @@ new Blog (Django 2.0): Class Based View, CRUD system, Login/Logout/Reset Passwor
 
 
 #### 4. Light_IT 
-Test Task for Light IT.
+To-Do List
 
 
 #### 5. Job_Parsing 
-Test Task - parse work.ua and rabota.ua.
+Parse work.ua and rabota.ua.
 
 
 #### 6. DataWiz_TZ
-Test task for DataWiz
+Working with DataWiz API 
 
 
 #### 7. PNR_Hunter
-Test task for PNR Hunter
+To-Do List
