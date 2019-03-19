@@ -1,78 +1,52 @@
 <div class="container mt-4 mb-4">
 	{% if books %}
-	<h3 class = 'text-center mt-3'>{{ title_content }}</h3>
-	<!-- ПРОВЕРИТЬ ЦВЕТ HR -->
-	<hr>
+
+		{% if title == 'Search' %}
+			<h3 class = 'text-center mt-3 mb-3'>{{ title_content }} ({{ books.count }}):</h3>
+		{% else %}
+			<h3 class = 'text-center mt-3'>{{ title_content }}</h3>
+		{% endif %}
+		
+		<hr>
 
 		<table class="table table-bordered table-hover">
 			<thead class="table-primary">
 			<tr>	
-				<th class="text-center th-table">Book title</th>
-				<th class="text-center th-table">Person</th>
-				<th class="text-center th-table">Date of issue</th>
-				<th class="text-center th-table">Date of return</th>	
+				<th class="text-center th-search">Book title</th>
+				<th class="text-center th-search">Person</th>
+				<th class="text-center th-search">Date of issue</th>
+				<th class="text-center th-search">Date of return</th>
+				<th class="text-center th-search">Status</th>	
 			</tr>
 			</thead>
 
 			<tbody>
 			{% for book in books %}
 			<tr>	
-				<!--  НЕ ЗАБУДЬ ПУТЬ УКАЗАТЬ В HREF   -->
 				<td class="text-center"><a href="{% url 'unique-book' book.pk book.book %}">{{ book.book }}</a></td>
 
 				{% if book.status_of_book == 1 or book.status_of_book == -1 %}
-				  <td class="text-center">{{ book.person_subscription }}</td>
-				  <td class="text-center">{{ book.date_of_issue }}</td>
-				  <td class="text-center">{{ book.date_of_return }}</td>
+					<td class="text-center">{{ book.person_subscription }}</td>
+					<td class="text-center">{{ book.date_of_issue }}</td>
+					<td class="text-center">{{ book.date_of_return }}</td>
+					<td class="text-center">{{ book.get_status_of_book_display }}</td>
 				{% else %}	
-				  <td class="text-center lib-book">Book in Library</td>
-				  <td class="text-center lib-book"></td>
-				  <td class="text-center lib-book"></td>
-				{% endif %}
+					<td class="text-center lib-book"></td>
+					<td class="text-center lib-book"></td>
+					<td class="text-center lib-book"></td>
+					<td class="text-center lib-book">{{ book.get_status_of_book_display }}</td>
+				{% endif %}	
+
 			</tr>
 			{% endfor %}
 			</tbody>
 		</table>
+	{% else %}
+			<!-- <div class="container mt-4 mb-4"> -->
+			<h3 class = 'text-center mt-3'>Sorry, we could not find anything.</h3>
+
 	{% endif %}
 	
 	{% include 'core/includes/detail/paggination.html' %}
-
-	<!-- SEARCH DETAILS -->
-	{% if title == 'Search' %}
-		{% if found_books %}
-			<h3 class = 'text-center mt-3 mb-3'>{{ title_content }} ({{ found_books.count }}):</h3>
-			<!-- ПРОВЕРИТЬ ЦВЕТ HR -->
-			<hr>
-
-				<table class="table table-bordered table-hover">
-					<thead class="table-primary">
-					<tr>	
-						<th class="text-center th-search">Book title</th>
-						<th class="text-center th-search">Person</th>
-						<th class="text-center th-search">Date of issue</th>
-						<th class="text-center th-search">Date of return</th>	
-						<th class="text-center th-search">Status</th>
-					</tr>
-					</thead>
-
-					<tbody>
-					{% for book in found_books %}
-					<tr>	
-						<!--  НЕ ЗАБУДЬ ПУТЬ УКАЗАТЬ В HREF   -->
-						<td class="text-center"><a href="{% url 'unique-book' book.pk book.book %}">{{ book.book }}</a></td>
-						<td class="text-center">{{ book.person_subscription }}</td>
-						<td class="text-center">{{ book.date_of_issue }}</td>
-						<td class="text-center">{{ book.date_of_return }}</td>
-						<td class="text-center">{{ book.get_status_of_book_display }}</td>	
-					</tr>
-					{% endfor %}
-					</tbody>
-				</table>
-		{% else %}
-			<!-- <div class="container mt-4 mb-4"> -->
-			<h3 class = 'text-center mt-3'>Sorry, we could not find anything.</h3>
-			<!-- </div> -->
-		{% endif %}
-	{% endif %}
 
 </div>

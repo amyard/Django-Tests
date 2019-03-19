@@ -10,6 +10,8 @@ from django.db.models import Q, Sum, Count
 
 from .forms import *
 
+from bootstrap_modal_forms.mixins import PassRequestMixin, DeleteAjaxMixin
+
 
 ####################################################################################################
 ####################       GENERAL INFO ABOUT BOOKS AND THOSE POSITION       #######################
@@ -26,7 +28,7 @@ class BooksListView(ListMixins, ListView):
 
 # Books on hands
 class BooksOnHandsListView(ListMixins, ListView):
-	queryset = Books.objects.filter(Q(status_of_book = 1)&Q(date_of_return__gte = date.today()))
+	queryset = Books.objects.filter(Q(status_of_book = 1)|Q(status_of_book = -1))
 	template_name = 'core/main.html'
 	title = 'Main page'
 	title_content = 'Books on hands:'
@@ -77,7 +79,7 @@ class SearchView(View):
 							)
 
 		context = {
-			'found_books':found_books,
+			'books':found_books,
 			'title':self.title,
 			'title_content':self.title_content
 		}
@@ -172,6 +174,7 @@ class PersonDelete(DeleteMixin, DeleteView):
 class GeneralBookDelete(DeleteMixin, DeleteView):
 	model = Books
 
+	
 
 ####################################################################################################
 ##################################          UPDATE VIEWS          ##################################

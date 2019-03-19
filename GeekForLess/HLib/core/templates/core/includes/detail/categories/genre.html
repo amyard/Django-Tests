@@ -1,0 +1,47 @@
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+
+
+		{% for cat in categories %}
+		  <div class="col-sm-2 cont-section" >
+		    <div class="thumbnail">
+		       <div class="caption">
+		        <h3 class = 'text-center'>{{ cat.genre }}</h3>
+
+		        <!-- скрытые пустые кнопки, дабы колонки были одной высоты и можно было отрегулировать абсолютное положение блока с кнопками "ACTIONS" -->
+		        <div class = 'actions-hidden'>
+		        	<a href="" class = 'btn btn-sm'></a>
+			      	<a href="" class = 'btn  btn-sm'></a>
+		        </div>
+
+		        <p class = 'actions-genre'>
+		        	<a href="{% url 'update-genre' cat.pk %}" class = 'btn btn-primary btn-sm'>Update</a>
+		        	<a href="{% url 'delete-genre' cat.pk %}" class = 'btn btn-primary btn-sm'>Delete</a>
+
+			      	<button type="button" class="delete-book btn btn-sm btn-danger" data-id="{% url 'delete-genre' cat.pk %}">>
+		        </p>
+		      </div>
+		    </div>
+		  </div>
+		{% endfor %}
+
+
+
+
+
+
+
+		<script type="text/javascript">
+		  $(function () {
+
+		    // Delete book buttons
+		    $(".delete-book").each(function () {
+		      $(this).modalForm({formURL: $(this).data('id')});
+		    });
+
+		  });
+		</script>

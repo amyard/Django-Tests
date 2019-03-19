@@ -40,6 +40,3 @@ urlpatterns = [
     path('statistics', StatisticListView.as_view(), name = 'statistics')
 
 ]
-
-GeneralBookUpdate
-

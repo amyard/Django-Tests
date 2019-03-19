@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'libhelper.herokuapp.com']
 INSTALLED_APPS = [
     'core',
     'crispy_forms',
+    'bootstrap_modal_forms',
+    'widget_tweaks',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -132,4 +134,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# comment to use test. need for heroku
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
