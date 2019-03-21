@@ -24,3 +24,29 @@
 {% block footer %}
 	{% include 'core/includes/main/footer.html' %}
 {% endblock %}
+
+
+
+	
+{% block scripts %}
+  <script type="text/javascript">
+    $(function () {
+
+      // Update book buttons
+      $(".update-book").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      // Read book buttons
+      $(".read-book").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      // Delete book buttons
+      $(".delete-book").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+    });
+  </script>
+{% endblock %}

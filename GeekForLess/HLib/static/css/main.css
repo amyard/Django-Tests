@@ -87,7 +87,8 @@ body .cont-sidebar-right {
 }
 
 .lib-book {
-	font-weight: bold;
+	/*font-weight: bold;*/
+	background-color: lightgrey;
 }
 
 .th-table {
@@ -95,9 +96,14 @@ body .cont-sidebar-right {
 }
 
 .th-search {
-	width: 20%;
+	width: 16%;
 }
 
 .book-title {
 	height: 65px;
+}
+
+body .modal-centered{
+	width: 150%; 
+	margin-left: -25%;
 }

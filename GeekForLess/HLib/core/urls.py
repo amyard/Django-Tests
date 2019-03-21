@@ -37,6 +37,10 @@ urlpatterns = [
     path('book/<pk>-<book>', BooksInfoDetailView.as_view(), name='unique-book'),
 
     # Statistics
-    path('statistics', StatisticListView.as_view(), name = 'statistics')
+    path('statistics', StatisticListView.as_view(), name = 'statistics'),
 
+    # TESTS FOR MODAL MAIN PAGE
+    path('read/<int:pk>', BookReadView.as_view(), name='read_book'),
+    path('update/<int:pk>', BookUpdateView.as_view(), name='update_book'),
+    path('delete/<int:pk>', BookDeleteView.as_view(), name='delete_book')
 ]

@@ -11,7 +11,9 @@ from django.db.models import Q, Sum, Count
 from .forms import *
 
 from django.contrib import messages
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
+
+from bootstrap_modal_forms.mixins import PassRequestMixin, DeleteAjaxMixin
 
 
 ####################################################################################################
@@ -289,3 +291,41 @@ class StatisticListView(ListView):
 		context['general_count'] = self.model.objects.values('date_of_issue').order_by('-date_of_issue').annotate(Count('status_of_book'))
 
 		return context
+
+####################################################################################################
+##################################          MODAL TESTS            #################################
+####################################################################################################
+
+
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
+from bootstrap_modal_forms.mixins import PassRequestMixin, DeleteAjaxMixin
+
+
+# Read
+class BookReadView(DetailView):
+    model = Books
+    template_name = 'core/actions/detail-modal.html'
+
+
+
+# Update
+class BookUpdateView(PassRequestMixin, SuccessMessageMixin, UpdateView):
+    model = Books
+    template_name = 'core/actions/update-modal.html'
+    form_class = BookFormUpdateModal
+    success_message = 'Success: Book was updated.'
+
+    def get_success_url(self, **kwargs):
+        return self.request.META.get('HTTP_REFERER')
+
+
+
+# Delete
+class BookDeleteView(DeleteAjaxMixin, DeleteView):
+    model = Books
+    template_name = 'core/actions/delete-modal.html'
+    success_message = 'Success: Book was deleted.'
+    
+    def get_success_url(self, **kwargs):
+        return self.request.META.get('HTTP_REFERER')

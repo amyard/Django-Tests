@@ -33,14 +33,14 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'libhelper.herokuapp.com']
 INSTALLED_APPS = [
     'core',
     'crispy_forms',
-    'bootstrap_modal_forms',
-    'widget_tweaks',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap_modal_forms',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -130,6 +130,12 @@ STATICFILES_DIRS = [
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+STATICFILES_FINDERS = [
+    # searches in STATICFILES_DIRS
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    # searches in STATIC subfolder of each app
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/

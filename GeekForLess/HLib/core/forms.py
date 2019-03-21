@@ -4,6 +4,7 @@ import operator
 from functools import reduce
 
 from .models import Location, Genre, Person, BookInfo, Books
+from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 
 
 class LocationForm(forms.ModelForm):
@@ -123,7 +124,20 @@ class BookForm(forms.ModelForm):
 			}
 
 
+
+
 class BookFormUpdate(forms.ModelForm):
+
+	class Meta:
+		model = Books
+		fields = ['book','person_subscription','date_of_issue','date_of_return','status_of_book']
+		widgets = {
+			'date_of_issue': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+			'date_of_return': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'})
+			}
+
+
+class BookFormUpdateModal(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
 
 	class Meta:
 		model = Books

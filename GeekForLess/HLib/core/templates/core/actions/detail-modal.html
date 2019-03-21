@@ -1,0 +1,67 @@
+{% load widget_tweaks %}
+
+
+<div class="modal-header">
+  <h3 class="modal-title">Book details</h3>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+
+<div class="modal-body">
+
+  <div class="container mt-4 mb-4">
+
+    <h1 class="text-center">{{ books.book.title }}</h1>
+    <h3 class="text-center">Status of book: {{ books.get_status_of_book_display }}</h3>
+
+    {% if books.status_of_book == 1 %}
+      <span>Subscriber will return book at {{ books.date_of_return }}</span>
+    {% endif %}
+
+    {% if books.status_of_book == -1 %}
+      <span>Subscriber didn't return book at {{ books.date_of_return }}</span>
+    {% endif %}
+
+    <hr>
+    <div class = 'row'>
+      <div class="col-sm-4">
+        <h3>About book:</h3>
+        <p>
+          Author: {{books.book.author}} <br>
+          Genre: {{ books.book.genre }} <br>
+          Book was published in year {{ books.book.published }} <br>
+        </p>
+      </div>
+
+      {% if books.status_of_book == 0 %}
+      <div class="col-sm-4">
+        <h3>Position in library:</h3>
+        <p>
+          Room: {{books.book.position.room}} <br>
+          Bookcase: {{ books.book.position.bookcase }} <br>
+          Shelf: {{ books.book.position.shelf }} <br>
+        </p>
+      </div>
+      
+      {% else %}
+      <div class="col-sm-4">
+        <h3>Info about subscriber: </h3>
+        <p>
+          Full name: {{books.person_subscription.fullname }} <br>
+          Birthday: {{ books.person_subscription.birthday }} <br>
+          Address: {{ books.person_subscription.address }} <br>
+          Phone-number: {{ books.person_subscription.phone }} <br>
+        </p>
+      </div>
+
+      {% endif %}
+    </div>
+
+
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
