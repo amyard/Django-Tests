@@ -10,7 +10,7 @@ from datetime import date, timedelta
 
 # Create your models here.
 class Genre(models.Model):
-	genre = models.CharField(max_length=50, unique = True)
+	genre = models.CharField(max_length=50)
 
 	def __str__(self):
 		return self.genre

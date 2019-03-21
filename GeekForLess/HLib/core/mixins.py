@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
-
+from django.contrib import messages
 
 
 
@@ -48,6 +48,7 @@ class ListMixinAndCreate():
 	form_buttom = None
 	paginate_by = None
 	sub_category = None
+	message_send = None
 
 	def get_context_data(self, *args, **kwargs):
 		context = super().get_context_data(*args, **kwargs)
@@ -70,6 +71,7 @@ class CreateMixin():
 		form = self.form(request.POST or None)
 		if form.is_valid():
 			form.save()
+			messages.success(self.request, self.message_send)
 			return HttpResponseRedirect(self.redirect_path)
 
 		context = {'form': form, 'categories': self.model.objects.all(), 'title': self.title, 'form_title': self.form_title, 
@@ -105,6 +107,7 @@ class UpdateMixin():
 	form_buttom = 'Save'
 	paginate_by = None
 	sub_category = None
+	message_send = None
 
 	def get(self, request, **kwargs):
 		pk = self.kwargs.get('pk')
@@ -133,8 +136,12 @@ class UpdateMixin():
 		form = self.form(request.POST, instance = categories)	
 		if form.is_valid():
 			form.save()
+			messages.success(self.request, self.message_send)
 			return HttpResponseRedirect(self.request.session.get('report_url'))
-
+		# else:
+		# 	messages.warning(self.request, form.errors)
+		# 	return render(self.request, self.template_name, {'form':form})
+		# messages.warning(self.request, form.errors)
 		
 		# отображает страницу, где находится данный атрибут
 		p = Paginator(self.model.objects.all(), self.paginate_by)
@@ -145,6 +152,7 @@ class UpdateMixin():
 			num = 1
 		page_number = request.GET.get('page', num)
 		page = p.get_page(page_number)
+
 		return render(request, self.template_name, context = {'form': form, 'categories': page,
 															  'title': self.title, 'form_title': self.form_title, 
 				   											  'form_buttom': self.form_buttom, 'sub_category': self.sub_category})

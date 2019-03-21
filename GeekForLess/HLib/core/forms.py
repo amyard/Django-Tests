@@ -33,7 +33,7 @@ class GenreForm(forms.ModelForm):
 	def clean(self):
 		genre = self.cleaned_data['genre']
 		if Genre.objects.filter(genre=genre).exists():
-			raise forms.ValidationError('Such Genre exists.')
+			raise forms.ValidationError('Genre with this name already exists')
 
 
 

@@ -10,7 +10,8 @@ from django.db.models import Q, Sum, Count
 
 from .forms import *
 
-from bootstrap_modal_forms.mixins import PassRequestMixin, DeleteAjaxMixin
+from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 ####################################################################################################
@@ -61,6 +62,7 @@ class SearchView(View):
 	title = 'Search'
 	model = Books
 	title_content = 'Founded information'
+	paginate_by = 10
 
 	def get(self, request, *args, **kwargs):
 		query = self.request.GET.get('q')
@@ -77,9 +79,17 @@ class SearchView(View):
 								Q(person_subscription__lastname__icontains = query.split(' ')[0])|
 								Q(person_subscription__firstname__icontains = query.split(' ')[1])
 							)
+		
+		search_word = query.replace(' ', '+')
+
+		p = Paginator(found_books, self.paginate_by)
+		page_number = request.GET.get('page', 1)
+		page = p.get_page(page_number)
 
 		context = {
-			'books':found_books,
+			'search_word': search_word,
+			'books':page,
+			'books_c':found_books,
 			'title':self.title,
 			'title_content':self.title_content
 		}
@@ -103,6 +113,7 @@ class BookDescription(ListMixinAndCreate, CreateMixin, ListView):
 	form_buttom = 'Add info'
 	paginate_by = 10
 	sub_category = 'Book description'
+	message_send = 'Book description was created successfully.'
 
 				
 class GenreDescription(ListMixinAndCreate, CreateMixin, ListView):
@@ -115,6 +126,7 @@ class GenreDescription(ListMixinAndCreate, CreateMixin, ListView):
 	form_buttom = 'Add genre'
 	paginate_by = 20
 	sub_category = 'Genre'
+	message_send = 'Genre was created successfully.'
 
 
 class LocationDescription(ListMixinAndCreate, CreateMixin, ListView):
@@ -127,6 +139,7 @@ class LocationDescription(ListMixinAndCreate, CreateMixin, ListView):
 	form_buttom = 'Add location'
 	paginate_by = 20
 	sub_category = 'Location'
+	message_send = 'Location was created successfully.'
 
 
 class PersonDescription(ListMixinAndCreate, CreateMixin, ListView):
@@ -139,6 +152,7 @@ class PersonDescription(ListMixinAndCreate, CreateMixin, ListView):
 	form_buttom = 'Add person'
 	paginate_by = 12
 	sub_category = 'Subscriber'
+	message_send = 'Subscriber was created successfully.'
 
 
 class GeneralBookDescription(ListMixinAndCreate, CreateMixin, ListView):
@@ -151,6 +165,7 @@ class GeneralBookDescription(ListMixinAndCreate, CreateMixin, ListView):
 	form_buttom = 'Add book'
 	paginate_by = 12
 	sub_category = 'General Info'
+	message_send = 'General Info was created successfully.'
 
 
 
@@ -188,7 +203,7 @@ class GenreUpdate(UpdateMixin, View):
 	form_title = 'Edit Genre'
 	paginate_by = 20
 	sub_category = 'Genre'
-
+	message_send = 'Genre was updated successfully.'
 
 
 class BookUpdate(UpdateMixin, View):
@@ -199,6 +214,7 @@ class BookUpdate(UpdateMixin, View):
 	form_title = 'Edit Book Description'
 	paginate_by = 10
 	sub_category = 'Book description'
+	message_send = 'Book was updated successfully.'
 
 
 class LocationUpdate(UpdateMixin, View):
@@ -209,6 +225,7 @@ class LocationUpdate(UpdateMixin, View):
 	form_title = 'Edit Location'
 	paginate_by = 20
 	sub_category = 'Location'
+	message_send = 'Location was updated successfully.'
 
 
 
@@ -220,6 +237,7 @@ class PersonUpdate(UpdateMixin, View):
 	form_title = 'Edit Subscriber'
 	paginate_by = 12
 	sub_category = 'Subscriber'
+	message_send = 'Subscriber was updated successfully.'
 
 
 class GeneralBookUpdate(UpdateMixin, View):
@@ -230,6 +248,7 @@ class GeneralBookUpdate(UpdateMixin, View):
 	form_title = 'Edit Book'
 	paginate_by = 12
 	sub_category = 'General Info'
+	message_send = 'General Info was updated successfully.'
 
 
 

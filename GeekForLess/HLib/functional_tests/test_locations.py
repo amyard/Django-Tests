@@ -34,9 +34,7 @@ class IndexTestCase(unittest.TestCase):
 
 
 	# def test_location_create(self):
-	# 	pos_count = len(Location.objects.filter())
-	# 	print(pos_count)
-	# 	test_position = 1
+	# 	test_position = 2
 	# 	room = self.browser.find_element_by_id('id_room').send_keys(test_position)
 	# 	bookcase = self.browser.find_element_by_id('id_bookcase').send_keys(test_position)
 	# 	shelf = self.browser.find_element_by_id('id_shelf').send_keys(test_position)
@@ -47,4 +45,15 @@ class IndexTestCase(unittest.TestCase):
 		sect = self.browser.find_elements_by_class_name('caption')[0]
 		update_button = sect.find_element_by_xpath("//a[contains(text(), 'Update')]")
 		update_button.click()
-		print('COOOLLLLL')
+		
+		test_position = 1
+		room = self.browser.find_element_by_id('id_room').clear()
+		room.send_keys(test_position)
+		bookcase = self.browser.find_element_by_id('id_bookcase').clear()
+		bookcase.send_keys(test_position)
+		shelf = self.browser.find_element_by_id('id_shelf').clear()
+		shelf.send_keys(test_position)
+		self.browser.find_element_by_xpath("//*[contains(text(), 'Save')]").click()
+
+		# Change to SUCCESS MESSAGE THIS PART
+
