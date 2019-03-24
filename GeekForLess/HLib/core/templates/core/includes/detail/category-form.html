@@ -16,7 +16,7 @@
 
 		<form method = 'POST'action = '' class = 'form-group' content='text/html; charset=UTF-8'>
 
-			{% if form.errors %}
+<!-- 			{% if form.errors %}
 				    {% for field in form %}
 				        {% for error in field.errors %}
 				            <div class="alert alert-danger">
@@ -29,12 +29,12 @@
 				            <strong>{{ error|escape }}</strong>
 				        </div>
 				    {% endfor %}
-			{% endif %}
+			{% endif %} -->
 
 			{% csrf_token %}
 			{{ form|crispy }}
 			<button class = 'btn btn-outline-info' type = 'Submit'>{{ form_buttom }}</button>
 
-			<a href="" id="cancel" name="cancel" class="btn btn-primary">Cancel</a>
+			<a href="{% if cancel_button %}javascript:window.history.back(){% endif %}" id="cancel" name="cancel" class="btn btn-primary">Cancel</a>
 		</form>	
 	</div>

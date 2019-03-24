@@ -16,6 +16,32 @@
 
 
 {% block content %}
+
+  <!-- ОТОБРАЖАЕМ СООБЩЕНИЯ ПОД ШАПКОЙ -->
+  <!-- Книги, которые вернули в библиотеку и не изменили положение -->
+  {% if returned_book_without_position %}
+    <p class = 'bg-secondary text-white pt-2 pb-2 text-center '>There 
+      {% if returned_book_without_position.count > 1 %} 
+          are {{ returned_book_without_position.count }} book's, which were returned into library, but they 
+      {% else %}
+          is {{ returned_book_without_position.count }} book, which was returned into library, but it 
+      {% endif %}
+      still didn't get current position. 
+      <a href="{% url 'book-info' %}" class = 'text-warning'>CLICK HERE</a> 
+    to fix an issue. </p>
+  {% endif %}
+
+
+  <!-- Книги, которые были созданы, но ниразу не использовались -> не занесены в модель Books -->
+  {% if never_used_books %}
+    <p class = 'text-center bg-warning text-dark pt-2 pb-2' style = 'margin-top: -17px;'>
+      There were created {{ never_used_books.count }} book's, which weren't in use.
+      <a href="{% url 'general-book' %}" class = 'text-danger'>CLICK HERE</a> to fix an issue.
+    </p>
+  {% endif %}
+
+
+  {% include 'core/includes/main/sidebar.html' %}
 	{% include 'core/includes/main/index.html' %}
 {% endblock %}
 

@@ -23,34 +23,47 @@ from bootstrap_modal_forms.mixins import PassRequestMixin, DeleteAjaxMixin
 
 # All Books (in library+on hands)
 class BooksListView(ListMixins, ListView):
-	queryset = Books.objects.all().order_by('book')
+	model = Books
 	template_name = 'core/main.html'
 	title = 'Main page'
 	title_content = 'All books:'
 
+	def get_queryset(self):
+		self.model.objects.filter(Q(status_of_book = 1)&Q(date_of_return__lte = date.today())).update(status_of_book=-1)
+		return self.model.objects.all().order_by('book')
+
 
 # Books on hands
 class BooksOnHandsListView(ListMixins, ListView):
-	queryset = Books.objects.filter(Q(status_of_book = 1)|Q(status_of_book = -1))
+	model = Books
 	template_name = 'core/main.html'
 	title = 'Main page'
 	title_content = 'Books on hands:'
 
+	def get_queryset(self):
+		return self.model.objects.filter(Q(status_of_book = 1)|Q(status_of_book = -1))
+
 
 # Books in library
 class BooksInLibraryListView(ListMixins, ListView):
-	queryset = Books.objects.filter(status_of_book = 0)
+	model = Books
 	template_name = 'core/main.html'
 	title = 'Main page'
 	title_content = 'Books in library:'
 
+	def get_queryset(self):
+		return self.model.objects.filter(status_of_book = 0)
+
 
 # This books need to return
 class NeedReturnBookListView(ListMixins, ListView):
-	queryset = Books.objects.filter(Q(date_of_return__lte = date.today())&Q(status_of_book = 1)|Q(status_of_book = -1))
+	model = Books
 	template_name = 'core/main.html'
 	title = 'Main page'
 	title_content = 'Need return these books (more than 14 days on hands):'
+
+	def get_queryset(self):
+		return self.model.objects.filter(Q(date_of_return__lte = date.today())&Q(status_of_book = 1)|Q(status_of_book = -1))
 
 
 
@@ -97,6 +110,49 @@ class SearchView(View):
 		}
 
 		return render(self.request, self.template_name, context)
+
+
+
+
+####################################################################################################
+##################################          MODAL TESTS            #################################
+####################################################################################################
+
+
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
+from bootstrap_modal_forms.mixins import PassRequestMixin, DeleteAjaxMixin
+
+
+# Read
+class BookReadView(DetailView):
+    model = Books
+    template_name = 'core/actions/detail-modal.html'
+
+
+
+# Update
+class BookUpdateView(PassRequestMixin, SuccessMessageMixin, UpdateView):
+    model = Books
+    template_name = 'core/actions/update-modal.html'
+    form_class = BookFormUpdateModal
+    success_message = 'Success: Book was updated.'
+
+    def get_success_url(self, **kwargs):
+        return self.request.META.get('HTTP_REFERER')
+
+
+
+# Delete
+class BookDeleteView(DeleteAjaxMixin, DeleteView):
+    model = Books
+    template_name = 'core/actions/delete-modal.html'
+    success_message = 'Success: Book was deleted.'
+    
+    def get_success_url(self, **kwargs):
+        return self.request.META.get('HTTP_REFERER')
+
+
 
 
 
@@ -206,6 +262,7 @@ class GenreUpdate(UpdateMixin, View):
 	paginate_by = 20
 	sub_category = 'Genre'
 	message_send = 'Genre was updated successfully.'
+	cancel_button = True
 
 
 class BookUpdate(UpdateMixin, View):
@@ -217,6 +274,7 @@ class BookUpdate(UpdateMixin, View):
 	paginate_by = 10
 	sub_category = 'Book description'
 	message_send = 'Book was updated successfully.'
+	cancel_button = True
 
 
 class LocationUpdate(UpdateMixin, View):
@@ -228,6 +286,7 @@ class LocationUpdate(UpdateMixin, View):
 	paginate_by = 20
 	sub_category = 'Location'
 	message_send = 'Location was updated successfully.'
+	cancel_button = True
 
 
 
@@ -240,6 +299,8 @@ class PersonUpdate(UpdateMixin, View):
 	paginate_by = 12
 	sub_category = 'Subscriber'
 	message_send = 'Subscriber was updated successfully.'
+	cancel_button = True
+
 
 
 class GeneralBookUpdate(UpdateMixin, View):
@@ -251,6 +312,8 @@ class GeneralBookUpdate(UpdateMixin, View):
 	paginate_by = 12
 	sub_category = 'General Info'
 	message_send = 'General Info was updated successfully.'
+	cancel_button = True
+
 
 
 
@@ -292,40 +355,3 @@ class StatisticListView(ListView):
 
 		return context
 
-####################################################################################################
-##################################          MODAL TESTS            #################################
-####################################################################################################
-
-
-from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse_lazy
-from bootstrap_modal_forms.mixins import PassRequestMixin, DeleteAjaxMixin
-
-
-# Read
-class BookReadView(DetailView):
-    model = Books
-    template_name = 'core/actions/detail-modal.html'
-
-
-
-# Update
-class BookUpdateView(PassRequestMixin, SuccessMessageMixin, UpdateView):
-    model = Books
-    template_name = 'core/actions/update-modal.html'
-    form_class = BookFormUpdateModal
-    success_message = 'Success: Book was updated.'
-
-    def get_success_url(self, **kwargs):
-        return self.request.META.get('HTTP_REFERER')
-
-
-
-# Delete
-class BookDeleteView(DeleteAjaxMixin, DeleteView):
-    model = Books
-    template_name = 'core/actions/delete-modal.html'
-    success_message = 'Success: Book was deleted.'
-    
-    def get_success_url(self, **kwargs):
-        return self.request.META.get('HTTP_REFERER')

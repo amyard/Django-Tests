@@ -97,6 +97,7 @@ body .cont-sidebar-right {
 
 .th-search {
 	width: 16%;
+
 }
 
 .book-title {
@@ -106,4 +107,16 @@ body .cont-sidebar-right {
 body .modal-centered{
 	width: 150%; 
 	margin-left: -25%;
+}
+
+
+body .list-group-item {
+	padding: 5px 0px 5px 15px;
+	color: grey;
+	font-weight: bold;
+}
+
+body .list-group-item:hover {
+	background-color: #007BFF;
+	color: white;
 }

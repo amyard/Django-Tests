@@ -1,68 +1,40 @@
 <div class = 'container mt-4 cont-sidebar-right'>
 		<h3 class = 'text-center mt-3'>{{ title }}</h3>
 		<hr>
-
-
-		<div class ='row'>
+		<!-- <div class ='row'> -->
 
 
 <!-- BOOK DESCRIPTION INFO -->
 {% if sub_category == 'Book description' %}
-		
 
-		{% for cat in categories %}
-		  <div class="col-sm-2 cont-section" >
-		    <div class="thumbnail">
-		       <div class="caption">
 
-		       	<div class='book-title'>
-			       	{% if cat.title|length > 40 %}
-			        	<h5 class = 'text-center mt-2'>{{ cat.title|truncatechars:40 }}</h5>
-			       	{% elif cat.title|length > 25 %}
-			        	<h5 class = 'text-center mt-2'>{{ cat.title }}</h5>
-			        {% else %}
-			        	<h3 class = 'text-center mt-2'>{{ cat.title }}</h3>
-			        {% endif %}
-		    	</div>
+{% if returned_book_without_position %}
+		<h3 class = 'text-center mt-3'>Books were returned, but still got wrong position in library (0,0,0):</h3>
+		<hr>
+		<div class ='row'>
+	{% for cat in returned_book_without_position %}
+		{% include 'core/includes/detail/categories/book_desc.html' %}
+	{% endfor %}
+		</div>
+{% endif %}
 
-		        <hr>
-		        <p>
-		          <strong>Author:</strong> {{ cat.author }}<br>
-		          <strong>Published in:</strong> {{ cat.published }}<br>
-		          <strong>Genre:</strong> {{ cat.genre }}<br><br>
-		          
-		          <!-- IF BOOK IF ON HANDS -->
-		          {% if cat.title in position_of_book %}
-		          	<h5 class ='text-center text-danger'>This book is on hands.</h5>
-		          	<h5 class ='text-center'>Last position in library was: </h5>
-		          {% else %}
-		          	<h5 class ='text-center'>Position in library:</h5>
-		          {% endif %}
-		          <strong>Room:</strong> {{ cat.position.room }}<br>
-		          <strong>Bookcase:</strong> {{ cat.position.bookcase }}<br>
-		          <strong>Shelf:</strong> {{ cat.position.shelf }}<br>
-		          
-		        </p>
 
-		        <!-- скрытые пустые кнопки, дабы колонки были одной высоты и можно было отрегулировать абсолютное положение блока с кнопками "ACTIONS" -->
-		        <div class = 'actions-hidden'>
-		        	<a href="" class = 'btn btn-sm'></a>
-			      	<a href="" class = 'btn  btn-sm'></a>
-		        </div>
+							<!-- Main Section -->
+		<h3 class = 'text-center mt-3'>Info about book</h3>
+		<hr>
+		<div class ='row'>
+	{% for cat in categories %}
+		{% include 'core/includes/detail/categories/book_desc.html' %}
+	{% endfor %}
+		</div>
 
-		        <div class = 'actions'>
-		        	<a href="{% url 'update-book-info' cat.pk %}" class = 'btn btn-primary btn-sm'>Update</a>
-			      	<a href="{% url 'delete-book-info' cat.pk %}" class = 'btn btn-danger btn-sm'>Delete</a>
-		        </div>
-		      </div>
-		    </div>
-		  </div>
-		{% endfor %}
 
 {% endif %}
 
 
-<!-- GENRE -->
+
+
+	<div class ='row'>
 
 <!-- GENRE -->
 {% if sub_category == 'Genre' %}
@@ -82,37 +54,11 @@
 		        <p class = 'actions-genre'>
 		        	<a href="{% url 'update-genre' cat.pk %}" class = 'btn btn-primary btn-sm'>Update</a>
 			      	<a href="{% url 'delete-genre' cat.pk %}" class = 'btn btn-danger btn-sm'>Delete</a>
-
-<!-- 			      	<button type = 'button' class = 'btn btn-danger btn-sm m-1' data-toggle="modal" data-target="#deleteModal" data-href = "{% url 'delete-genre' cat.pk %}">Delete</button> -->
 		        </p>
 		      </div>
 		    </div>
 		  </div>
 		{% endfor %}
-
-
-		<!-- Modal FOR DELETE BUTTON-->
-		<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        <form action = "" method = 'POST'>
-		        	{% csrf_token %}
-		        	<input type="submit" class = 'btn btn-danger' value = 'Delete'>
-		        </form>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-
-
 
 {% endif %}
 
@@ -183,7 +129,7 @@
 
 
 
-<!-- SUBSCRIBERS INFO -->
+<!-- General INFO -->
 {% if sub_category == 'General Info' %}
 
 		{% for cat in categories %}

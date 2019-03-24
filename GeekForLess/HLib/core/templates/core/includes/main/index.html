@@ -6,7 +6,8 @@
 </div>
 
 
-<div class="container mt-4 mb-4">
+<!-- <div class="container mt-4 mb-4"> -->
+	<div class="container mt-4 cont-sidebar-right">
 
 	{% if books %}
 
@@ -27,7 +28,7 @@
 			{% endif %} 
 
 
-		<table class="table table-bordered table-hover">
+		<table class="table table-bordered table-striped table-hover">
 			<thead class="table-primary">
 			<tr>	
 				<th class="text-center th-search">Book title</th>
@@ -59,7 +60,7 @@
 						<button type="button" class="read-book btn btn-sm btn-primary" data-id="{% url 'read_book' book.pk %}">
                           <span class="fa fa-eye"></span>
                         </button>
-                        <button type="button" class="update-book btn btn-sm btn-primary" data-id="{% url 'update_book' book.pk %}">
+                        <button type="button" class="update-book btn btn-sm btn-success" data-id="{% url 'update_book' book.pk %}">
                           <span class="fa fa-pencil"></span>
                         </button>
                         <button type="button" class="delete-book btn btn-sm btn-danger" data-id="{% url 'delete_book' book.pk %}">

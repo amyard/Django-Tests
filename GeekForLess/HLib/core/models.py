@@ -47,7 +47,7 @@ class BookInfo(models.Model):
 
 	class Meta:
 		ordering = ['-id']
-		unique_together = ['title', 'author']
+		unique_together = ['title']
 
 
 

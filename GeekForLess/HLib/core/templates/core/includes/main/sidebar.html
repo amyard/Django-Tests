@@ -1,0 +1,22 @@
+<div class = 'container mt-4 sidebar-form'>
+	<div class = 'sidebar-content'>
+		<h5 class = 'text-center mt-3'>General Information:</h5>
+		<hr>
+		<ul class="list-group mb-3">
+			<a class="list-group-item list-group-item-primary" href="{% url 'base-view' %}">All books</a>
+			<a class="list-group-item list-group-item-primary" href="{% url 'books-in-library' %}">In library</a>
+			<a class="list-group-item list-group-item-primary" href="{% url 'books-on-hands' %}">On hands</a>
+			<a class="list-group-item list-group-item-primary" href="{% url 'need-return-books' %}">Need return</a>
+		</ul>
+		<br>
+		<h5 class = 'text-center mt-3'>Actions (Edit/Create)</h5>
+		<hr>
+		<div class="list-group mb-3">
+			<a class="list-group-item list-group-item-primary" href="{% url 'general-book' %}">General info about book</a>
+			<a class="list-group-item list-group-item-primary" href="{% url 'book-info' %}">Info about book</a>
+			<a class="list-group-item list-group-item-primary" href="{% url 'subscribers' %}">Subscriber</a>
+			<a class="list-group-item list-group-item-primary" href="{% url 'locations' %}">Location</a>
+			<a class="list-group-item list-group-item-primary" href="{% url 'genre' %}">Genre</a>
+		</div>
+	</div>
+</div>

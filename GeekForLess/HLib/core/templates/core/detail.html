@@ -22,8 +22,21 @@
 	</div>
 </div>
 
-	<!-- FORMS -->
 
+	<!-- Книги, которые были созданы, но ниразу не использовались -> не занесены в модель Books -->
+	{% if sub_category == 'General Info' %}
+	  {% if never_used_books %}
+	    <p class = 'text-center bg-warning text-dark pt-2 pb-2'>
+	      There were created {{ never_used_books.count }} book's, which weren't in use. Here are they:
+	      {% for cat in never_used_books %}
+	      	"{{ cat }}"
+	      {% endfor %}.<br>
+	    Use Form from Left Sidebar to Add them in Status of Book - "In library"
+	    </p>
+	  {% endif %}
+	{% endif %}
+
+	<!-- FORMS -->
 	{% include 'core/includes/detail/category-form.html' %}
 
 

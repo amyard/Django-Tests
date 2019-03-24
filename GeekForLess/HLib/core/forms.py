@@ -8,6 +8,7 @@ from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 
 
 class LocationForm(forms.ModelForm):
+
 	class Meta:
 		model = Location
 		fields = ['room', 'bookcase', 'shelf']
@@ -17,7 +18,6 @@ class LocationForm(forms.ModelForm):
 			'bookcase': forms.TextInput(attrs={'class':'form-control'}),
 			'shelf': forms.TextInput(attrs={'class':'form-control'})
 		}
-
 
 
 
@@ -108,8 +108,9 @@ class BookForm(forms.ModelForm):
 
 	def __init__(self, *args, **kwargs):
 		super(BookForm, self).__init__(*args, **kwargs)
+		# Отображаем только новосозданные книги
 		# 1. название книг, которые уже в использовании
-		book_list = Books.objects.values_list('book__title', flat = True)
+		book_list = Books.objects.all().values_list('book__title', flat = True)
 		# 2. Отфильтруем оставшиеся книги
 		books = BookInfo.objects.exclude(title__in = book_list)
 
@@ -135,6 +136,8 @@ class BookFormUpdate(forms.ModelForm):
 			'date_of_issue': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
 			'date_of_return': forms.DateInput(format=('%Y-%m-%d'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'})
 			}
+
+
 
 
 class BookFormUpdateModal(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):

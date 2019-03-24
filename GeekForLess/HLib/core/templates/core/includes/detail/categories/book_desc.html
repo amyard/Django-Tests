@@ -1,0 +1,44 @@
+		  <div class="col-sm-2 cont-section" >
+		    <div class="thumbnail">
+		       <div class="caption">
+
+		       	<div class='book-title'>
+			       	{% if cat.title|length > 40 %}
+			        	<h5 class = 'text-center mt-2'>{{ cat.title|truncatechars:40 }}</h5>
+			       	{% elif cat.title|length > 25 %}
+			        	<h5 class = 'text-center mt-2'>{{ cat.title }}</h5>
+			        {% else %}
+			        	<h3 class = 'text-center mt-2'>{{ cat.title }}</h3>
+			        {% endif %}
+		    	</div>
+
+		        <hr>
+		        <p>
+		          <strong>Author:</strong> {{ cat.author }}<br>
+		          <strong>Published in:</strong> {{ cat.published }}<br>
+		          <strong>Genre:</strong> {{ cat.genre }}<br><br>
+		          
+		          <!-- IF BOOK IF ON HANDS -->
+		          {% if cat.title in position_of_book %}
+		          	<h5 class ='text-center text-danger'>This book is on hands.</h5>
+		          {% endif %}
+		          <h5 class ='text-center'>Position in library:</h5>
+		          <strong>Room:</strong> {{ cat.position.room }}<br>
+		          <strong>Bookcase:</strong> {{ cat.position.bookcase }}<br>
+		          <strong>Shelf:</strong> {{ cat.position.shelf }}<br>
+		          
+		        </p>
+
+		        <!-- скрытые пустые кнопки, дабы колонки были одной высоты и можно было отрегулировать абсолютное положение блока с кнопками "ACTIONS" -->
+		        <div class = 'actions-hidden'>
+		        	<a href="" class = 'btn btn-sm'></a>
+			      	<a href="" class = 'btn  btn-sm'></a>
+		        </div>
+
+		        <div class = 'actions'>
+		        	<a href="{% url 'update-book-info' cat.pk %}" class = 'btn btn-primary btn-sm'>Update</a>
+			      	<a href="{% url 'delete-book-info' cat.pk %}" class = 'btn btn-danger btn-sm'>Delete</a>
+		        </div>
+		      </div>
+		    </div>
+		  </div>

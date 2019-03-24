@@ -22,38 +22,38 @@ class IndexTestCase(unittest.TestCase):
 		self.browser.quit()
 
 
-	# def test_location_current_url(self):
-	# 	self.assertIn('http://localhost:8000/locations', self.browser.current_url)
+	def test_location_current_url(self):
+		self.assertIn('http://localhost:8000/locations', self.browser.current_url)
 
 
-	# def test_location_paggination(self):
-	# 	last_pag = self.browser.find_elements_by_xpath("//a[contains(text(), 'Last')]")[-1]
-	# 	last_pag.click()
-	# 	link_numb = self.browser.current_url.split('?page=')[-1]
-	# 	self.assertEqual(int(link_numb), 2)
+	def test_location_paggination(self):
+		last_pag = self.browser.find_elements_by_xpath("//a[contains(text(), 'Last')]")[-1]
+		last_pag.click()
+		link_numb = self.browser.current_url.split('?page=')[-1]
+		self.assertEqual(int(link_numb), 2)
 
 
-	# def test_location_create(self):
-	# 	test_position = 2
-	# 	room = self.browser.find_element_by_id('id_room').send_keys(test_position)
-	# 	bookcase = self.browser.find_element_by_id('id_bookcase').send_keys(test_position)
-	# 	shelf = self.browser.find_element_by_id('id_shelf').send_keys(test_position)
-	# 	self.browser.find_elements_by_xpath("//*[contains(text(), 'Add location')]")[0].click()
+	def test_location_create(self):
+		test_position = 2
+		room = self.browser.find_element_by_id('id_room').send_keys(test_position)
+		bookcase = self.browser.find_element_by_id('id_bookcase').send_keys(test_position)
+		shelf = self.browser.find_element_by_id('id_shelf').send_keys(test_position)
+		self.browser.find_elements_by_xpath("//*[contains(text(), 'Add location')]")[0].click()
 
 
-	def test_location_update(self):
-		sect = self.browser.find_elements_by_class_name('caption')[0]
-		update_button = sect.find_element_by_xpath("//a[contains(text(), 'Update')]")
-		update_button.click()
+	# def test_location_update(self):
+	# 	sect = self.browser.find_elements_by_class_name('caption')[0]
+	# 	update_button = sect.find_element_by_xpath("//a[contains(text(), 'Update')]")
+	# 	update_button.click()
 		
-		test_position = 1
-		room = self.browser.find_element_by_id('id_room').clear()
-		room.send_keys(test_position)
-		bookcase = self.browser.find_element_by_id('id_bookcase').clear()
-		bookcase.send_keys(test_position)
-		shelf = self.browser.find_element_by_id('id_shelf').clear()
-		shelf.send_keys(test_position)
-		self.browser.find_element_by_xpath("//*[contains(text(), 'Save')]").click()
+	# 	test_position = 1
+	# 	room = self.browser.find_element_by_id('id_room').clear()
+	# 	room.send_keys(test_position)
+	# 	bookcase = self.browser.find_element_by_id('id_bookcase').clear()
+	# 	bookcase.send_keys(test_position)
+	# 	shelf = self.browser.find_element_by_id('id_shelf').clear()
+	# 	shelf.send_keys(test_position)
+	# 	self.browser.find_element_by_xpath("//*[contains(text(), 'Save')]").click()
 
-		# Change to SUCCESS MESSAGE THIS PART
+	# 	# Change to SUCCESS MESSAGE THIS PART
 
