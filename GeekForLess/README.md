@@ -1,9 +1,6 @@
 ﻿# GeekForLess
 
-### Версия 1 - Library Helper    
-Admin panel:    
-    **login** - admin    
-    **password** - qwerty12345    
+### Версия 1 - Library Helper        
 ---
 ### Версия 2 - HLibrary    
 Admin panel:    
@@ -27,8 +24,6 @@ Admin panel:
 - Добавление пагинации для таблиц.
 - Исправление бага с увеличением высоты формы на разных страницах.
 - Отрегулировал положение кнопок Update/Delete/Read More. Теперь все кнопки на одной высоте друг к другу.
-- Залил на Heroku.
-`https://libhelper.herokuapp.com/`
 - Добавил messages и стили для form.errors.
 - Добавлена Пагинация для Результатов поиска.
 - Добавлено Modal секции для Удаления/Чтения/Улучшения в таблицах на главной страници.
