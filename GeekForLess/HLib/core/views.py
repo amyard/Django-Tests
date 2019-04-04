@@ -13,8 +13,6 @@ from .forms import *
 from django.contrib import messages
 from django.core.paginator import Paginator
 
-from bootstrap_modal_forms.mixins import PassRequestMixin, DeleteAjaxMixin
-
 
 ####################################################################################################
 ####################       GENERAL INFO ABOUT BOOKS AND THOSE POSITION       #######################
@@ -121,7 +119,11 @@ class SearchView(View):
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from bootstrap_modal_forms.mixins import PassRequestMixin, DeleteAjaxMixin
+# from bootstrap_modal_forms.mixins import PassRequestMixin, DeleteAjaxMixin
+from bootstrap_modal_forms.generic import (BSModalCreateView,
+                                           BSModalUpdateView,
+                                           BSModalReadView,
+                                           BSModalDeleteView)
 
 
 # Read
@@ -132,7 +134,7 @@ class BookReadView(DetailView):
 
 
 # Update
-class BookUpdateView(PassRequestMixin, SuccessMessageMixin, UpdateView):
+class BookUpdateView(BSModalUpdateView, UpdateView):
     model = Books
     template_name = 'core/actions/update-modal.html'
     form_class = BookFormUpdateModal
@@ -144,7 +146,7 @@ class BookUpdateView(PassRequestMixin, SuccessMessageMixin, UpdateView):
 
 
 # Delete
-class BookDeleteView(DeleteAjaxMixin, DeleteView):
+class BookDeleteView(BSModalDeleteView, DeleteView):
     model = Books
     template_name = 'core/actions/delete-modal.html'
     success_message = 'Success: Book was deleted.'

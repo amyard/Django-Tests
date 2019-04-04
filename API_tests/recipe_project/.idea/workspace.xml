@@ -1,34 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="289360a4-15a0-495c-af90-1483f7112d73" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../profiles_project/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../profiles_project/profiles_api/permissions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../profiles_project/profiles_api/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../profiles_project/profiles_api/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/recipe_project.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/management/commands/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/management/commands/wait_for_db.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/tests/test_admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/tests/test_command.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/tests/test_models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recipe/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recipe/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recipe/tests/test_ingredient.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recipe/tests/test_tag_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recipe/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recipe_project/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/tests/test_user_api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
-    </list>
+    <list default="true" id="289360a4-15a0-495c-af90-1483f7112d73" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +14,6 @@
         <entry file="file://$PROJECT_DIR$/recipe/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret lean-forward="true" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -54,9 +26,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
               <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#4#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -117,7 +86,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -145,12 +113,13 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../DB2" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -391,7 +360,6 @@
     <entry file="file://$PROJECT_DIR$/recipe/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret lean-forward="true" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
