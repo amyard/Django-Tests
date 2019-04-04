@@ -100,7 +100,7 @@ class RegistrationView(View):
 #########################################################################################
 
 
-class ProjectListView(LoginRequiredMixin, MainClass, DetailMixin, CreateFormMixin, ListView):
+class ProjectListView( MainClass, DetailMixin, CreateFormMixin, ListView):
 	title = 'Today'
 	redirect_path = '/'
 

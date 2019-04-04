@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b0c488aa-c9ac-41f3-8eac-b0508fbc7750" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../DB2/blog_tz/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../API_tests/recipe_project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../API_tests/recipe_project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../DB2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../DB2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-    </list>
+    <list default="true" id="b0c488aa-c9ac-41f3-8eac-b0508fbc7750" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/HLib/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="132" selection-start-line="132" selection-end-line="137" selection-end-column="1" />
+            <state relative-caret-position="236">
+              <caret line="125" column="23" lean-forward="true" selection-start-line="125" selection-start-column="23" selection-end-line="125" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -110,7 +103,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ToDo_tests/PNR_Hunter/TestTask" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -189,8 +183,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/HLib/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="132" selection-start-line="132" selection-end-line="137" selection-end-column="1" />
+        <state relative-caret-position="236">
+          <caret line="125" column="23" lean-forward="true" selection-start-line="125" selection-start-column="23" selection-end-line="125" selection-end-column="23" />
         </state>
       </provider>
     </entry>

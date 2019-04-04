@@ -46,7 +46,11 @@ class CreateMixin(MultipleObjectMixin):
 		page = p.get_page(page_number)
 
 		title = self.title
-		form2 = self.form2(user = self.request.user)
+
+		if self.request.user.is_anonymous:
+			form2 = self.form2()
+		else:
+			form2 = self.form2(user=self.request.user)
 		form = self.form
 
 		count_tasks = self.model.objects.filter(user__username = user).annotate(count=Count('project__title')).values('title', 'count')

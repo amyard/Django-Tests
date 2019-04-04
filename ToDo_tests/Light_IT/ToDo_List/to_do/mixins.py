@@ -103,6 +103,11 @@ class DetailMixin():
 			context['form'] = self.form_class
 			context['form2'] = self.form_class_two
 
+			if self.request.user.is_anonymous:
+				context['form2'] = self.form_class_two
+			else:
+				context['form2'] = self.form_class_two(user=self.request.user)
+
 		return context
 
 
