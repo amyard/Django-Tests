@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <!-- Font awesome CSS -->
+    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+
+    <title>
+        {% block title %}
+            Blog
+        {% endblock %}
+    </title>
+
+
+
+</head>
+
+<body>
+
+
+<header class="site-header">
+	<nav class="navbar navbar-dark bg-primary">
+		<a class="navbar-brand" href="">Posts</a>
+
+
+		<!-- Search button -->
+	      <form class="form-inline my-2 my-lg-0" method = 'GET' action = "">
+	        <div class="form-group mr-2">
+	          <input type="text" class="form-control float-right search-form" placeholder="Поиск заданий" name = 'q' >
+	        </div>
+	        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Найти</button>
+	      </form>
+
+
+		<div class = 'd-inline'>
+				<a class="btn btn-primary" href="">Logout</a>
+				<a class="btn btn-primary" href="">Login</a>
+			    <a class="btn btn-primary" href="">Register</a>
+		</div>
+
+	</nav>
+</header>
+
+
+
+{% block content %}
+{% endblock %}
+
+
+      <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
+      <script src="{% static 'assets/js/popper.min.js' %}"></script>
+      <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+
+
+      <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+      <!-- You can alternatively load the minified version -->
+      <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+
+{% block scripts %}
+{% endblock %}
+
+</body>
+
+</html>
