@@ -1,31 +1,64 @@
-{% extends 'blog/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
 	User Info - {{ block.super }}
 {% endblock %}
 
 {% block content %}
-	<div class="content-section">
-	  <div class="media">
-	    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-	    <div class="media-body">
-	      <h2 class="account-heading">{{ user.username }}</h2>
-	      <p class="text-secondary">{{ user.email }}</p>
-	    </div>
+
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content"></div>
 	  </div>
-	  
-	    <form method = 'POST' enctype = 'multipart/form-data'>
-			{% csrf_token %}
-			<fieldset class = 'form-group'>
-				<legend class = 'border-bottom mb-4'>Profile Info</legend>
-
-				{{ u_form|crispy }}
-				{{ p_form|crispy }}
-			</fieldset>
-
-			<div class = 'form-group'>
-				<button class = 'btn btn-outline-info' type = 'Submit'>Update</button>
-			</div>
-		</form>
 	</div>
+
+
+
+	<div class="container mt-5">
+		<div class="content-section">
+			<div class="media">
+				<img class="rounded-circle  account-img" src="{{ subscriber.image.url }}">
+				<b class="media-body ml-3">
+					<div >
+						<h2 class="text-primary text-center account-heading">{{ subscriber }}</h2>
+					</div>
+					<hr>
+
+					{% if subscriber.user == request.user %}
+						<p class="text-secondary">{{ subscriber.user.email }}</p>
+					{% endif %}
+					<b>City:</b> {{ subscriber.city }}<br>
+					<b>Counry:</b> {{ subscriber.country }}<br>
+					<b>Birthday:</b> {{ subscriber.birthday }}
+
+					<div class = 'mt-5 float-right'>
+						<a href="{% url 'users:update-profile' subscriber.pk %}" class = 'btn btn-primary'>General update</a>
+						<button href="" class = 'delete-profile btn btn-danger' data-id="{% url 'users:delete-profile' user.pk %}" >Delete Profile</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block scripts %}
+
+  <script type="text/javascript">
+    $(function () {
+
+<!--      // Update profile buttons-->
+<!--      $(".update-profile").each(function () {-->
+<!--        $(this).modalForm({formURL: $(this).data('id')});-->
+<!--      });-->
+
+      // Delete profile buttons
+      $(".delete-profile").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+
+    });
+  </script>
+
 {% endblock %}

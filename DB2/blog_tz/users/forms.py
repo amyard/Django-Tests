@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.core.validators import validate_email
+from .models import Subscriber
 
 User = get_user_model()
 
@@ -46,7 +47,6 @@ class RegistrationForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
     email = forms.CharField(widget = forms.EmailInput())
-    # username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 
@@ -61,12 +61,24 @@ class LoginForm(forms.Form):
         if not user.check_password(password):
             raise forms.ValidationError('Incorrect password')
 
-        # username = self.cleaned_data['username']
-        # password = self.cleaned_data['password']
-        #
-        # if not User.objects.filter(username=username).exists():
-        #     raise forms.ValidationError('Such user doesn\'t exists.')
-        #
-        # user = User.objects.get(username=username)
-        # if not user.check_password(password):
-        #     raise forms.ValidationError('Incorrect password')
+
+
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+    def __init__(self, *args, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['username'].help_text = ''
+
+
+class ProfileUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Subscriber
+        fields = ['city', 'country', 'birthday', 'image']
+

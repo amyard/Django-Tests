@@ -4,7 +4,7 @@ from .models import Subscriber
 
 
 class SubscriberAdmin(admin.ModelAdmin):
-    list_display = ['username', 'email', 'city', 'country', 'birthday']
+    list_display = ['id', 'username', 'email', 'city', 'country', 'birthday']
     # list_filter = ['username', 'email']
     list_editable = ['city', 'country', 'birthday']
 

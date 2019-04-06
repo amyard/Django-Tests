@@ -1,33 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cfb3f201-3b49-4880-85d5-7b87e914e3c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_api/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_api/core/api/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_api/core/api/permissions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_api/core/api/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_api/core/api/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_api/core/api/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog_api/core/api/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../DB2/blog_tz/users/templates/users/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/API_tests.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/API_tests.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DB2/blog_tz/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DB2/blog_tz/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DB2/blog_tz/blog_tz/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DB2/blog_tz/blog_tz/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DB2/blog_tz/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/../DB2/blog_tz/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DB2/blog_tz/posts/templates/posts/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/../DB2/blog_tz/posts/templates/posts/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DB2/blog_tz/posts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DB2/blog_tz/posts/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DB2/blog_tz/posts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DB2/blog_tz/posts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DB2/blog_tz/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/../DB2/blog_tz/static/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DB2/blog_tz/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/../DB2/blog_tz/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DB2/blog_tz/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DB2/blog_tz/users/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DB2/blog_tz/users/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DB2/blog_tz/users/migrations/0002_auto_20190404_1826.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DB2/blog_tz/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../DB2/blog_tz/users/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DB2/blog_tz/users/templates/users/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../DB2/blog_tz/users/templates/users/login.html" afterDir="false" />
-    </list>
+    <list default="true" id="cfb3f201-3b49-4880-85d5-7b87e914e3c3" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +13,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blog_api/core/api/tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
+            <state relative-caret-position="375">
               <caret line="58" selection-start-line="58" selection-end-line="58" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
@@ -52,7 +26,7 @@
         <entry file="file://$PROJECT_DIR$/blog_api/core/api/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
-              <caret line="7" column="45" lean-forward="true" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="56" />
+              <caret line="7" column="45" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -259,13 +233,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blog_api/core/api/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="7" column="45" lean-forward="true" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blog_api/core/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
@@ -298,11 +265,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/blog_api/core/api/tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
+        <state relative-caret-position="375">
           <caret line="58" selection-start-line="58" selection-end-line="58" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blog_api/core/api/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="7" column="45" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="56" />
         </state>
       </provider>
     </entry>
