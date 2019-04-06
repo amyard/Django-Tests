@@ -10,13 +10,42 @@
 {% block content %}
 
 
-<div class="container mt-5">
+<div class="container mt-5 log-form">
 	<h3 class = 'text-center'>Sign In</h3>
 	<hr>
 		<form class="form-signin" action = '' method="POST">
-				{{ form.error }}
+
+				{% if form.errors %}
+				    {% for field in form %}
+				        {% for error in field.errors %}
+				            <div class="alert alert-danger">
+				                <strong>{{ error|escape }}</strong>
+				            </div>
+				        {% endfor %}
+				    {% endfor %}
+				    {% for error in form.non_field_errors %}
+				        <div class="alert alert-danger">
+				            <strong>{{ error|escape }}</strong>
+				        </div>
+				    {% endfor %}
+				{% endif %}
+
 				{% csrf_token %}
-				{{ form|crispy }}
+
+
+				<div class = 'form-row'>
+					<div class="form-group col-md-12 mb-0" >
+						{{ form.email|as_crispy_field }}
+					</div>
+				</div>
+
+				<div class = 'form-row'>
+					<div class="form-group col-md-12 mb-0">
+						{{ form.password|as_crispy_field }}
+					</div>
+				</div>
+
+
 		<input class="btn btn-primary pl-4 pr-4" type="submit" value="Sign In">
 		<a href="" id="cancel" name="cancel" class="btn btn-primary">Cancel</a>
 		</form>

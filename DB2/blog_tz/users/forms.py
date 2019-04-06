@@ -46,20 +46,27 @@ class RegistrationForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
     email = forms.CharField(widget = forms.EmailInput())
+    # username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
-    # def __init__(self, *args, **kwargs):
-    #     super(LoginForm, self).__init__(*args, **kwargs)
-    #     self.fields['username'].label = 'Логин'
-    #     self.fields['password'].label = 'Пароль'
 
     def clean(self):
         email = self.cleaned_data['email']
         password = self.cleaned_data['password']
 
         if not User.objects.filter(email=email).exists():
-            raise forms.ValidationError('Не существует такого пользователя')
+            raise forms.ValidationError('Such user doesn\'t exists.')
 
         user = User.objects.get(email=email)
         if not user.check_password(password):
-            raise forms.ValidationError('Неверный пароль')
+            raise forms.ValidationError('Incorrect password')
+
+        # username = self.cleaned_data['username']
+        # password = self.cleaned_data['password']
+        #
+        # if not User.objects.filter(username=username).exists():
+        #     raise forms.ValidationError('Such user doesn\'t exists.')
+        #
+        # user = User.objects.get(username=username)
+        # if not user.check_password(password):
+        #     raise forms.ValidationError('Incorrect password')

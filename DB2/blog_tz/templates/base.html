@@ -48,17 +48,26 @@
 
 
 		<div class = 'd-inline'>
-            {% if user.is_authenticated %}
+            {% if user.is_active %}
+                <a class="btn btn-primary" href="">Profile</a>
 				<a class="btn btn-primary" href="{% url 'logout-view' %}">Logout</a>
             {% else %}
-				<a class="btn btn-primary" href="{% url 'login-view' %}">Login</a>
-			    <a class="btn btn-primary" href="{% url 'registration-view' %}">Register</a>
+				<a class="btn btn-primary" href="{% url 'login-view' %}">Sign In</a>
+			    <a class="btn btn-primary" href="{% url 'registration-view' %}">Sign Up</a>
             {% endif %}
 		</div>
 
 	</nav>
 </header>
 
+
+{% if messages %}
+    {% for message in messages %}
+		<div class = 'alert alert-{{ message.tags }}'>
+			<b>{{ message }}</b>
+		</div>
+	{% endfor %}
+{% endif %}
 
 
 {% block content %}

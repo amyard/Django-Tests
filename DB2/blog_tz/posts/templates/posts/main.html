@@ -8,6 +8,15 @@
 
 {% block content %}
 
-    <h1>{{ info }}</h1>
+
+<div class="container mt-5">
+    <h2>{{ user }}</h2>
+
+    {% if user.city is not True or city.country is not True or city.birthday is not True %}
+        <h4>Need more imformation</h4>
+    {% else %}
+        <h4>{{ info }}</h4>
+    {% endif %}
+</div>
 
 {% endblock %}
