@@ -12,7 +12,7 @@ def save_image_path(instance, filename):
 
 
 class Subscriber(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True, related_name = 'user')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True, related_name = 'subscriber')
     city = models.CharField(max_length = 25)
     country = models.CharField(max_length = 25)
     birthday = models.DateField(blank = True, default = timezone.now)
