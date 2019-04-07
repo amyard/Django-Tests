@@ -11,8 +11,11 @@ urlpatterns = [
 
     # users
     path('login/', LoginView.as_view(), name ='login-view'),
-    path('registration/', RegistrationView.as_view(), name = 'registration-view'),
     path('logout/', LogoutView.as_view(next_page = reverse_lazy('posts:base-view')), name ='logout-view'),
+
+    # registration
+    path('signup/', signup, name='signup'),
+    path('activate/<uidb64>/<token>/', activate, name='activate'),
 
     # profile and actions
     path('profile/<pk>', Profile.as_view(), name = 'profile'),
@@ -20,10 +23,6 @@ urlpatterns = [
 
     path('update-prof/<pk>', GeneralUpdateView.as_view(), name = 'update-prof'),
     path('update-prof-personal/<pk>', PersonalUpdateView.as_view(), name = 'update-prof-pers'),
-
-
-    path('signup/', signup, name='signup'),
-    path('activate/<uidb64>/<token>/', activate, name='activate'),
 ]
 
 
