@@ -26,6 +26,7 @@
         {% endif %}
     </div>
 
+
     <h2 class = 'text-center'>There are {{ data.count }} posts avaiable to read.</h2>
     <hr>
     {% for post in posts %}
@@ -59,6 +60,7 @@
     {% else %}
         <h2>Please, <a href="{% url 'users:login-view' %}">Log In</a> first.</h2>
     {% endif %}
+
 
 </div>
 

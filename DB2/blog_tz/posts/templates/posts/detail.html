@@ -30,9 +30,9 @@
         {{ post.content|safe|linebreaks }}
 
         {% if user == post.author %}
-            <div class = 'float-right'>
-                <button type="button" class="btn btn-success" data-id="">Update Post</button>
-                <button type="button" class="btn btn-danger" data-id="">Delete Post</button>
+            <div class = 'float-right mr-2'>
+                <a href="{% url 'posts:post-update' post.slug %}" class = 'btn btn-success'>Update New Post</a>
+                <button type="button" class="post-delete btn btn-danger" data-id="{% url 'posts:post-delete' post.pk %}">Delete Post</button>
             </div>
         {% endif %}
 
@@ -42,5 +42,22 @@
     <hr>
 
 </div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+  <script type="text/javascript">
+    $(function () {
+
+      // Delete post buttons
+      $(".post-delete").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+    });
+  </script>
+
 
 {% endblock %}
