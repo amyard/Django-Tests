@@ -26,6 +26,10 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     image = models.ImageField(default = 'default-post.png', upload_to=save_image_path, blank=True)
 
+    likes = models.PositiveIntegerField(default=0)
+    user_reaction = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name = 'user_reaction')
+
+
     class Meta:
         ordering = ('-date_posted',)
 

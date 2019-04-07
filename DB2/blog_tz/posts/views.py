@@ -1,5 +1,5 @@
 from django.shortcuts import render, reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.paginator import Paginator
@@ -75,9 +75,8 @@ class PostDetailView(FormMixin, DetailView):
 		page_number = self.request.GET.get('page', 1)
 		page = p.get_page(page_number)
 		context['comments'] = page
-
-
 		return context
+
 
 	def post(self, request, *args, **kwargs):
 		form = CommentForm(request.POST or None)
@@ -137,6 +136,7 @@ class BookDeleteView(BSModalDeleteView):
     success_url = reverse_lazy('posts:base-view')
 
 
+
 class SearchView(View):
 	template_name = 'posts/main.html'
 	title = 'Search'
@@ -164,3 +164,29 @@ class SearchView(View):
 			'title': self.title,
 		}
 		return render(self.request, self.template_name, context)
+
+
+
+# for likes and dislikes
+
+class UserReactionView(View):
+	template_name = 'posts/detail.html'
+
+	def get(self, request, *args, **kwargs):
+		article_id = self.request.GET.get('article_id')
+		post = Post.objects.get(id = article_id)
+		like = self.request.GET.get('like')
+
+		if like and request.user not in post.user_reaction.all():
+			post.likes +=1
+			post.user_reaction.add(request.user)
+			post.save()
+		elif like and request.user in post.user_reaction.all():
+			post.likes -= 1
+			post.user_reaction.remove(request.user)
+			post.save()
+
+		data = {
+			'likes': post.likes
+		}
+		return JsonResponse(data)
