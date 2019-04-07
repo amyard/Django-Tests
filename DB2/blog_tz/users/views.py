@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse, get_object_or_404
 
 from users.models import Subscriber
-from users.forms import RegistrationForm, LoginForm, UserUpdateForm, ProfileUpdateForm
+from users.forms import RegistrationForm, LoginForm, UserUpdateForm, GeneralDescUpdate
 from django.views import View
 from django.contrib.auth import authenticate, login, get_user_model
 
@@ -149,9 +149,6 @@ class ProfileDeleteView(BSModalDeleteView):
 ######################################################################################
 ######################################################################################
 
-from .forms import GeneralDescUpdate
-
-# GeneralDescUpdate
 class GeneralUpdateView(BSModalUpdateView):
     model = Subscriber
     template_name = 'users/actions/profile-update2.html'
@@ -161,3 +158,14 @@ class GeneralUpdateView(BSModalUpdateView):
     def get_success_url(self, **kwargs):
         return self.request.META.get('HTTP_REFERER')
 
+
+
+
+class PersonalUpdateView(BSModalUpdateView):
+    model = User
+    template_name = 'users/actions/profile-update2.html'
+    form_class = UserUpdateForm
+    success_message = 'Success: Personal Info was updated.'
+
+    def get_success_url(self, **kwargs):
+        return self.request.META.get('HTTP_REFERER')

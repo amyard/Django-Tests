@@ -4,6 +4,7 @@ from django.core.validators import validate_email
 from .models import Subscriber
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from bootstrap_modal_forms.forms import BSModalForm
 
 
 User = get_user_model()
@@ -67,16 +68,16 @@ class LoginForm(forms.Form):
 
 
 
-class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
-
-    class Meta:
-        model = User
-        fields = ['username', 'email']
-
-    def __init__(self, *args, **kwargs):
-        super(UserUpdateForm, self).__init__(*args, **kwargs)
-        self.fields['username'].help_text = ''
+# class UserUpdateForm(forms.ModelForm):
+#     email = forms.EmailField()
+#
+#     class Meta:
+#         model = User
+#         fields = ['username', 'email']
+#
+#     def __init__(self, *args, **kwargs):
+#         super(UserUpdateForm, self).__init__(*args, **kwargs)
+#         self.fields['username'].help_text = ''
     #
     #
     # def clean(self):
@@ -96,23 +97,23 @@ class UserUpdateForm(forms.ModelForm):
 
 
 
-
-class ProfileUpdateForm(forms.ModelForm):
-    birthday = forms.DateField(widget = forms.DateInput(format = ('%Y-%m-%d'), attrs = {'type':'date'}))
-
-    class Meta:
-        model = Subscriber
-        fields = ['city', 'country', 'birthday', 'image']
-
-    def clean(self):
-        birthday = self.cleaned_data['birthday']
-        old = date.today() - relativedelta(years=110)
-
-        if birthday >= date.today():
-            raise forms.ValidationError('Incorrect date. You are too yound')
-
-        if birthday < old:
-            raise forms.ValidationError('Omg, are you immortal. You are too old for this shit.')
+#
+# class ProfileUpdateForm(forms.ModelForm):
+#     birthday = forms.DateField(widget = forms.DateInput(format = ('%Y-%m-%d'), attrs = {'type':'date'}))
+#
+#     class Meta:
+#         model = Subscriber
+#         fields = ['city', 'country', 'birthday', 'image']
+#
+#     def clean(self):
+#         birthday = self.cleaned_data['birthday']
+#         old = date.today() - relativedelta(years=110)
+#
+#         if birthday >= date.today():
+#             raise forms.ValidationError('Incorrect date. You are too yound')
+#
+#         if birthday < old:
+#             raise forms.ValidationError('Omg, are you immortal. You are too old for this shit.')
 
 
 
@@ -121,7 +122,7 @@ class ProfileUpdateForm(forms.ModelForm):
 ################################################################################################
 #################################################################################################
 
-from bootstrap_modal_forms.forms import BSModalForm
+
 
 class GeneralDescUpdate(BSModalForm):
     birthday = forms.DateField(widget=forms.DateInput(format=('%Y-%m-%d'), attrs={'type': 'date'}))
@@ -139,3 +140,15 @@ class GeneralDescUpdate(BSModalForm):
 
         if birthday < old:
             raise forms.ValidationError('Omg, are you immortal. You are too old for this shit.')
+
+
+class UserUpdateForm(BSModalForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+    def __init__(self, *args, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['username'].help_text = ''

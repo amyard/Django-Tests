@@ -32,8 +32,10 @@
 					<b>Counry:</b> {{ subscriber.country }}<br>
 					<b>Birthday:</b> {{ subscriber.birthday }}
 
+
 					<div class = 'mt-5 float-right'>
 						<button href="" class = 'update-prof btn btn-success' data-id="{% url 'users:update-prof' subscriber.pk %}" >Upgrade General Information</button>
+						<button href="" class = 'update-pers-prof btn btn-warning' data-id="{% url 'users:update-prof-pers' user.pk %}" >Upgrade Personal Data</button>
 						<button href="" class = 'delete-profile btn btn-danger' data-id="{% url 'users:delete-profile' user.pk %}" >Delete Profile</button>
 					</div>
 				</div>
@@ -50,6 +52,11 @@
 
       // Update profile buttons
       $(".update-prof").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      // Update personal data profile buttons
+      $(".update-pers-prof").each(function () {
         $(this).modalForm({formURL: $(this).data('id')});
       });
 

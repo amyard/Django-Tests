@@ -20,6 +20,7 @@ urlpatterns = [
     path('delete-profile/<pk>', ProfileDeleteView.as_view(), name = 'delete-profile'),
 
     path('update-prof/<pk>', GeneralUpdateView.as_view(), name = 'update-prof'),
+    path('update-prof-personal/<pk>', PersonalUpdateView.as_view(), name = 'update-prof-pers'),
 ]
 
 
