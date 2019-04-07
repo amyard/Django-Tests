@@ -3,6 +3,9 @@ from django.conf import settings
 from PIL import Image
 from django.utils import timezone
 
+# from django.db.models.signals import post_save
+# from django.dispatch import receiver
+
 
 
 def save_image_path(instance, filename):
@@ -17,6 +20,8 @@ class Subscriber(models.Model):
     country = models.CharField(max_length = 25)
     birthday = models.DateField(null=True, blank=True, default = timezone.now())
     image = models.ImageField(default='default.jpg', upload_to=save_image_path, blank = True)
+
+    # email_confirmed = models.BooleanField(default=False)
 
 
     def __str__(self):
@@ -37,3 +42,10 @@ class Subscriber(models.Model):
         verbose_name = 'User'
         verbose_name_plural = 'Users'
         ordering = ['-id']
+
+#
+# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+# def update_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Subscriber.objects.create(user=instance)
+#     instance.profile.save()

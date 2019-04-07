@@ -16,11 +16,14 @@ urlpatterns = [
 
     # profile and actions
     path('profile/<pk>', Profile.as_view(), name = 'profile'),
-    # path('update-profile/<pk>', ProfileUpdateView.as_view(), name = 'update-profile'),
     path('delete-profile/<pk>', ProfileDeleteView.as_view(), name = 'delete-profile'),
 
     path('update-prof/<pk>', GeneralUpdateView.as_view(), name = 'update-prof'),
     path('update-prof-personal/<pk>', PersonalUpdateView.as_view(), name = 'update-prof-pers'),
+
+
+    path('signup/', signup, name='signup'),
+    path('activate/<uidb64>/<token>/', activate, name='activate'),
 ]
 
 

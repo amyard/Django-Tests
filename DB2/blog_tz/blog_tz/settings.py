@@ -135,5 +135,8 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-
-# AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend']
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'delmetest2019@gmail.com'
+EMAIL_HOST_PASSWORD = 'za12za34'
+EMAIL_PORT = 587

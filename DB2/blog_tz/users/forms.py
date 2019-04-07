@@ -66,58 +66,6 @@ class LoginForm(forms.Form):
             raise forms.ValidationError('Incorrect password')
 
 
-
-
-# class UserUpdateForm(forms.ModelForm):
-#     email = forms.EmailField()
-#
-#     class Meta:
-#         model = User
-#         fields = ['username', 'email']
-#
-#     def __init__(self, *args, **kwargs):
-#         super(UserUpdateForm, self).__init__(*args, **kwargs)
-#         self.fields['username'].help_text = ''
-    #
-    #
-    # def clean(self):
-    #     email = self.cleaned_data['email']
-    #     username = self.cleaned_data['username']
-    #
-    #     if User.objects.filter(username=username).exists():
-    #         raise forms.ValidationError('User with such name already exists.')
-    #     if User.objects.filter(email=email).exists():
-    #         raise forms.ValidationError('You can not user this email.')
-    #     if '@' not in email:
-    #         raise forms.ValidationError('Missing @ sign in email.')
-    #     if '.' not in email:
-    #         raise forms.ValidationError('Missing . sign in email.')
-    #     if User.objects.filter(email=email).exists():
-    #         raise forms.ValidationError('You cannot use this email.')
-
-
-
-#
-# class ProfileUpdateForm(forms.ModelForm):
-#     birthday = forms.DateField(widget = forms.DateInput(format = ('%Y-%m-%d'), attrs = {'type':'date'}))
-#
-#     class Meta:
-#         model = Subscriber
-#         fields = ['city', 'country', 'birthday', 'image']
-#
-#     def clean(self):
-#         birthday = self.cleaned_data['birthday']
-#         old = date.today() - relativedelta(years=110)
-#
-#         if birthday >= date.today():
-#             raise forms.ValidationError('Incorrect date. You are too yound')
-#
-#         if birthday < old:
-#             raise forms.ValidationError('Omg, are you immortal. You are too old for this shit.')
-
-
-
-
 ###############################################################################################
 ################################################################################################
 #################################################################################################
