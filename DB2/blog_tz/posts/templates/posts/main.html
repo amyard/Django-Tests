@@ -20,8 +20,11 @@
         {% endif %}
 
 
-
-    <h2 class = 'text-center'>There are {{ data.count }} posts available to read.</h2>
+    {% if title == 'Search' %}
+        <h2 class = 'text-center'>It was founded {{ data.count }} post{{ data|pluralize }}.</h2>
+    {% else %}
+        <h2 class = 'text-center'>There are {{ data.count }} posts available to read.</h2>
+    {% endif %}
     <hr>
     {% for post in posts %}
 
@@ -48,7 +51,13 @@
     <hr>
 
     <!-- INCLUDE PAGGINATION -->
-    {% include 'posts/actions/paggination.html' %}
+    {% if title == 'Search' %}
+        {% include 'posts/actions/paggination-search.html' %}
+    {% else %}
+        {% include 'posts/actions/paggination.html' %}
+    {% endif %}
+
+
 
 
     {% else %}

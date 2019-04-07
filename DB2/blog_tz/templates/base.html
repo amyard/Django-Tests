@@ -39,7 +39,7 @@
 
 
 		<!-- Search button -->
-	      <form class="form-inline my-2 my-lg-0" method = 'GET' action = "">
+	      <form class="form-inline my-2 my-lg-0" method = 'GET' action = "{% url 'posts:search-view' %}">
 	        <div class="form-group mr-2">
 	          <input type="text" class="form-control float-right search-form" placeholder="Search by title or content" name = 'q' >
 	        </div>

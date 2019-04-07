@@ -6,6 +6,8 @@ from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormMixin
+from django.views import View
+from django.db.models import Q
 
 from bootstrap_modal_forms.generic import (BSModalDeleteView)
 
@@ -133,3 +135,32 @@ class BookDeleteView(BSModalDeleteView):
     template_name = 'posts/actions/post-delete.html'
     success_message = 'Success: Post was deleted.'
     success_url = reverse_lazy('posts:base-view')
+
+
+class SearchView(View):
+	template_name = 'posts/main.html'
+	title = 'Search'
+	model = Post
+	paginate_by = 2
+
+	def get(self, request, *args, **kwargs):
+		query = self.request.GET.get('q')
+		print(query)
+
+		found_books = self.model.objects.filter(
+			Q(title__icontains=query) |
+			Q(content__icontains=query)
+		)
+		search_word = query.replace(' ', '+')
+
+		p = Paginator(found_books, self.paginate_by)
+		page_number = request.GET.get('page', 1)
+		page = p.get_page(page_number)
+
+		context = {
+			'search_word': search_word,
+			'data': found_books,
+			'posts': page,
+			'title': self.title,
+		}
+		return render(self.request, self.template_name, context)
