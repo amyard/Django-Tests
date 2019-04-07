@@ -41,6 +41,47 @@
 
     <hr>
 
+
+<!--  COMMENTS HER  -->
+        <h4 class="add-comment">Do you want to left a comment?</h4>
+		{% if user.is_active %}
+		<div class = 'comment-form' style = 'display:none;'>
+			<form action = '' method = 'POST'>
+				<input type="hidden" id="article" data-id = '{{ article.id }}'>
+					{% csrf_token %}
+					{{ form|crispy }}
+				<input type = 'submit' value = 'Add Comment' id = 'add_comment' data-toggle="modal" data-target=".bs-example-modal-sm">
+			</form>
+		</div>
+		{% else %}
+		<p>Must Log In to add comment</p>
+		{% endif %}
+
+        <hr>
+        <h4 class = 'text-center'>It was added {{ comments.count }} Comment{{ comments|pluralize }} by users. </h4>
+        <hr>
+
+        {% for comment in comments %}
+            <div class ='row mb-2 ml-1'>
+            <div class = 'col-sm-12' >
+                {% for face in profile %} {% if face.user == comment.user %}
+                    <img src = '{{ face.image.url }}'  class = 'float-left comment-pict'>
+                {% endif %}{% endfor %}
+                <div class =' float-left ml-3' style = 'width:85%;'>
+                    <h5>Added by {{ comment.user.username }} ({{ comment.timestamp|date:'m:H F d, Y' }}):</h5>
+                    <hr>
+                    <p>{{ comment.content }}</p>
+                </div>
+
+            </div>
+            </div>
+
+        {% endfor %}
+
+        <hr>
+
+
+
 </div>
 
 {% endblock %}
@@ -59,5 +100,12 @@
     });
   </script>
 
+<script>
+	$(document).ready(function(){
+		$('.add-comment').click(function() {
+			$('.comment-form').fadeToggle();
+		});
+	})
+</script>
 
 {% endblock %}

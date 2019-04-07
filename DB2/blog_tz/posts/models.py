@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
 from django.utils import timezone
+import datetime
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 
 
 def gen_slug(s):
@@ -13,6 +15,7 @@ def save_image_path(instance, filename):
     filename = instance.slug + '.jpg'
     date = instance.date_posted.strftime("%Y-%m-%d %H:%M:%S").split(' ')[0]
     return f'posts_pics/{date}/{instance.title}/{filename}'
+
 
 
 class Post(models.Model):
@@ -33,3 +36,15 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+
+
+class Comments(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    content = models.TextField(max_length=200)
+    timestamp = models.DateTimeField(default=datetime.datetime.now())
+
+    def __str__(self):
+        return f'{self.post.title}'

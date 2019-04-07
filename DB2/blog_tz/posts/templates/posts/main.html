@@ -12,7 +12,7 @@
 
 <div class="container mt-5">
     {% if user.is_authenticated or user.is_active %}
-    
+
         {% if need_data %}
         <div class = 'bg-warning text-dark'>
              <h4 class = 'text-center'>For correct display of information please visit <a href="{% url 'users:profile' user.pk %}">Profile section</a> and fill all fields.</h4>

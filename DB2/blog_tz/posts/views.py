@@ -5,11 +5,13 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
+from django.views.generic.edit import FormMixin
 
 from bootstrap_modal_forms.generic import (BSModalDeleteView)
 
-from .models import Post
+from .models import Post, Comments
 from users.models import Subscriber
+from .forms import CommentForm
 
 
 
@@ -45,14 +47,36 @@ class MainTestView(ListView):
 
 
 
-class PostDetailView(DetailView):
+class PostDetailView(FormMixin, DetailView):
 	template_name = 'posts/detail.html'
 	model = Post
+	form_class = CommentForm
+
+	def get_success_url(self):
+		return reverse('posts:detail-post', kwargs={'slug': self.object.slug})
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(PostDetailView, self).get_context_data(*args, **kwargs)
 		context['post'] = self.get_object()
+		context['form'] = self.form_class
+
+		context['comments'] = Comments.objects.filter(post=self.get_object()).order_by('-id')
+
+		uniq = Comments.objects.filter(post=self.get_object()).order_by().values_list('user', flat=True).distinct()
+		context['profile'] = Subscriber.objects.filter(user__id__in=uniq)
 		return context
+
+	def post(self, request, *args, **kwargs):
+		form = CommentForm(request.POST or None)
+		if form.is_valid():
+			content = request.POST.get('content')
+			comment = Comments.objects.create(post=self.get_object(), user=request.user, content=content)
+			comment.save()
+			return HttpResponseRedirect(reverse('posts:detail-post', kwargs={'slug': kwargs.get('slug')}))
+
+
+
+
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
