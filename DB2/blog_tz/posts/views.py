@@ -51,19 +51,30 @@ class PostDetailView(FormMixin, DetailView):
 	template_name = 'posts/detail.html'
 	model = Post
 	form_class = CommentForm
+	paginate_by = 3
+
 
 	def get_success_url(self):
 		return reverse('posts:detail-post', kwargs={'slug': self.object.slug})
+
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(PostDetailView, self).get_context_data(*args, **kwargs)
 		context['post'] = self.get_object()
 		context['form'] = self.form_class
 
-		context['comments'] = Comments.objects.filter(post=self.get_object()).order_by('-id')
+		context['comments_c'] = Comments.objects.filter(post=self.get_object()).order_by('-id')
 
 		uniq = Comments.objects.filter(post=self.get_object()).order_by().values_list('user', flat=True).distinct()
 		context['profile'] = Subscriber.objects.filter(user__id__in=uniq)
+
+		# context['comments'] = Comments.objects.filter(post=self.get_object()).order_by('-id')
+		p = Paginator(Comments.objects.filter(post=self.get_object()).order_by('-id'), self.paginate_by)
+		page_number = self.request.GET.get('page', 1)
+		page = p.get_page(page_number)
+		context['comments'] = page
+
+
 		return context
 
 	def post(self, request, *args, **kwargs):

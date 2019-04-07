@@ -43,7 +43,7 @@
 
 
 <!--  COMMENTS HER  -->
-        <h4 class="add-comment">Do you want to left a comment?</h4>
+        <h4 class="add-comment">Do you want to left a comment? (CLICK ME)</h4>
 		{% if user.is_active %}
 		<div class = 'comment-form' style = 'display:none;'>
 			<form action = '' method = 'POST'>
@@ -52,13 +52,14 @@
 					{{ form|crispy }}
 				<input type = 'submit' value = 'Add Comment' id = 'add_comment' data-toggle="modal" data-target=".bs-example-modal-sm">
 			</form>
+            <hr>
 		</div>
 		{% else %}
 		<p>Must Log In to add comment</p>
 		{% endif %}
 
-        <hr>
-        <h4 class = 'text-center'>It was added {{ comments.count }} Comment{{ comments|pluralize }} by users. </h4>
+        <br><br>
+        <h4 class = 'text-center'>It was added {{ comments_c.count }} Comment{{ comments_c|pluralize }} by users. </h4>
         <hr>
 
         {% for comment in comments %}
@@ -80,6 +81,29 @@
 
         <hr>
 
+			<!-- Pagination -->
+			<div style = 'margin-left: 45%;'>
+
+
+				{% if comments.has_previous %}
+					<a href="?page=1" class = 'btn btn-outline-primary mb-4'>First</a>
+					<a href="?page={{ comments.previous_page_number }}" class = 'btn btn-outline-primary mb-4'>Previous</a>
+				{% endif %}
+
+				{% for num in comments.paginator.page_range %}
+					{% if comments.number == num %}
+						<a href="?page={{ num }}" class = 'btn btn-primary mb-4'>{{ num }}</a>
+					{% elif num > comments.number|add:'-3' and num < comments.number|add:'3' %}
+						<a href="?page={{ num }}" class = 'btn btn-ouline-primary mb-4'>{{ num }}</a>
+					{% endif %}
+				{% endfor %}
+
+				{% if comments.has_next %}
+					<a href="?page={{ comments.next_page_number }}" class = 'btn btn-outline-primary mb-4'>Next</a>
+					<a href="?page={{ comments.paginator.num_pages }}" class = 'btn btn-outline-primary mb-4'>Last</a>
+				{% endif %}
+
+            </div>
 
 
 </div>
