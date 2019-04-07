@@ -33,7 +33,7 @@
 					<b>Birthday:</b> {{ subscriber.birthday }}
 
 					<div class = 'mt-5 float-right'>
-						<a href="{% url 'users:update-profile' subscriber.pk %}" class = 'btn btn-primary'>General update</a>
+						<button href="" class = 'update-prof btn btn-success' data-id="{% url 'users:update-prof' subscriber.pk %}" >Upgrade General Information</button>
 						<button href="" class = 'delete-profile btn btn-danger' data-id="{% url 'users:delete-profile' user.pk %}" >Delete Profile</button>
 					</div>
 				</div>
@@ -48,10 +48,10 @@
   <script type="text/javascript">
     $(function () {
 
-<!--      // Update profile buttons-->
-<!--      $(".update-profile").each(function () {-->
-<!--        $(this).modalForm({formURL: $(this).data('id')});-->
-<!--      });-->
+      // Update profile buttons
+      $(".update-prof").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
 
       // Delete profile buttons
       $(".delete-profile").each(function () {

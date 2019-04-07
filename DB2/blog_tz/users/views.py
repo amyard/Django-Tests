@@ -112,35 +112,52 @@ class ProfileDeleteView(BSModalDeleteView):
     success_url = reverse_lazy('posts:base-view')
 
 
+#
+# class ProfileUpdateView(View):
+#     template_name = 'users/actions/profile-update.html'
+#     model = Subscriber
+#
+#     def get(self, request, **kwargs):
+#         pk = self.kwargs.get('pk')
+#         sub = get_object_or_404(self.model, pk=pk)
+#         uss = User.objects.get(username=sub)
+#
+#         u_form = UserUpdateForm(instance=uss)
+#         p_form = ProfileUpdateForm(instance=sub)
+#
+#         self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
+#         return render(request, self.template_name, context={'p_form':p_form, 'u_form':u_form})
+#
+#     def post(self, request, **kwargs):
+#         pk = self.kwargs.get('pk')
+#         sub = get_object_or_404(self.model, pk=pk)
+#         uss = User.objects.get(username=sub)
+#
+#         u_form = UserUpdateForm(request.POST, instance=uss)
+#         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=sub)
+#         if u_form.is_valid() and p_form.is_valid():
+#             u_form.save()
+#             p_form.save()
+#             messages.success(self.request, 'Profile was updated')
+#             return HttpResponseRedirect(self.request.session.get('report_url'))
+#
+#         u_form = UserUpdateForm(instance=uss)
+#         p_form = ProfileUpdateForm(instance=sub)
+#         return render(request, self.template_name, context={'p_form': p_form, 'u_form':u_form})
 
-class ProfileUpdateView(View):
-    template_name = 'users/actions/profile-update.html'
+
+######################################################################################
+######################################################################################
+
+from .forms import GeneralDescUpdate
+
+# GeneralDescUpdate
+class GeneralUpdateView(BSModalUpdateView):
     model = Subscriber
+    template_name = 'users/actions/profile-update2.html'
+    form_class = GeneralDescUpdate
+    success_message = 'Success: Subscriber was updated.'
 
-    def get(self, request, **kwargs):
-        pk = self.kwargs.get('pk')
-        sub = get_object_or_404(self.model, pk=pk)
-        uss = User.objects.get(username=sub)
+    def get_success_url(self, **kwargs):
+        return self.request.META.get('HTTP_REFERER')
 
-        u_form = UserUpdateForm(instance=uss)
-        p_form = ProfileUpdateForm(instance=sub)
-
-        self.request.session['report_url'] = self.request.META.get('HTTP_REFERER')
-        return render(request, self.template_name, context={'p_form':p_form, 'u_form':u_form})
-
-    def post(self, request, **kwargs):
-        pk = self.kwargs.get('pk')
-        sub = get_object_or_404(self.model, pk=pk)
-        uss = User.objects.get(username=sub)
-
-        u_form = UserUpdateForm(request.POST, instance=uss)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=sub)
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
-            messages.success(self.request, 'Profile was updated')
-            return HttpResponseRedirect(self.request.session.get('report_url'))
-
-        u_form = UserUpdateForm(instance=uss)
-        p_form = ProfileUpdateForm(instance=sub)
-        return render(request, self.template_name, context={'p_form': p_form, 'u_form':u_form})

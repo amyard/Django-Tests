@@ -24,6 +24,10 @@ class MainTestView(ListView):
 	def get_context_data(self, *args, **kwargs):
 		context = super(MainTestView, self).get_context_data(*args, **kwargs)
 		context['user'] = self.request.user
+		try:
+			context['profile'] = Subscriber.objects.get(user = self.request.user)
+		except:
+			context['profile'] = None
 		context['data'] = self.get_queryset()
 
 		p = Paginator(self.get_queryset(), self.paginate_by)
