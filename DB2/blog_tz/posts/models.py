@@ -17,7 +17,6 @@ def save_image_path(instance, filename):
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    # author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     title = models.CharField(max_length = 255, unique = True)
     slug = models.SlugField(max_length = 150, unique = True, blank = True)
     content = models.TextField()

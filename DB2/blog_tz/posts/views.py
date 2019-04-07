@@ -34,3 +34,14 @@ class MainTestView(ListView):
 		p = Paginator(self.get_queryset(), self.paginate_by)
 		context['posts'] = p.page(context['page_obj'].number)
 		return context
+
+
+
+class PostDetailView(DetailView):
+	template_name = 'posts/detail.html'
+	model = Post
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(PostDetailView, self).get_context_data(*args, **kwargs)
+		context['post'] = self.get_object()
+		return context

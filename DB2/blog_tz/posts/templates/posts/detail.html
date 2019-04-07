@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% if title.exists %}
+	{% block title %}
+		{{ post.title }} - {{ block.super }}
+	{% endblock %}
+{% endif %}
+
+
+
+{% block content %}
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+
+
+<div class="container mt-5 mb-5">
+    <h3 class ='text-center'>{{ post.title }}</h3>
+    <hr>
+    <div class = 'clearfix'>
+        <img src="{{ post.image.url }}" style="width:60%" class = 'float-right'>
+        <small class="pl-5"><i>Added by {{ post.author }} on {{ post.date_posted }}</i></small>
+        {{ post.content|safe|linebreaks }}
+
+        {% if user == post.author %}
+            <div class = 'float-right'>
+                <button type="button" class="btn btn-success" data-id="">Update Post</button>
+                <button type="button" class="btn btn-danger" data-id="">Delete Post</button>
+            </div>
+        {% endif %}
+
+    </div>
+
+
+    <hr>
+
+</div>
+
+{% endblock %}

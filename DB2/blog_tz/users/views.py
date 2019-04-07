@@ -109,7 +109,7 @@ class ProfileDeleteView(BSModalDeleteView):
     model = User
     template_name = 'users/actions/profile-delete.html'
     success_message = 'Success: Profile was deleted.'
-    success_url = reverse_lazy('base-view')
+    success_url = reverse_lazy('posts:base-view')
 
 
 

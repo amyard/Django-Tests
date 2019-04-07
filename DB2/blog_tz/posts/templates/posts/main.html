@@ -40,9 +40,10 @@
 
                 <div class = 'float-right author-heading'>
                     <hr>
-                    <p>{{ post.content|truncatewords:50 }}</p>
+                    <h5 class ='text-center'><b><a href="{% url 'posts:detail-post' post.slug %}">{{ post.title }}</a></b></h5>
+                    <p>{{ post.content|truncatewords:35 }}</p>
                 </div>
-                <a href="" class = 'btn btn-primary float-right mb-5'>Read Full Article</a>
+                <a href="{% url 'posts:detail-post' post.slug %}" class = 'btn btn-primary float-right mb-5'>Read Full Article</a>
             </div>
         </div>
         <br>
