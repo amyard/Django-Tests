@@ -5,3 +5,9 @@ staticfiles
 .env
 .DS_Store
 geckodriver.log
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+venv/

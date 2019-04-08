@@ -25,7 +25,7 @@ SECRET_KEY = '3*6d8*lv1c$wc9f^4^b6b75z^6+&%mf7!po&*c5_jnzh-21jk5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'blog-tz.herokuapp.com']
 
 
 # Application definition
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'blog_tz.urls'
@@ -130,20 +131,38 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+STATICFILES_FINDERS = [
+    # searches in STATICFILES_DIRS
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    # searches in STATIC subfolder of each app
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'delmetest2019@gmail.com'
 EMAIL_HOST_PASSWORD = 'za12za34'
 EMAIL_PORT = 587
+
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+# comment to use test. need for heroku
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
