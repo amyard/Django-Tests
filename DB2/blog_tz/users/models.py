@@ -18,7 +18,7 @@ class Subscriber(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True, related_name = 'subscriber')
     city = models.CharField(max_length = 25)
     country = models.CharField(max_length = 25)
-    birthday = models.DateField(null=True, blank=True, default = timezone.now())
+    birthday = models.CharField(max_length = 25)
     image = models.ImageField(default='default.jpg', upload_to=save_image_path, blank = True)
 
     # email_confirmed = models.BooleanField(default=False)

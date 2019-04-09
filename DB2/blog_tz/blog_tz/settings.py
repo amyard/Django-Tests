@@ -139,12 +139,12 @@ STATICFILES_DIRS = [
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-STATICFILES_FINDERS = [
-    # searches in STATICFILES_DIRS
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    # searches in STATIC subfolder of each app
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-]
+# STATICFILES_FINDERS = [
+#     # searches in STATICFILES_DIRS
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     # searches in STATIC subfolder of each app
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+# ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -163,6 +163,6 @@ EMAIL_PORT = 587
 # comment to use test. need for heroku
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# import dj_database_url
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
