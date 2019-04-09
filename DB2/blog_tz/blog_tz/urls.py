@@ -19,10 +19,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
+from django.contrib.auth import views as auth_views
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('posts.urls', 'posts'))),
     path('accounts/', include(('users.urls', 'users'))),
+
+    path('oauth/', include('social_django.urls', namespace='social')),
 ]
 
 

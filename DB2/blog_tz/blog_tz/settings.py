@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
+
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +55,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+
+    # SOCIAL NETWORK LOGIN
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'blog_tz.urls'
@@ -68,6 +73,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # SOCIAL NETWORK LOGIN
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -155,6 +164,26 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'delmetest2019@gmail.com'
 EMAIL_HOST_PASSWORD = 'za12za34'
 EMAIL_PORT = 587
+
+
+
+# SOCIAL NETWORK LOGIN
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'posts:base-view'
+
+SOCIAL_AUTH_GITHUB_KEY = 'a0ae9d76c2f2e2abffea'
+SOCIAL_AUTH_GITHUB_SECRET = '0f76770168fdf8269154e462a80185fde7ba1583'
+
+
 
 
 # Simplified static file serving.

@@ -27,6 +27,16 @@ class MainTestView(ListView):
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(MainTestView, self).get_context_data(*args, **kwargs)
+
+		# Socail Network Registration
+		# GITHUB CHECK PROBLEM
+		if self.request.user.username and self.request.user.email == '':
+			if Subscriber.objects.get(user=self.request.user):
+				pass
+			else:
+				Subscriber.objects.create(user=self.request.user)
+
+
 		context['user'] = self.request.user
 		try:
 			profile = Subscriber.objects.get(user = self.request.user)
@@ -43,6 +53,7 @@ class MainTestView(ListView):
 
 		p = Paginator(self.get_queryset(), self.paginate_by)
 		context['posts'] = p.page(context['page_obj'].number)
+
 		return context
 
 
