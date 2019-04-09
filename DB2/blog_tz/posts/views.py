@@ -31,7 +31,7 @@ class MainTestView(ListView):
 		# Socail Network Registration
 		# GITHUB CHECK PROBLEM
 		if self.request.user.username and self.request.user.email == '':
-			if Subscriber.objects.get(user=self.request.user):
+			if Subscriber.objects.filter(user=self.request.user):
 				pass
 			else:
 				Subscriber.objects.create(user=self.request.user)

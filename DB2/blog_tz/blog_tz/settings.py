@@ -172,6 +172,8 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -182,6 +184,13 @@ LOGIN_REDIRECT_URL = 'posts:base-view'
 
 SOCIAL_AUTH_GITHUB_KEY = 'a0ae9d76c2f2e2abffea'
 SOCIAL_AUTH_GITHUB_SECRET = '0f76770168fdf8269154e462a80185fde7ba1583'
+
+# SOCIAL_AUTH_FACEBOOK_KEY = '352118762079552'  # App ID
+# SOCIAL_AUTH_FACEBOOK_SECRET = '0426980428a931ba3800bab21edcd269'  # App Secret
+
+
+SOCIAL_AUTH_INSTAGRAM_KEY = 'ecda5f752e1d434b9c312141e7fb6e93'         #Client ID
+SOCIAL_AUTH_INSTAGRAM_SECRET = 'da85155e1f8d41c4ae700653f94def18'
 
 
 
