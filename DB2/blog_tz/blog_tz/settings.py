@@ -25,7 +25,7 @@ SECRET_KEY = '3*6d8*lv1c$wc9f^4^b6b75z^6+&%mf7!po&*c5_jnzh-21jk5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'blog-tz.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'blog-tz.herokuapp.com', 'my.example.com']
 
 
 # Application definition
@@ -185,12 +185,18 @@ LOGIN_REDIRECT_URL = 'posts:base-view'
 SOCIAL_AUTH_GITHUB_KEY = 'a0ae9d76c2f2e2abffea'
 SOCIAL_AUTH_GITHUB_SECRET = '0f76770168fdf8269154e462a80185fde7ba1583'
 
-# SOCIAL_AUTH_FACEBOOK_KEY = '352118762079552'  # App ID
-# SOCIAL_AUTH_FACEBOOK_SECRET = '0426980428a931ba3800bab21edcd269'  # App Secret
+
+SOCIAL_AUTH_FACEBOOK_KEY = '352118762079552'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '0426980428a931ba3800bab21edcd269'  # App Secret
 
 
 SOCIAL_AUTH_INSTAGRAM_KEY = 'ecda5f752e1d434b9c312141e7fb6e93'         #Client ID
 SOCIAL_AUTH_INSTAGRAM_SECRET = 'da85155e1f8d41c4ae700653f94def18'
+
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '7716352suyoaad'         #Client ID
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'ejwMLNAjOY092n1C'  #Client Secret
+
+
 
 
 
@@ -204,3 +210,15 @@ SOCIAL_AUTH_INSTAGRAM_SECRET = 'da85155e1f8d41c4ae700653f94def18'
 # import dj_database_url
 # db_from_env = dj_database_url.config(conn_max_age=600)
 # DATABASES['default'].update(db_from_env)
+
+
+#
+# CORS_REPLACE_HTTPS_REFERER      = False
+# HOST_SCHEME                     = "http://"
+# SECURE_PROXY_SSL_HEADER         = None
+# SECURE_SSL_REDIRECT             = False
+# SESSION_COOKIE_SECURE           = False
+# CSRF_COOKIE_SECURE              = False
+# SECURE_HSTS_SECONDS             = None
+# SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
+# SECURE_FRAME_DENY               = False

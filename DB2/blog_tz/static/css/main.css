@@ -56,3 +56,17 @@ body .container  .account-img {
 .add-comment {
     cursor:pointer;
 }
+
+
+/* LOGIN */
+
+.social-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn a, .btn a:hover {
+    color: white;
+    text-decoration: none ;
+}

@@ -54,12 +54,17 @@
 	<!--	SOCILA NETWORK LOG IN	-->
 		<br>
  		<p class = 'text-center'><strong>-- OR --</strong></p>
-		<a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
-		<a href="{% url 'social:begin' 'instagram' %}">Login with Instagram</a><br>
 
-		<a href="">Login with Facebook</a><br>
-
-	<small>Facebook login not work from 2018. Must be https:// domen, localhost.</small>
+	<div class="row ml-1">
+        <div class="col-md-8 mx-auto social-container my-2 order-md-1">
+            <button class="btn btn-danger  mb-2">
+                <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
+            </button>
+            <button class="btn btn-primary mb-2">
+                <a href="{% url 'social:begin' 'instagram' %}">Login with Instagram</a><br>
+            </button>
+        </div>
+    </div>
 
 </div>
 
